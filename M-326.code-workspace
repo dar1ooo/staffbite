@@ -1,0 +1,17 @@
+{
+	"folders": [
+		{
+			"path": "M-326_frontend"
+		}
+	],
+	"extensions": {
+		"recommendations": [
+			"angular.ng-template",
+			"aaron-bond.better-comments",
+			"docsmsft.docs-markdown",
+			"coenraads.bracket-pair-colorizer-2",
+			"esbenp.prettier-vscode",
+			"bierner.markdown-mermaid",
+		]
+	}
+}
