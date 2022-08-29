@@ -13,7 +13,8 @@
 
 ### Starting the angular project
 
-- [ ] Open the frontend project folder in VS Code and open a new terminal
+- [ ] Open VS Code and chose "File -> Open workspace from File..."
+- [ ] Open a new terminal
 - [ ] Enter the following command: ``` ng s --open ```
 
 ### Running the backend API
