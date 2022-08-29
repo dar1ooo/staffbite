@@ -1,1 +1,23 @@
 # M-326
+
+# Installation
+
+- [ ] Clone the repository
+- [ ] open cmd as administrator and enter ```npm install -g @angular/cli```
+- [ ] On Windows client computers, the execution of PowerShell scripts is disabled by default. To allow the execution of PowerShell scripts, which is needed for npm global binaries, you must set the following execution policy. Enter this in your admin CMD: ``` Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy RemoteSigned ```
+- [ ] Download mongodb Community: https://www.mongodb.com/try/download/community
+- [ ] Download mongodb Compass: https://www.mongodb.com/try/download/compass
+- [ ] If you followed the steps above you should be ready to go!
+
+# Running the Project in dev environment
+
+### Starting the angular project
+
+- [ ] Open the frontend project folder in VS Code and open a new terminal
+- [ ] Enter the following command: ``` ng s --open ```
+
+### Running the backend API
+- [ ] Open the backend solution in Visual Studio 2022
+- [ ] Set the backend Project as "Startup Project"
+- [ ] Now just run the Project 
+<br/> ![image](https://user-images.githubusercontent.com/63245314/187161342-d3307fe4-94b6-4522-a5d9-16cebf01183d.png)
