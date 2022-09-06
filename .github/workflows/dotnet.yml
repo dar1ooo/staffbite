@@ -18,8 +18,8 @@ jobs:
       with:
         dotnet-version: 6.0.x
     - name: Restore dependencies
-      run: dotnet restore
+      run: dotnet restore M-326_backend/M-326_backend.sln
     - name: Build
-      run: dotnet build --no-restore
+      run: dotnet build M-326_backend/M-326_backend/M-326_backend.csproj --no-restore
     - name: Test
-      run: dotnet test --no-build --verbosity normal
+      run: dotnet test M-326_backend/M-326_backend.sln --no-build --verbosity normal
