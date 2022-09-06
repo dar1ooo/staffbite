@@ -22,5 +22,7 @@ jobs:
       working-directory: ./M-326_backend/
     - name: Build
       run: dotnet build --no-restore
+      working-directory: ./M-326_backend/
     - name: Test
       run: dotnet test --no-build --verbosity normal
+      working-directory: ./M-326_backend/
