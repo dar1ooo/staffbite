@@ -1,4 +1,4 @@
-# M-326
+# staffbite
 
 [![DeepSource](https://deepsource.io/gh/dar1ooo/M-326.svg/?label=deepsource+issues&show_trend=true&token=66Voe4peEfnKk8zJuk7e5e9h)](https://deepsource.io/gh/dar1ooo/M-326/?ref=repository-badge)
 
