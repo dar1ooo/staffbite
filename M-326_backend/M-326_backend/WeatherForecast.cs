@@ -1,4 +1,4 @@
-namespace M_326_backend;
+namespace business_logic;
 
 public class WeatherForecast
 {
