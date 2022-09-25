@@ -1,4 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
+import { UserLogin } from 'src/app/models/user-login.model';
+import { UserSignup } from 'src/app/models/user-signup.model';
+import { User } from 'src/app/models/user.model';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-login',
@@ -6,18 +11,51 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnInit {
-  constructor() {}
+  public userLogin: UserLogin = new UserLogin();
+  public userSignup: UserSignup = new UserSignup();
+  private user: User = new User();
+  constructor(
+    private userService: UserService,
+    private toastr: ToastrService
+  ) {}
 
   ngOnInit(): void {}
+
+  public login(): void {
+    this.userService.loginUser(this.userLogin).subscribe(
+      (result) => {
+        this.user = result;
+        sessionStorage.setItem('user', JSON.stringify(this.user));
+        window.location.href = '/dashboard';
+      },
+      (error) => {
+        this.toastr.error('Please check your credentials', 'Login failed');
+      }
+    );
+  }
+  public signup(): void {
+    this.userService.registerUser(this.userSignup).subscribe(
+      (result) => {
+        this.user = result;
+        sessionStorage.setItem('user', JSON.stringify(this.user));
+        window.location.href = '/dashboard';
+      },
+      (error) => {
+        this.toastr.error(
+          'Please check your credentials',
+          'Registration failed'
+        );
+      }
+    );
+  }
+
   public changeForm() {
     let switchCtn = document.querySelector('#switch-cnt');
     let switchC1 = document.querySelector('#switch-c1');
     let switchC2 = document.querySelector('#switch-c2');
     let switchCircle = document.querySelectorAll('.switch__circle');
-    let switchBtn = document.querySelectorAll('.switch-btn');
     let aContainer = document.querySelector('#a-container');
     let bContainer = document.querySelector('#b-container');
-    let allButtons = document.querySelectorAll('.submit');
 
     switchCtn?.classList.add('is-gx');
     setTimeout(function () {

@@ -1,6 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { UserLogin } from '../models/user-login.model';
+import { UserSignup } from '../models/user-signup.model';
 import { User } from '../models/user.model';
 
 @Injectable({
@@ -10,12 +12,12 @@ export class UserService {
   private baseurl = 'http://localhost:53535/api/User';
   constructor(private http: HttpClient) {}
 
-  loginUser(userLogin: User): Observable<any> {
+  loginUser(userLogin: UserLogin): Observable<any> {
     const url = this.baseurl + '/login';
     return this.http.post<User>(url, userLogin);
   }
 
-  registerUser(userSignUp: User): Observable<any> {
+  registerUser(userSignUp: UserSignup): Observable<any> {
     const url = this.baseurl + '/register';
     return this.http.post<User>(url, userSignUp);
   }
