@@ -14,6 +14,7 @@ export class LoginComponent implements OnInit {
   public userLogin: UserLogin = new UserLogin();
   public userSignup: UserSignup = new UserSignup();
   private user: User = new User();
+
   constructor(
     private userService: UserService,
     private toastr: ToastrService
