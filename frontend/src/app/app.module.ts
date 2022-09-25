@@ -9,6 +9,10 @@ import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { LoginComponent } from './components/login/login.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
+import { SkillsComponent } from './components/dashboard/skills/skills.component';
+import { TimerComponent } from './components/dashboard/timer/timer.component';
+import { HomeComponent } from './components/dashboard/home/home.component';
+import { SettingsComponent } from './components/dashboard/settings/settings.component';
 
 @NgModule({
   declarations: [
@@ -17,6 +21,10 @@ import { PageNotFoundComponent } from './components/page-not-found/page-not-foun
     DashboardComponent,
     PageNotFoundComponent,
     NavbarComponent,
+    SkillsComponent,
+    TimerComponent,
+    HomeComponent,
+    SettingsComponent,
   ],
   imports: [
     BrowserModule,

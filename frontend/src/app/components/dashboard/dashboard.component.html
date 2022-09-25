@@ -82,24 +82,28 @@
           <p>Home</p>
           <p class="time">{{ day }}, {{ myDate }}</p>
         </div>
+        <app-home></app-home>
       </div>
       <div *ngIf="selectedSection === 'skills'">
         <div class="projects-section-header">
           <p>Skills</p>
           <p class="time">{{ day }}, {{ myDate }}</p>
         </div>
+        <app-skills></app-skills>
       </div>
       <div *ngIf="selectedSection === 'timer'">
         <div class="projects-section-header">
           <p>Timer</p>
           <p class="time">{{ day }}, {{ myDate }}</p>
         </div>
+        <app-timer></app-timer>
       </div>
       <div *ngIf="selectedSection === 'settings'">
         <div class="projects-section-header">
           <p>Settings</p>
           <p class="time">{{ day }}, {{ myDate }}</p>
         </div>
+        <app-settings></app-settings>
       </div>
     </div>
   </div>
