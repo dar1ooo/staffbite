@@ -1,9 +1,7 @@
+//Imports
 @import url("https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap");
 
-body {
-  background-color: #01161e;
-  color: white;
-}
+//Global css reset
 *,
 *::after,
 *::before {
@@ -11,4 +9,14 @@ body {
   padding: 0;
   box-sizing: border-box;
   user-select: none;
+}
+
+//global styles
+body {
+  background-color: #01161e;
+  color: white;
+}
+button,
+a {
+  cursor: pointer;
 }
