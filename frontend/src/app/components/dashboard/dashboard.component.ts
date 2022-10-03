@@ -1,7 +1,6 @@
+import { DatePipe, formatDate } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { User } from 'src/app/models/user.model';
-import { DatePipe } from '@angular/common';
-import { formatDate } from '@angular/common';
 
 @Component({
   selector: 'app-dashboard',
@@ -9,7 +8,7 @@ import { formatDate } from '@angular/common';
   styleUrls: ['./dashboard.component.scss'],
   providers: [DatePipe],
 })
-export class DashboardComponent implements OnInit {
+export class DashboardComponent {
   public user: User | undefined;
   public myDate: string;
   public day: string;
@@ -30,8 +29,6 @@ export class DashboardComponent implements OnInit {
 
     this.day = weekday[date.getDay()];
   }
-
-  ngOnInit(): void {}
 
   public changeSection(section: string): void {
     this.selectedSection = section;

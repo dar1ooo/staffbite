@@ -11,8 +11,6 @@ export class NavbarComponent implements OnInit {
 
   constructor() {}
 
-  ngOnDestroy() {}
-
   ngOnInit(): void {
     const storedUser = window.sessionStorage.getItem('user');
     if (storedUser) {

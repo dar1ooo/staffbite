@@ -5,8 +5,6 @@ import { Component, OnInit } from '@angular/core';
   templateUrl: './timer.component.html',
   styleUrls: ['./timer.component.scss'],
 })
-export class TimerComponent implements OnInit {
+export class TimerComponent {
   constructor() {}
-
-  ngOnInit(): void {}
 }

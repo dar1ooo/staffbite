@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { UserLogin } from 'src/app/models/user-login.model';
 import { UserSignup } from 'src/app/models/user-signup.model';
@@ -10,7 +10,7 @@ import { UserService } from 'src/app/services/user.service';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent {
   public userLogin: UserLogin = new UserLogin();
   public userSignup: UserSignup = new UserSignup();
   private user: User = new User();
@@ -19,8 +19,6 @@ export class LoginComponent implements OnInit {
     private userService: UserService,
     private toastr: ToastrService
   ) {}
-
-  ngOnInit(): void {}
 
   public login(): void {
     this.userService.loginUser(this.userLogin).subscribe(
