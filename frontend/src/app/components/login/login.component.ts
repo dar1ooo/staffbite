@@ -28,6 +28,7 @@ export class LoginComponent implements OnInit {
     this.mockedUser.Email = 'alfredhitchcock@online.gibz.ch';
     this.mockedUser.UserRole = UserRole.Teacher;
     this.mockedUser.UserId = 1;
+    sessionStorage.setItem('user', JSON.stringify(this.mockedUser));
   }
 
   public login(): void {
@@ -41,8 +42,6 @@ export class LoginComponent implements OnInit {
         this.toastr.error('Please check your credentials', 'Login failed');
       }
     );
-
-    sessionStorage.setItem('user', JSON.stringify(this.mockedUser));
   }
   public signup(): void {
     this.userService.registerUser(this.userSignup).subscribe(

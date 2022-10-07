@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
 import { User } from 'src/app/models/user.model';
 
 @Component({
@@ -13,12 +14,15 @@ export class SettingsComponent {
   @Input()
   public user: User = new User();
 
-  constructor() {}
+  constructor(private toastr: ToastrService) {}
 
   public changeShowPassword(): void {
     this.showPassword
       ? (this.showPassword = false)
       : (this.showPassword = true);
-    debugger;
+  }
+
+  public saveSettings(): void {
+    this.toastr.success('Settings saved successfully', 'Success');
   }
 }

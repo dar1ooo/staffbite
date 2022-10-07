@@ -1,4 +1,24 @@
-.show-password {
-  float: right;
-  height: 50px;
+.eye-icon {
+  height: 20px;
+}
+
+.settings-card {
+  background-color: #b8bdb5;
+  padding: 30px;
+  border-radius: 30px;
+  color: #01161e;
+  .header {
+    margin-bottom: 20px;
+    border-bottom: 2px dashed #01161e;
+  }
+}
+
+.btn-primary {
+  background-color: #01161e;
+  border-color: #01161e;
+}
+
+.btn-primary:hover {
+  background-color: #5f7470;
+  border-color: #5f7470;
 }

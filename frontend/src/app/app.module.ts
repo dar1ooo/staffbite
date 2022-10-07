@@ -6,13 +6,14 @@ import { ToastrModule } from 'ngx-toastr';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { HomeComponent } from './components/dashboard/home/home.component';
+import { SettingsComponent } from './components/dashboard/settings/settings.component';
+import { SkillsTeacherComponent } from './components/dashboard/skills-teacher/skills-teacher.component';
+import { TimerComponent } from './components/dashboard/timer/timer.component';
 import { LoginComponent } from './components/login/login.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
-import { SkillsComponent } from './components/dashboard/skills/skills.component';
-import { TimerComponent } from './components/dashboard/timer/timer.component';
-import { HomeComponent } from './components/dashboard/home/home.component';
-import { SettingsComponent } from './components/dashboard/settings/settings.component';
+import { SkillsAdminComponent } from './components/dashboard/skills-admin/skills-admin.component';
 
 @NgModule({
   declarations: [
@@ -21,10 +22,11 @@ import { SettingsComponent } from './components/dashboard/settings/settings.comp
     DashboardComponent,
     PageNotFoundComponent,
     NavbarComponent,
-    SkillsComponent,
+    SkillsTeacherComponent,
     TimerComponent,
     HomeComponent,
     SettingsComponent,
+    SkillsAdminComponent,
   ],
   imports: [
     BrowserModule,

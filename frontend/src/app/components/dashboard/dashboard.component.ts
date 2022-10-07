@@ -1,5 +1,6 @@
 import { DatePipe, formatDate } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+import { UserRole } from 'src/app/enums/user-role';
 import { User } from 'src/app/models/user.model';
 
 @Component({
@@ -33,7 +34,9 @@ export class DashboardComponent implements OnInit {
   ngOnInit(): void {
     this.user = JSON.parse(sessionStorage.getItem('user')) as User;
   }
-
+  public get userLevel(): typeof UserRole {
+    return UserRole;
+  }
   public changeSection(section: string): void {
     this.selectedSection = section;
   }

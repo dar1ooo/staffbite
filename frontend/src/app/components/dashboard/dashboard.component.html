@@ -89,7 +89,12 @@
           <p>Skills</p>
           <p class="time">{{ day }}, {{ myDate }}</p>
         </div>
-        <app-skills></app-skills>
+        <app-skills-admin
+          *ngIf="user.UserRole === userLevel.Admin"
+        ></app-skills-admin>
+        <app-skills-teacher
+          *ngIf="user.UserRole === userLevel.Teacher"
+        ></app-skills-teacher>
       </div>
       <div *ngIf="selectedSection === 'timer'">
         <div class="projects-section-header">
