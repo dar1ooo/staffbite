@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { User } from 'src/app/models/user.model';
 
 @Component({
   selector: 'app-skills-admin',
@@ -6,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./skills-admin.component.scss'],
 })
 export class SkillsAdminComponent implements OnInit {
+  @Input()
+  public user: User = new User();
   constructor() {}
 
   ngOnInit(): void {}

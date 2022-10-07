@@ -90,9 +90,11 @@
           <p class="time">{{ day }}, {{ myDate }}</p>
         </div>
         <app-skills-admin
+          [user]="user"
           *ngIf="user.UserRole === userLevel.Admin"
         ></app-skills-admin>
         <app-skills-teacher
+          [user]="user"
           *ngIf="user.UserRole === userLevel.Teacher"
         ></app-skills-teacher>
       </div>

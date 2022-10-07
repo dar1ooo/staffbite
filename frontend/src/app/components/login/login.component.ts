@@ -28,6 +28,87 @@ export class LoginComponent implements OnInit {
     this.mockedUser.Email = 'alfredhitchcock@online.gibz.ch';
     this.mockedUser.UserRole = UserRole.Teacher;
     this.mockedUser.UserId = 1;
+    this.mockedUser.SkillGroup = [
+      {
+        SkillGroupName: 'German',
+        Skills: [
+          { Description: 'Grammatik', IsChecked: true },
+          { Description: 'Rechtschreibung', IsChecked: false },
+          { Description: 'Literatur', IsChecked: false },
+        ],
+      },
+      {
+        SkillGroupName: 'English',
+        Skills: [
+          { Description: 'Fehlerfreies Sprechen', IsChecked: true },
+          { Description: 'Schreiben', IsChecked: false },
+          { Description: 'Formelles Schreiben', IsChecked: true },
+        ],
+      },
+      {
+        SkillGroupName: 'French',
+        Skills: [
+          { Description: 'Verstehen', IsChecked: false },
+          { Description: 'Schreiben', IsChecked: false },
+          { Description: 'Formelles Schreiben', IsChecked: false },
+        ],
+      },
+      {
+        SkillGroupName: 'Mathe',
+        Skills: [
+          { Description: 'Listening', IsChecked: true },
+          { Description: 'Reading', IsChecked: true },
+          { Description: 'Writing', IsChecked: true },
+        ],
+      },
+      {
+        SkillGroupName: 'c#',
+        Skills: [
+          { Description: 'Methods', IsChecked: false },
+          {
+            Description: 'Object Oriented Programming',
+            IsChecked: true,
+          },
+          { Description: 'Polymorphism', IsChecked: true },
+        ],
+      },
+
+      {
+        SkillGroupName: 'JS',
+        Skills: [
+          { Description: 'Listening', IsChecked: false },
+          { Description: 'Reading', IsChecked: true },
+          { Description: 'Writing', IsChecked: false },
+        ],
+      },
+
+      {
+        SkillGroupName: 'SQL',
+        Skills: [
+          { Description: 'Listening', IsChecked: false },
+          { Description: 'Reading', IsChecked: true },
+          { Description: 'Writing', IsChecked: false },
+        ],
+      },
+
+      {
+        SkillGroupName: 'Python',
+        Skills: [
+          { Description: 'Listening', IsChecked: true },
+          { Description: 'Reading', IsChecked: false },
+          { Description: 'Writing', IsChecked: true },
+        ],
+      },
+
+      {
+        SkillGroupName: 'Networking',
+        Skills: [
+          { Description: 'Listening', IsChecked: true },
+          { Description: 'Reading', IsChecked: false },
+          { Description: 'Writing', IsChecked: false },
+        ],
+      },
+    ];
     sessionStorage.setItem('user', JSON.stringify(this.mockedUser));
   }
 

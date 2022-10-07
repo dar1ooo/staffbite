@@ -1,1 +1,24 @@
-teacher Skills
+<table class="container">
+  <thead>
+    <tr>
+      <th><h1>Topic</h1></th>
+      <th><h1>Skill</h1></th>
+      <th><h1>Skill</h1></th>
+      <th><h1>Skill</h1></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let skillgroup of user.SkillGroup">
+      <td>{{ skillgroup.SkillGroupName }}</td>
+      <td *ngFor="let skill of skillgroup.Skills" class="skill-area">
+        <span
+          class="skill-description"
+          (click)="CheckSkill(skill, skillgroup)"
+          [ngClass]="skill.IsChecked ? 'skill-checked' : 'skill-not-checked'"
+          >{{ skill.Description }}</span
+        >
+      </td>
+    </tr>
+  </tbody>
+  <button class="btn btn-primary" (click)="saveSkills()">Save</button>
+</table>
