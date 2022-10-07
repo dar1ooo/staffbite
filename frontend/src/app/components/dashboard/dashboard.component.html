@@ -82,7 +82,7 @@
           <p>Home</p>
           <p class="time">{{ day }}, {{ myDate }}</p>
         </div>
-        <app-home></app-home>
+        <app-home [user]="user"></app-home>
       </div>
       <div *ngIf="selectedSection === 'skills'">
         <div class="projects-section-header">
@@ -103,7 +103,7 @@
           <p>Settings</p>
           <p class="time">{{ day }}, {{ myDate }}</p>
         </div>
-        <app-settings></app-settings>
+        <app-settings [user]="user"></app-settings>
       </div>
     </div>
   </div>

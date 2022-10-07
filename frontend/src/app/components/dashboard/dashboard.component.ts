@@ -8,11 +8,11 @@ import { User } from 'src/app/models/user.model';
   styleUrls: ['./dashboard.component.scss'],
   providers: [DatePipe],
 })
-export class DashboardComponent {
+export class DashboardComponent implements OnInit {
   public user: User | undefined;
   public myDate: string;
   public day: string;
-  public selectedSection: string = 'home';
+  public selectedSection: string = 'settings';
 
   constructor(private datePipe: DatePipe) {
     const date = new Date();
@@ -28,6 +28,10 @@ export class DashboardComponent {
     ];
 
     this.day = weekday[date.getDay()];
+  }
+
+  ngOnInit(): void {
+    this.user = JSON.parse(sessionStorage.getItem('user')) as User;
   }
 
   public changeSection(section: string): void {
