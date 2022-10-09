@@ -8,11 +8,11 @@ import { User } from '../models/user.model';
 @Injectable({
   providedIn: 'root',
 })
-export class SettingsService {
-  private baseurl = 'http://localhost:53535/api/Settings';
+export class SKillsService {
+  private baseurl = 'http://localhost:53535/api/Skills';
   constructor(private http: HttpClient) {}
 
-  saveSettings(user: User) {
-    return this.http.put(this.baseurl, user);
+  saveSkills(user: User) {
+    return this.http.post(this.baseurl, user);
   }
 }

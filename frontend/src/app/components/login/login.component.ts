@@ -26,11 +26,11 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {
     this.mockedUser.Username = 'Alfred';
     this.mockedUser.Email = 'alfredhitchcock@online.gibz.ch';
-    this.mockedUser.UserRole = UserRole.Teacher;
+    this.mockedUser.UserRole = UserRole.Admin;
     this.mockedUser.UserId = 1;
     this.mockedUser.SkillGroup = [
       {
-        SkillGroupName: 'German',
+        SkillTopic: 'German',
         Skills: [
           { Description: 'Grammatik', IsChecked: true },
           { Description: 'Rechtschreibung', IsChecked: false },
@@ -38,7 +38,7 @@ export class LoginComponent implements OnInit {
         ],
       },
       {
-        SkillGroupName: 'English',
+        SkillTopic: 'English',
         Skills: [
           { Description: 'Fehlerfreies Sprechen', IsChecked: true },
           { Description: 'Schreiben', IsChecked: false },
@@ -46,7 +46,7 @@ export class LoginComponent implements OnInit {
         ],
       },
       {
-        SkillGroupName: 'French',
+        SkillTopic: 'French',
         Skills: [
           { Description: 'Verstehen', IsChecked: false },
           { Description: 'Schreiben', IsChecked: false },
@@ -54,7 +54,7 @@ export class LoginComponent implements OnInit {
         ],
       },
       {
-        SkillGroupName: 'Mathe',
+        SkillTopic: 'Mathe',
         Skills: [
           { Description: 'Listening', IsChecked: true },
           { Description: 'Reading', IsChecked: true },
@@ -62,7 +62,7 @@ export class LoginComponent implements OnInit {
         ],
       },
       {
-        SkillGroupName: 'c#',
+        SkillTopic: 'c#',
         Skills: [
           { Description: 'Methods', IsChecked: false },
           {
@@ -74,7 +74,7 @@ export class LoginComponent implements OnInit {
       },
 
       {
-        SkillGroupName: 'JS',
+        SkillTopic: 'JS',
         Skills: [
           { Description: 'Listening', IsChecked: false },
           { Description: 'Reading', IsChecked: true },
@@ -83,7 +83,7 @@ export class LoginComponent implements OnInit {
       },
 
       {
-        SkillGroupName: 'SQL',
+        SkillTopic: 'SQL',
         Skills: [
           { Description: 'Listening', IsChecked: false },
           { Description: 'Reading', IsChecked: true },
@@ -92,7 +92,7 @@ export class LoginComponent implements OnInit {
       },
 
       {
-        SkillGroupName: 'Python',
+        SkillTopic: 'Python',
         Skills: [
           { Description: 'Listening', IsChecked: true },
           { Description: 'Reading', IsChecked: false },
@@ -101,7 +101,7 @@ export class LoginComponent implements OnInit {
       },
 
       {
-        SkillGroupName: 'Networking',
+        SkillTopic: 'Networking',
         Skills: [
           { Description: 'Listening', IsChecked: true },
           { Description: 'Reading', IsChecked: false },
