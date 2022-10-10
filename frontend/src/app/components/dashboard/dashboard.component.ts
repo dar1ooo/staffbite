@@ -1,5 +1,6 @@
 import { DatePipe, formatDate } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
+import { UserRole } from 'src/app/enums/user-role';
 import { User } from 'src/app/models/user.model';
 
 @Component({
@@ -8,11 +9,11 @@ import { User } from 'src/app/models/user.model';
   styleUrls: ['./dashboard.component.scss'],
   providers: [DatePipe],
 })
-export class DashboardComponent {
+export class DashboardComponent implements OnInit {
   public user: User | undefined;
   public myDate: string;
   public day: string;
-  public selectedSection: string = 'home';
+  public selectedSection: string = 'skills';
 
   constructor(private datePipe: DatePipe) {
     const date = new Date();
@@ -30,6 +31,12 @@ export class DashboardComponent {
     this.day = weekday[date.getDay()];
   }
 
+  ngOnInit(): void {
+    this.user = JSON.parse(sessionStorage.getItem('user')) as User;
+  }
+  public get userLevel(): typeof UserRole {
+    return UserRole;
+  }
   public changeSection(section: string): void {
     this.selectedSection = section;
   }

@@ -4,14 +4,15 @@
     <div class="d-flex">
       <ul class="navbar-nav">
         <li class="nav-item">
-          <a class="nav-link" href="/dashboard" *ngIf="user">Dashboard</a>
-        </li>
-        <li class="nav-item">
           <a class="nav-link" href="/login">Login / Register</a>
         </li>
         <a href="/dashboard" class="profile-btn" *ngIf="!user">
           <img src="https://avatars.githubusercontent.com/u/63245314?v=4" />
           <span>Myffo</span>
+        </a>
+        <a href="/dashboard" class="profile-btn" *ngIf="user">
+          <img src="https://avatars.githubusercontent.com/u/63245314?v=4" />
+          <span>{{ user.Username }}</span>
         </a>
       </ul>
     </div>

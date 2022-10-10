@@ -1,0 +1,90 @@
+<div class="row align-items-start">
+  <div class="col-8">
+    <table class="container">
+      <thead>
+        <tr>
+          <th><h1>Topic</h1></th>
+          <th><h1>Skill</h1></th>
+          <th><h1>Skill</h1></th>
+          <th><h1>Skill</h1></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let skillgroup of user.SkillGroup">
+          <td>{{ skillgroup.SkillTopic }}</td>
+          <td *ngFor="let skill of skillgroup.Skills" class="skill-area">
+            <span class="skill-description">{{ skill.Description }}</span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="col-4">
+    <div class="settings-card">
+      <div class="mb-3">
+        <div class="header">
+          <h4>Define new Skills</h4>
+        </div>
+        <label for="topic" class="form-label">Topic</label>
+        <div class="input-group mb-3">
+          <input
+            type="text"
+            id="topic"
+            class="form-control"
+            [(ngModel)]="newSkill.SkillTopic"
+            aria-label="Username"
+            aria-describedby="basic-addon1"
+          />
+        </div>
+        <button
+          class="skill-button btn btn-primary"
+          [ngClass]="activeSkill === 1 ? 'active-skill' : ''"
+          (click)="changeSkill(1)"
+        >
+          Skill 1
+        </button>
+        <button
+          [ngClass]="activeSkill === 2 ? 'active-skill' : ''"
+          class="skill-button btn btn-primary margin-skill"
+          (click)="changeSkill(2)"
+        >
+          Skill 3
+        </button>
+        <button
+          [ngClass]="activeSkill === 3 ? 'active-skill' : ''"
+          class="skill-button btn btn-primary margin-skill"
+          (click)="changeSkill(3)"
+        >
+          Skill 2
+        </button>
+
+        <textarea
+          class="form-control skill-form"
+          id="skill1"
+          [(ngModel)]="newSkill.Skills[0].Description"
+          *ngIf="activeSkill === 1"
+          (keydown.enter)="onKeydown($event)"
+          (keydown.shift.enter)="onKeydown($event)"
+        ></textarea>
+        <textarea
+          class="form-control skill-form"
+          id="skill2"
+          (keydown.enter)="onKeydown($event)"
+          (keydown.shift.enter)="onKeydown($event)"
+          [(ngModel)]="newSkill.Skills[1].Description"
+          *ngIf="activeSkill === 2"
+        ></textarea>
+        <textarea
+          class="form-control skill-form"
+          id="skill3"
+          (keydown.enter)="onKeydown($event)"
+          (keydown.shift.enter)="onKeydown($event)"
+          [(ngModel)]="newSkill.Skills[2].Description"
+          *ngIf="activeSkill === 3"
+        ></textarea>
+      </div>
+
+      <button class="btn btn-primary" (click)="saveSkill()">Save</button>
+    </div>
+  </div>
+</div>
