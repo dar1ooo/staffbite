@@ -75,7 +75,6 @@ export class SkillsAdminComponent implements OnInit {
       this.newSkill.Skills[0] = this.newSkill.Skills[0];
       this.newSkill.Skills[1] = this.newSkill.Skills[1];
       this.newSkill.Skills[2] = this.newSkill.Skills[2];
-      this.user.SkillGroup.push(this.newSkill);
       return true;
     }
   }
