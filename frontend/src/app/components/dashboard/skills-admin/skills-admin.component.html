@@ -13,14 +13,7 @@
         <tr *ngFor="let skillgroup of user.SkillGroup">
           <td>{{ skillgroup.SkillTopic }}</td>
           <td *ngFor="let skill of skillgroup.Skills" class="skill-area">
-            <span
-              class="skill-description"
-              (click)="CheckSkill(skill, skillgroup)"
-              [ngClass]="
-                skill.IsChecked ? 'skill-checked' : 'skill-not-checked'
-              "
-              >{{ skill.Description }}</span
-            >
+            <span class="skill-description">{{ skill.Description }}</span>
           </td>
         </tr>
       </tbody>

@@ -1,6 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
+import { catchError, tap } from 'rxjs';
 import { Skills } from 'src/app/models/skill.model';
 import { User } from 'src/app/models/user.model';
+import { SKillsService } from 'src/app/services/skills.service';
 
 @Component({
   selector: 'app-skills-admin',
@@ -15,7 +18,10 @@ export class SkillsAdminComponent implements OnInit {
 
   public activeSkill: number = 1;
 
-  constructor() {}
+  constructor(
+    private toastr: ToastrService,
+    private skillService: SKillsService
+  ) {}
 
   ngOnInit(): void {
     this.newSkill.SkillTopic = '';
@@ -25,13 +31,62 @@ export class SkillsAdminComponent implements OnInit {
   }
 
   public saveSkill(): void {
-    debugger;
+    if (this.skillFormValid()) {
+      this.skillService
+        .saveNewSkill(this.user)
+        .pipe(
+          tap((data) => {
+            this.toastr.success('Skill saved successfully');
+            this.resetSkillForm();
+          }),
+          catchError((err) => {
+            this.toastr.error('Error saving skill');
+            return err;
+          })
+        )
+        .subscribe();
+    }
+  }
+
+  private skillFormValid(): boolean {
+    if (this.newSkill.SkillTopic === '' || this.newSkill.SkillTopic === null) {
+      this.toastr.error('Please enter a skill topic');
+      return false;
+    } else if (
+      this.newSkill.Skills[0].Description === '' ||
+      this.newSkill.Skills[0].Description === null
+    ) {
+      this.toastr.error('Please enter a skill description for skill 1');
+      return false;
+    } else if (
+      this.newSkill.Skills[1].Description === '' ||
+      this.newSkill.Skills[1].Description === null
+    ) {
+      this.toastr.error('Please enter a skill description for skill 2');
+      return false;
+    } else if (
+      this.newSkill.Skills[2].Description === '' ||
+      this.newSkill.Skills[2].Description === null
+    ) {
+      this.toastr.error('Please enter a skill description for skill 3');
+      return false;
+    } else {
+      return true;
+    }
+  }
+
+  private resetSkillForm(): void {
+    this.newSkill.SkillTopic = this.newSkill.SkillTopic.trim();
+    this.newSkill.Skills[0] = this.newSkill.Skills[0];
+    this.newSkill.Skills[1] = this.newSkill.Skills[1];
+    this.newSkill.Skills[2] = this.newSkill.Skills[2];
     this.user.SkillGroup.push(this.newSkill);
-    this.newSkill.SkillTopic = '';
     this.newSkill = new Skills();
-    this.newSkill.Skills.push({ Description: '', IsChecked: false });
-    this.newSkill.Skills.push({ Description: '', IsChecked: false });
-    this.newSkill.Skills.push({ Description: '', IsChecked: false });
+    for (let i = 0; i < 3; i++) {
+      this.newSkill.Skills.push({ Description: '', IsChecked: false });
+    }
+
+    this.activeSkill = 1;
   }
 
   public changeSkill(skill: number): void {

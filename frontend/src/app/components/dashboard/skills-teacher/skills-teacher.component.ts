@@ -26,7 +26,7 @@ export class SkillsTeacherComponent {
   }
 
   public saveSkills(): void {
-    this.skillsService.saveSkills(this.user).subscribe(
+    this.skillsService.updateSkillProgress(this.user).subscribe(
       (result) => {
         this.toastr.success('Saving successful', 'Success');
       },
