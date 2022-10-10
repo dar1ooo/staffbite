@@ -33,7 +33,7 @@ export class SkillsAdminComponent implements OnInit {
   public saveSkill(): void {
     if (this.skillFormValid()) {
       this.skillService
-        .saveNewSkill(this.user)
+        .saveNewSkill(this.user, this.newSkill)
         .pipe(
           tap((data) => {
             this.toastr.success('Skill saved successfully');
@@ -71,16 +71,16 @@ export class SkillsAdminComponent implements OnInit {
       this.toastr.error('Please enter a skill description for skill 3');
       return false;
     } else {
+      this.newSkill.SkillTopic = this.newSkill.SkillTopic.trim();
+      this.newSkill.Skills[0] = this.newSkill.Skills[0];
+      this.newSkill.Skills[1] = this.newSkill.Skills[1];
+      this.newSkill.Skills[2] = this.newSkill.Skills[2];
+      this.user.SkillGroup.push(this.newSkill);
       return true;
     }
   }
 
   private resetSkillForm(): void {
-    this.newSkill.SkillTopic = this.newSkill.SkillTopic.trim();
-    this.newSkill.Skills[0] = this.newSkill.Skills[0];
-    this.newSkill.Skills[1] = this.newSkill.Skills[1];
-    this.newSkill.Skills[2] = this.newSkill.Skills[2];
-    this.user.SkillGroup.push(this.newSkill);
     this.newSkill = new Skills();
     for (let i = 0; i < 3; i++) {
       this.newSkill.Skills.push({ Description: '', IsChecked: false });

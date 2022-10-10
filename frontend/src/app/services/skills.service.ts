@@ -2,8 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { UserRole } from '../enums/user-role';
-import { UserLogin } from '../models/user-login.model';
-import { UserSignup } from '../models/user-signup.model';
+import { Skills } from '../models/skill.model';
 import { User } from '../models/user.model';
 
 @Injectable({
@@ -17,9 +16,9 @@ export class SKillsService {
     return this.http.post(this.baseurl, user);
   }
 
-  saveNewSkill(user: User): Observable<User> {
+  saveNewSkill(user: User, skills: Skills): Observable<Skills> {
     if (user.UserRole === UserRole.Admin) {
-      return this.http.post<User>(this.baseurl, user);
+      return this.http.post<Skills>(this.baseurl, skills);
     } else {
       return throwError(
         () => new Error(' You are not authorized to save a new skill')
