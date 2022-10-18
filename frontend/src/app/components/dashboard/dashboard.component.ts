@@ -1,4 +1,4 @@
-import { DatePipe, formatDate } from '@angular/common';
+import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { UserRole } from 'src/app/enums/user-role';
 import { User } from 'src/app/models/user.model';
@@ -13,7 +13,7 @@ export class DashboardComponent implements OnInit {
   public user: User | undefined;
   public myDate: string;
   public day: string;
-  public selectedSection: string = 'skills';
+  public selectedSection: string = 'user-management';
 
   constructor(private datePipe: DatePipe) {
     const date = new Date();

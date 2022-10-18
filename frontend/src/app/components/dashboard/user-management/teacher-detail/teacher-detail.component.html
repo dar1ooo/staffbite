@@ -1,0 +1,27 @@
+<h1 class="completedmessage">
+  <span class="blue"></span>Current Teacher: <span class="blue"></span>
+  <span class="yellow">{{ teacher.Username }}</span>
+</h1>
+<table class="container">
+  <thead>
+    <tr>
+      <th><h1>Topic</h1></th>
+      <th><h1>Skill</h1></th>
+      <th><h1>Skill</h1></th>
+      <th><h1>Skill</h1></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let skillgroup of teacher.SkillGroup">
+      <td>{{ skillgroup.SkillTopic }}</td>
+      <td
+        *ngFor="let skill of skillgroup.Skills"
+        class="skill-area"
+        [ngClass]="skill.IsChecked ? 'skill-checked' : 'skill-not-checked'"
+        (click)="CheckSkill(skill, skillgroup)"
+      >
+        <span class="skill-description">{{ skill.Description }}</span>
+      </td>
+    </tr>
+  </tbody>
+</table>
