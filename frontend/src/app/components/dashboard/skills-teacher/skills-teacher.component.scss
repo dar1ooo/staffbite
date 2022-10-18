@@ -1,12 +1,62 @@
+.completedmessage {
+  font-size: 3em;
+  font-weight: 300;
+  text-align: center;
+  margin-bottom: 20px;
+  color: #4dc3fa;
+}
+
 .blue {
-  color: #e0e2db;
+  color: #185875;
+}
+.yellow {
+  color: #2cda9d;
+}
+
+/* Background-color of the odd rows */
+.container tr {
+  .skill-checked {
+    background-color: rgb(53, 129, 78);
+    color: white;
+  }
+
+  .skill-not-checked {
+    color: #c2c1c1;
+  }
+}
+
+.container th {
+  background-color: #5f7470;
+  h1 {
+    text-align: center;
+  }
+}
+
+.container td:first-child {
+  cursor: default;
+  color: #01161e;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.skill-description {
+  font-family: "Roboto", sans-serif;
+  font-size: 1.1em;
+}
+
+.skill-area {
+  max-width: 15vw;
+  cursor: pointer;
+}
+
+.btn-primary {
+  margin: 15px 0px;
 }
 
 .container th h1 {
   font-weight: bold;
-  font-size: 1.3em;
-  text-align: left;
-  color: #e0e2db;
+  font-size: 1.5em;
+  color: #185875;
 }
 
 .container td {
@@ -35,51 +85,41 @@
 
 /* Background-color of the odd rows */
 .container tr:nth-child(odd) {
-  background-color: rgb(226, 226, 226);
-
-  .skill-checked {
-    color: green;
-  }
-
-  .skill-not-checked {
-    color: #4e4e4e;
-  }
+  background-color: #323c50;
 }
 
 /* Background-color of the even rows */
 .container tr:nth-child(even) {
-  background-color: rgb(177, 177, 177);
-  .skill-checked {
-    color: green;
-  }
-
-  .skill-not-checked {
-    color: #f1f1f1;
-  }
+  background-color: #2c3446;
 }
 
 .container th {
-  background-color: #5f7470;
+  background-color: #1f2739;
 }
 
 .container td:first-child {
-  color: #01161e;
-  font-size: 20px;
-  font-weight: bold;
+  color: #38aab3;
 }
 
-.skill-description {
-  font-family: "Roboto", sans-serif;
-  font-size: 1.1em;
-  cursor: pointer;
+.container td:hover.skill-area {
+  background-color: #5f7470;
+  color: black;
+
+  box-shadow: #7f7c21 -1px 1px, #7f7c21 -2px 2px, #7f7c21 -3px 3px,
+    #7f7c21 -4px 4px, #7f7c21 -5px 5px, #7f7c21 -6px 6px;
+  transform: translate3d(6px, -6px, 0);
+
+  transition-delay: 0s;
+  transition-duration: 0.4s;
+  transition-property: all;
+  transition-timing-function: line;
 }
 
-.skill-area {
-  max-width: 15vw;
-}
-
-.btn-primary {
-  margin: 15px 0px;
+@media (max-width: 800px) {
+  .container td:nth-child(4),
+  .container th:nth-child(4) {
+    display: none;
+  }
 }
 
 @media (max-width: 800px) {

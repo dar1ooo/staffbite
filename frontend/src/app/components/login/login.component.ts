@@ -24,9 +24,10 @@ export class LoginComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.changeForm();
     this.mockedUser.Username = 'Alfred';
     this.mockedUser.Email = 'alfredhitchcock@online.gibz.ch';
-    this.mockedUser.UserRole = UserRole.Admin;
+    this.mockedUser.UserRole = UserRole.Teacher;
     this.mockedUser.UserId = 1;
     this.mockedUser.SkillGroup = [
       {
