@@ -1,0 +1,33 @@
+<div *ngIf="!showUserDetail">
+  <h1 class="completedmessage">
+    <span class="blue"></span>All Teachers: <span class="blue"></span>
+  </h1>
+  <table class="container">
+    <thead>
+      <tr>
+        <th><h1>#</h1></th>
+        <th><h1>Username</h1></th>
+        <th><h1>Email</h1></th>
+        <th><h1>Skills</h1></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let teacher of teachers; let i = index">
+        <td>{{ i }}</td>
+        <td class="skill-area">{{ teacher.Username }}</td>
+        <td class="skill-area">{{ teacher.Email }}</td>
+        <td class="skill-area">
+          <button class="btn btn-primary" (click)="viewSkills(teacher)">
+            Skills
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<div *ngIf="showUserDetail">
+  <app-teacher-detail [teacher]="selectedTeacher"></app-teacher-detail>
+  <div class="container mt-4">
+    <button class="btn btn-primary" (click)="backToUserList()">Back</button>
+  </div>
+</div>

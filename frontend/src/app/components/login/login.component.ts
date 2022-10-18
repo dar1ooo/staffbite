@@ -27,7 +27,7 @@ export class LoginComponent implements OnInit {
     this.changeForm();
     this.mockedUser.Username = 'Alfred';
     this.mockedUser.Email = 'alfredhitchcock@online.gibz.ch';
-    this.mockedUser.UserRole = UserRole.Teacher;
+    this.mockedUser.UserRole = UserRole.Admin;
     this.mockedUser.UserId = 1;
     this.mockedUser.SkillGroup = [
       {
