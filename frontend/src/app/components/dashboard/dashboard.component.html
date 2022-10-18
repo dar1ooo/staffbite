@@ -1,17 +1,17 @@
 <!-- <div *ngIf="!user">Please Log in to view your dashboard</div> -->
 <button
   *ngIf="user.UserRole === userLevel.Admin"
-  class="btn btn-primary"
+  class="btn btn-dark"
   (click)="changeUserType()"
 >
-  Switch to Teacher view
+  Teacher view
 </button>
 <button
   *ngIf="user.UserRole === userLevel.Teacher"
-  class="btn btn-primary"
+  class="btn btn-dark"
   (click)="changeUserType()"
 >
-  Switch to Admin view
+  Admin view
 </button>
 <div class="app-container">
   <div class="app-content">
