@@ -1,8 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { catchError, tap } from 'rxjs';
-import { Skills } from 'src/app/models/skill.model';
-import { User } from 'src/app/models/user.model';
+import { Skills, User } from 'src/app/models';
 import { SKillsService } from 'src/app/services/skills.service';
 
 @Component({

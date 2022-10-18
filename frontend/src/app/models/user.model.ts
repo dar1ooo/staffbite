@@ -1,5 +1,5 @@
 import { UserRole } from '../enums/user-role';
-import { Skills } from './skill.model';
+import { Skills } from './skills.model';
 
 export class User {
   UserId: number = 0;
