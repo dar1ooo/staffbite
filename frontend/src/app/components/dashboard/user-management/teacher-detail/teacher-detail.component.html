@@ -1,6 +1,6 @@
 <h1 class="completedmessage">
-  <span class="blue"></span>You have mastered <span class="blue"></span>
-  <span class="yellow">{{ totalSkills }} %</span> of all Skills
+  <span class="blue"></span>Current Teacher: <span class="blue"></span>
+  <span class="yellow">{{ teacher.Username }}</span>
 </h1>
 <table class="container">
   <thead>
@@ -12,7 +12,7 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let skillgroup of user.SkillGroup">
+    <tr *ngFor="let skillgroup of teacher.SkillGroup">
       <td>{{ skillgroup.SkillTopic }}</td>
       <td
         *ngFor="let skill of skillgroup.Skills"
@@ -24,5 +24,4 @@
       </td>
     </tr>
   </tbody>
-  <button class="btn btn-primary" (click)="saveSkills()">Save</button>
 </table>

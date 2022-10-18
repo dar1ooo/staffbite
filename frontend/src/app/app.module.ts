@@ -12,6 +12,8 @@ import { SettingsComponent } from './components/dashboard/settings/settings.comp
 import { SkillsAdminComponent } from './components/dashboard/skills-admin/skills-admin.component';
 import { SkillsTeacherComponent } from './components/dashboard/skills-teacher/skills-teacher.component';
 import { TimerComponent } from './components/dashboard/timer/timer.component';
+import { TeacherDetailComponent } from './components/dashboard/user-management/teacher-detail/teacher-detail.component';
+import { UserManagementComponent } from './components/dashboard/user-management/user-management.component';
 import { LoginComponent } from './components/login/login.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
@@ -28,6 +30,8 @@ import { PageNotFoundComponent } from './components/page-not-found/page-not-foun
     HomeComponent,
     SettingsComponent,
     SkillsAdminComponent,
+    UserManagementComponent,
+    TeacherDetailComponent,
   ],
   imports: [
     BrowserModule,

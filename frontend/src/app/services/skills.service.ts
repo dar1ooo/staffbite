@@ -2,8 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { UserRole } from '../enums/user-role';
-import { Skills } from '../models/skill.model';
-import { User } from '../models/user.model';
+import { Skills, User } from '../models';
 
 @Injectable({
   providedIn: 'root',

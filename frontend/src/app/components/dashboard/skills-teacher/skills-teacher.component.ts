@@ -1,7 +1,6 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
-import { Skill, Skills } from 'src/app/models/skill.model';
-import { User } from 'src/app/models/user.model';
+import { Skill, Skills, User } from 'src/app/models';
 import { SKillsService } from 'src/app/services/skills.service';
 
 @Component({
@@ -9,13 +8,20 @@ import { SKillsService } from 'src/app/services/skills.service';
   templateUrl: './skills-teacher.component.html',
   styleUrls: ['./skills-teacher.component.scss'],
 })
-export class SkillsTeacherComponent {
+export class SkillsTeacherComponent implements OnInit {
   @Input()
   public user: User = new User();
+
+  public totalSkills: number = 0;
+
   constructor(
     private skillsService: SKillsService,
     private toastr: ToastrService
   ) {}
+
+  ngOnInit(): void {
+    this.SkillProgress();
+  }
 
   public CheckSkill(skill: Skill, SkillGroup: Skills): void {
     this.user.SkillGroup.find(
@@ -23,6 +29,7 @@ export class SkillsTeacherComponent {
     ).Skills.find((s) => s.Description === skill.Description).IsChecked =
       !skill.IsChecked;
     sessionStorage.setItem('user', JSON.stringify(this.user));
+    this.SkillProgress();
   }
 
   public saveSkills(): void {
@@ -34,5 +41,19 @@ export class SkillsTeacherComponent {
         this.toastr.error('Saving failed', 'Failed');
       }
     );
+  }
+
+  public SkillProgress() {
+    let skillsChecked = 0;
+    let totalSkills = 0;
+    this.user.SkillGroup.forEach((skillGroup) => {
+      skillGroup.Skills.forEach((skill) => {
+        if (skill.IsChecked) {
+          skillsChecked++;
+        }
+        totalSkills++;
+      });
+    });
+    this.totalSkills = Math.round((skillsChecked / totalSkills) * 100);
   }
 }
