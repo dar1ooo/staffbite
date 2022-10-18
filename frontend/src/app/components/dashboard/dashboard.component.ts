@@ -40,4 +40,13 @@ export class DashboardComponent implements OnInit {
   public changeSection(section: string): void {
     this.selectedSection = section;
   }
+  public changeUserType() {
+    if (this.user.UserRole === UserRole.Admin) {
+      this.user.UserRole = UserRole.Teacher;
+    } else {
+      this.user.UserRole = UserRole.Admin;
+    }
+    this.selectedSection = 'home';
+    sessionStorage.setItem('user', JSON.stringify(this.user));
+  }
 }
