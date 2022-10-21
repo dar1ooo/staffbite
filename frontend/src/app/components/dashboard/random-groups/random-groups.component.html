@@ -1,0 +1,57 @@
+<div class="col-4 settings-card" *ngIf="viewmodel.randomGroups.length === 0">
+  <div class="mb-3">
+    <div class="header">
+      <h4>Generate new random Groups</h4>
+      <div class="form-text">
+        Enter all topics and student names and seperate them with a comma.
+      </div>
+      <div class="form-text fw-bold">
+        Example: DoS and DDoS, MITM, Phishing, Ransomware, SQL Injection, XSS
+      </div>
+    </div>
+    <label for="Username" class="form-label">Topics</label>
+    <div class="input-group mb-3">
+      <input
+        type="text"
+        id="Username"
+        class="form-control"
+        [(ngModel)]="viewmodel.currentTopics"
+        aria-label="Username"
+        aria-describedby="basic-addon1"
+      />
+    </div>
+    <div class="text-danger form-text fw-bold" *ngIf="showHintTopics">
+      Check if you have to many Comas!
+    </div>
+  </div>
+  <label class="form-label">Students </label>
+  <div class="input-group mb-3">
+    <input
+      type="text"
+      class="form-control"
+      aria-describedby="confirmPasswordHelp"
+      [(ngModel)]="viewmodel.currentStudents"
+    />
+  </div>
+  <div class="text-danger form-text fw-bold" *ngIf="showHintStudents">
+    Check if you have to many Comas!
+  </div>
+  <button (click)="save()" class="btn btn-primary">Generate</button>
+</div>
+<div *ngIf="viewmodel.randomGroups.length !== 0">
+  <h1 class="completedmessage">
+    <span class="blue"></span>Number of Groups: <span class="blue"></span>
+    <span class="yellow">{{ viewmodel.randomGroups.length }}</span>
+  </h1>
+  <table class="container">
+    <tbody>
+      <tr *ngFor="let group of viewmodel.randomGroups">
+        <td>{{ group.Topic }}</td>
+        <td *ngFor="let student of group.Students" class="skill-area">
+          <span class="skill-description">{{ student }}</span>
+        </td>
+      </tr>
+      <button (click)="back()" class="btn btn-info">Back</button>
+    </tbody>
+  </table>
+</div>
