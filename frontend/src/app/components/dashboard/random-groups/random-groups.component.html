@@ -1,0 +1,50 @@
+<div class="col-4 settings-card" *ngIf="viewmodel.randomGroups.length === 0">
+  <div class="mb-3">
+    <div class="header">
+      <h4>Generate new random Groups</h4>
+      <div id="emailHelp" class="form-text">
+        Enter all topics and student names and seperate them with a comma.
+      </div>
+    </div>
+    <label for="Username" class="form-label">Topics</label>
+    <div class="input-group mb-3">
+      <input
+        type="text"
+        id="Username"
+        class="form-control"
+        [(ngModel)]="viewmodel.currentTopics"
+        aria-label="Username"
+        aria-describedby="basic-addon1"
+      />
+    </div>
+  </div>
+  <label for="newPassword" class="form-label">Students </label>
+
+  <div class="input-group mb-3">
+    <input
+      type="text"
+      class="form-control"
+      aria-describedby="confirmPasswordHelp"
+      id="newPassword"
+      [(ngModel)]="viewmodel.currentStudents"
+    />
+  </div>
+
+  <button (click)="save()" class="btn btn-primary">Save</button>
+</div>
+<div *ngIf="viewmodel.randomGroups.length !== 0">
+  <h1 class="completedmessage">
+    <span class="blue"></span>Groups: <span class="blue"></span>
+  </h1>
+  <table class="container">
+    <tbody>
+      <tr *ngFor="let group of viewmodel.randomGroups">
+        <td>{{ group.Topic }}</td>
+        <td *ngFor="let student of group.Students" class="skill-area">
+          <span class="skill-description">{{ student }}</span>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <button (click)="back()" class="btn btn-info">Back</button>
+</div>

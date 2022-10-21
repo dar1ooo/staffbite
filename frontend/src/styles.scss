@@ -15,8 +15,12 @@
 body {
   background-color: #01161e;
   color: white;
-  overflow: hidden;
 }
+
+body::-webkit-scrollbar {
+  display: none;
+}
+
 button,
 a {
   cursor: pointer;

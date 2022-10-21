@@ -68,11 +68,7 @@
           <polyline points="12 6 12 12 16 14"></polyline>
         </svg>
       </a>
-      <a
-        (click)="changeSection('user-management')"
-        class="app-sidebar-link"
-        *ngIf="user.UserRole === userLevel.Admin"
-      >
+      <a (click)="changeSection('user-management')" class="app-sidebar-link">
         <svg
           width="28"
           viewBox="0 0 100 100"
@@ -148,17 +144,27 @@
         </div>
         <app-timer></app-timer>
       </div>
-      <div
-        *ngIf="
-          user.UserRole === userLevel.Admin &&
-          selectedSection === 'user-management'
-        "
-      >
-        <div class="projects-section-header">
+      <div *ngIf="selectedSection === 'user-management'">
+        <div
+          class="projects-section-header"
+          *ngIf="user.UserRole === userLevel.Admin"
+        >
           <p>User Management</p>
           <p class="time">{{ day }}, {{ myDate }}</p>
         </div>
-        <app-user-management></app-user-management>
+        <app-user-management
+          *ngIf="user.UserRole === userLevel.Admin"
+        ></app-user-management>
+        <div
+          class="projects-section-header"
+          *ngIf="user.UserRole === userLevel.Teacher"
+        >
+          <p>Random Groups</p>
+          <p class="time">{{ day }}, {{ myDate }}</p>
+        </div>
+        <app-random-groups
+          *ngIf="user.UserRole === userLevel.Teacher"
+        ></app-random-groups>
       </div>
       <div *ngIf="selectedSection === 'settings'">
         <div class="projects-section-header">

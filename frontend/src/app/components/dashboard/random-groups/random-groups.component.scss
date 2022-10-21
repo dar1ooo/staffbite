@@ -1,0 +1,145 @@
+.eye-icon {
+  height: 20px;
+}
+
+.settings-card {
+  background-color: #b8bdb5;
+  padding: 30px;
+  border-radius: 30px;
+  color: #01161e;
+  .header {
+    margin-bottom: 20px;
+    border-bottom: 2px dashed #01161e;
+  }
+}
+
+.btn-primary {
+  background-color: #01161e;
+  border-color: #01161e;
+}
+
+.btn-primary:hover {
+  background-color: #5f7470;
+  border-color: #5f7470;
+}
+
+.completedmessage {
+  font-size: 3em;
+  font-weight: 300;
+  text-align: center;
+  margin-bottom: 20px;
+  color: #4dc3fa;
+}
+
+.blue {
+  color: #185875;
+}
+.yellow {
+  color: #2cda9d;
+}
+
+/* Background-color of the odd rows */
+.container tr {
+  .skill-checked {
+    background-color: rgb(53, 129, 78);
+    color: white;
+  }
+
+  .skill-not-checked {
+    color: #c2c1c1;
+  }
+}
+
+.container th {
+  background-color: #5f7470;
+  h1 {
+    text-align: center;
+  }
+}
+
+.container td:first-child {
+  cursor: default;
+  color: #01161e;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.skill-description {
+  font-family: "Roboto", sans-serif;
+  font-size: 1.1em;
+}
+
+.skill-area {
+  max-width: 15vw;
+  cursor: pointer;
+}
+
+.btn-primary {
+  margin: 15px 0px;
+}
+
+.container th h1 {
+  font-weight: bold;
+  font-size: 1.5em;
+  color: #185875;
+}
+
+.container td {
+  font-weight: normal;
+  font-size: 1em;
+  -webkit-box-shadow: 0 2px 2px -2px #0e1119;
+  -moz-box-shadow: 0 2px 2px -2px #0e1119;
+  box-shadow: 0 2px 2px -2px #0e1119;
+}
+
+.container {
+  text-align: left;
+  overflow: hidden;
+  width: 80%;
+  margin: 0 auto;
+  display: table;
+  padding: 0 0 8em 0;
+}
+
+.container td,
+.container th {
+  padding-bottom: 2%;
+  padding-top: 2%;
+  padding-left: 2%;
+}
+
+/* Background-color of the odd rows */
+.container tr:nth-child(odd) {
+  background-color: #323c50;
+}
+
+/* Background-color of the even rows */
+.container tr:nth-child(even) {
+  background-color: #2c3446;
+}
+
+.container th {
+  background-color: #1f2739;
+}
+
+.container td:first-child {
+  color: #38aab3;
+}
+
+.form-text {
+  margin-bottom: 10px;
+}
+
+@media (max-width: 800px) {
+  .container td:nth-child(4),
+  .container th:nth-child(4) {
+    display: none;
+  }
+}
+
+@media (max-width: 800px) {
+  .container td:nth-child(4),
+  .container th:nth-child(4) {
+    display: none;
+  }
+}
