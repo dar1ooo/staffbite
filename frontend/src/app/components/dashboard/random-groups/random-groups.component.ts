@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
 import { GroupModel, RandomGroupsViewmodel } from './models';
 
 @Component({
@@ -8,13 +9,21 @@ import { GroupModel, RandomGroupsViewmodel } from './models';
 })
 export class RandomGroupsComponent {
   public viewmodel: RandomGroupsViewmodel = new RandomGroupsViewmodel();
+  public showHintStudents: boolean = false;
+  public showHintTopics: boolean = false;
 
-  constructor() {}
+  constructor(private toastr: ToastrService) {}
 
   public back(): void {
     this.viewmodel.randomGroups = [];
   }
 
+  /**
+   *Creates a new randomized order of students and groups.
+   *If Lists are uneven the last group will have less students.
+   * @return {*}  {void}
+   * @memberof RandomGroupsComponent
+   */
   public save(): void {
     this.viewmodel.randomGroups = [];
     const students: string[] = this.shuffle(
@@ -23,6 +32,24 @@ export class RandomGroupsComponent {
     const topics: string[] = this.shuffle(
       this.viewmodel.currentTopics.split(',').map((topic) => topic.trim())
     );
+    if (students.includes('')) {
+      this.toastr.error(
+        'Your Students list is incorrect. Please check it and try again.'
+      );
+      this.showHintStudents = true;
+      return;
+    }
+    if (topics.includes('')) {
+      this.toastr.error(
+        'Your Topics list is incorrect. Please check it and try again.'
+      );
+      this.showHintTopics = true;
+      return;
+    }
+
+    this.showHintTopics = false;
+    this.showHintStudents = false;
+
     const studentsPerGroup: number = Math.floor(
       students.length / topics.length
     );
@@ -54,16 +81,24 @@ export class RandomGroupsComponent {
     });
   }
 
-  private shuffle(students: string[]) {
+  /**
+   *Randomizes a list of strings
+   *
+   * @private
+   * @param {string[]} array
+   * @return {*}
+   * @memberof RandomGroupsComponent
+   */
+  private shuffle(array: string[]) {
     // suffle the students list
     for (
-      var j, x, i = students.length;
+      var j, x, i = array.length;
       i;
       j = Math.floor(Math.random() * i),
-        x = students[--i],
-        students[i] = students[j],
-        students[j] = x
+        x = array[--i],
+        array[i] = array[j],
+        array[j] = x
     );
-    return students;
+    return array;
   }
 }

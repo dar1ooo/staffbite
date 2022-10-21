@@ -1,7 +1,3 @@
-.eye-icon {
-  height: 20px;
-}
-
 .settings-card {
   background-color: #b8bdb5;
   padding: 30px;
@@ -37,7 +33,6 @@
 .yellow {
   color: #2cda9d;
 }
-
 /* Background-color of the odd rows */
 .container tr {
   .skill-checked {
@@ -128,6 +123,10 @@
 
 .form-text {
   margin-bottom: 10px;
+}
+
+.btn-info {
+  margin-top: 20px;
 }
 
 @media (max-width: 800px) {
