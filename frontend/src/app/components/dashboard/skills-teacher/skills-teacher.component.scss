@@ -3,7 +3,7 @@
   font-weight: 300;
   text-align: center;
   margin-bottom: 20px;
-  color: #4dc3fa;
+  color: #58a6ff;
 }
 
 .blue {
@@ -15,20 +15,15 @@
 
 /* Background-color of the odd rows */
 .container tr {
+  border-bottom: 1px solid #21262d;
+
   .skill-checked {
-    background-color: rgb(53, 129, 78);
+    background-color: rgb(0 255 84 / 31%);
     color: white;
   }
 
   .skill-not-checked {
     color: #c2c1c1;
-  }
-}
-
-.container th {
-  background-color: #5f7470;
-  h1 {
-    text-align: center;
   }
 }
 
@@ -56,7 +51,7 @@
 .container th h1 {
   font-weight: bold;
   font-size: 1.5em;
-  color: #185875;
+  color: #58a6ff;
 }
 
 .container td {
@@ -83,27 +78,27 @@
   padding-left: 2%;
 }
 
-/* Background-color of the odd rows */
-.container tr:nth-child(odd) {
-  background-color: #323c50;
-}
-
-/* Background-color of the even rows */
-.container tr:nth-child(even) {
-  background-color: #2c3446;
-}
-
-.container th {
-  background-color: #1f2739;
-}
-
 .container td:first-child {
   color: #38aab3;
 }
 
-.container td:hover.skill-area {
-  background-color: #5f7470;
-  color: black;
+.container td:hover.skill-area.skill-not-checked {
+  background-color: #497750;
+  color: white;
+
+  box-shadow: #7f7c21 -1px 1px, #7f7c21 -2px 2px, #7f7c21 -3px 3px,
+    #7f7c21 -4px 4px, #7f7c21 -5px 5px, #7f7c21 -6px 6px;
+  transform: translate3d(6px, -6px, 0);
+
+  transition-delay: 0s;
+  transition-duration: 0.4s;
+  transition-property: all;
+  transition-timing-function: line;
+}
+
+.container td:hover.skill-area.skill-checked {
+  background-color: rgb(150, 4, 4, 0.76);
+  color: white;
 
   box-shadow: #7f7c21 -1px 1px, #7f7c21 -2px 2px, #7f7c21 -3px 3px,
     #7f7c21 -4px 4px, #7f7c21 -5px 5px, #7f7c21 -6px 6px;

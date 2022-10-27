@@ -3,10 +3,15 @@
 }
 
 .settings-card {
-  background-color: #b8bdb5;
   padding: 30px;
   border-radius: 30px;
-  color: #01161e;
+  color: #c9d1d9;
+  border: 1px solid rgba(56, 139, 253, 0.4);
+  background-image: linear-gradient(
+    rgba(56, 139, 253, 0.15),
+    rgba(56, 139, 253, 0.15)
+  );
+
   .header {
     margin-bottom: 20px;
     border-bottom: 2px dashed #01161e;

@@ -1,5 +1,5 @@
 nav {
-  background-color: #e0e2db;
+  background-color: #161b22;
 }
 
 #staffbite {
@@ -8,7 +8,12 @@ nav {
 
 a {
   font-weight: bold;
-  color: #01161e;
+  color: rgb(211, 205, 195, 0.85);
+}
+a:hover,
+a:focus {
+  font-weight: bold;
+  color: rgba(255, 255, 255, 0.75);
 }
 a:link.profile-btn {
   text-decoration: none;
@@ -20,7 +25,6 @@ a:link.profile-btn {
   display: flex;
   align-items: center;
   padding-left: 12px;
-  border-left: 2px solid #ddd;
 
   img {
     width: 32px;
