@@ -1,4 +1,5 @@
-﻿using MongoDB.Driver;
+﻿using MongoDB.Bson;
+using MongoDB.Driver;
 
 namespace business_logic.Services
 {
@@ -17,6 +18,19 @@ namespace business_logic.Services
         {
             var collection = db.GetCollection<T>(table);
             collection.InsertOne(record);
+        }
+
+        public void DeleteRecord<T>(string table, FilterDefinition<T> filter)
+        {
+            var collection = db.GetCollection<T>(table);
+            collection.DeleteOne(filter);
+        }
+
+        public async Task<IAsyncCursor<T>> FindRecord<T>(string table, FilterDefinition<T> filter)
+        {
+            var collection = db.GetCollection<T>(table);
+            var value = await collection.FindAsync<T>(filter);
+            return value;
         }
     }
 }
