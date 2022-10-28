@@ -9,7 +9,7 @@ import { User } from '../models/user.model';
   providedIn: 'root',
 })
 export class SettingsService {
-  private baseurl = 'http://localhost:53535/api/Settings';
+  private baseurl = 'http://localhost:5079/api/Settings';
   constructor(private http: HttpClient) {}
 
   saveSettings(user: User) {
