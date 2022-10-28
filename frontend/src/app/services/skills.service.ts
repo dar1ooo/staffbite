@@ -8,7 +8,7 @@ import { Skills, User } from '../models';
   providedIn: 'root',
 })
 export class SKillsService {
-  private baseurl = 'http://localhost:53535/api/Skills';
+  private baseurl = 'http://localhost:5079/api/Skills';
   constructor(private http: HttpClient) {}
 
   updateSkillProgress(user: User) {

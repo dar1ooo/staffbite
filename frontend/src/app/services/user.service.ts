@@ -9,12 +9,12 @@ import { User } from '../models/user.model';
   providedIn: 'root',
 })
 export class UserService {
-  private baseurl = 'http://localhost:53535/api/User';
+  private baseurl = 'http://localhost:5079/api/User';
   constructor(private http: HttpClient) {}
 
   loginUser(userLogin: UserLogin): Observable<any> {
     const url = this.baseurl + '/login';
-    return this.http.post<User>(url, userLogin);
+    return this.http.post<User>(url, userLogin, { withCredentials: true });
   }
 
   registerUser(userSignUp: UserSignup): Observable<any> {
