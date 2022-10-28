@@ -56,4 +56,12 @@ export class SkillsTeacherComponent implements OnInit {
     });
     this.totalSkills = Math.round((skillsChecked / totalSkills) * 100);
   }
+
+  public openPdf(selectedSkill: Skill) {
+    window.open(selectedSkill.PdfUrl, '_blank');
+  }
+
+  public openVideo(selectedSkill: Skill) {
+    window.open(selectedSkill.VideoUrl, '_blank');
+  }
 }

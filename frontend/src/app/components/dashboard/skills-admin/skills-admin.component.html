@@ -4,9 +4,9 @@
       <thead>
         <tr>
           <th><h1>Topic</h1></th>
-          <th><h1>Skill</h1></th>
-          <th><h1>Skill</h1></th>
-          <th><h1>Skill</h1></th>
+          <th><h1>Beginner</h1></th>
+          <th><h1>Advanced</h1></th>
+          <th><h1>Expert</h1></th>
         </tr>
       </thead>
       <tbody>
@@ -41,21 +41,21 @@
           [ngClass]="activeSkill === 1 ? 'active-skill' : ''"
           (click)="changeSkill(1)"
         >
-          Skill 1
+          Beginner
         </button>
         <button
           [ngClass]="activeSkill === 2 ? 'active-skill' : ''"
           class="skill-button btn btn-primary margin-skill"
           (click)="changeSkill(2)"
         >
-          Skill 3
+          Advanced
         </button>
         <button
           [ngClass]="activeSkill === 3 ? 'active-skill' : ''"
           class="skill-button btn btn-primary margin-skill"
           (click)="changeSkill(3)"
         >
-          Skill 2
+          Expert
         </button>
 
         <textarea
@@ -63,22 +63,16 @@
           id="skill1"
           [(ngModel)]="newSkill.Skills[0].Description"
           *ngIf="activeSkill === 1"
-          (keydown.enter)="onKeydown($event)"
-          (keydown.shift.enter)="onKeydown($event)"
         ></textarea>
         <textarea
           class="form-control skill-form"
           id="skill2"
-          (keydown.enter)="onKeydown($event)"
-          (keydown.shift.enter)="onKeydown($event)"
           [(ngModel)]="newSkill.Skills[1].Description"
           *ngIf="activeSkill === 2"
         ></textarea>
         <textarea
           class="form-control skill-form"
           id="skill3"
-          (keydown.enter)="onKeydown($event)"
-          (keydown.shift.enter)="onKeydown($event)"
           [(ngModel)]="newSkill.Skills[2].Description"
           *ngIf="activeSkill === 3"
         ></textarea>

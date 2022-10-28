@@ -24,9 +24,30 @@ export class SkillsAdminComponent implements OnInit {
 
   ngOnInit(): void {
     this.newSkill.SkillTopic = '';
-    this.newSkill.Skills.push({ Description: '', IsChecked: false });
-    this.newSkill.Skills.push({ Description: '', IsChecked: false });
-    this.newSkill.Skills.push({ Description: '', IsChecked: false });
+    this.newSkill.Skills.push({
+      Description: '',
+      IsChecked: false,
+      ShowPdf: false,
+      PdfUrl: '',
+      ShowVideo: false,
+      VideoUrl: '',
+    });
+    this.newSkill.Skills.push({
+      Description: '',
+      IsChecked: false,
+      ShowPdf: false,
+      PdfUrl: '',
+      ShowVideo: false,
+      VideoUrl: '',
+    });
+    this.newSkill.Skills.push({
+      Description: '',
+      IsChecked: false,
+      ShowPdf: false,
+      PdfUrl: '',
+      ShowVideo: false,
+      VideoUrl: '',
+    });
   }
 
   public saveSkill(): void {
@@ -81,7 +102,14 @@ export class SkillsAdminComponent implements OnInit {
   private resetSkillForm(): void {
     this.newSkill = new Skills();
     for (let i = 0; i < 3; i++) {
-      this.newSkill.Skills.push({ Description: '', IsChecked: false });
+      this.newSkill.Skills.push({
+        Description: '',
+        IsChecked: false,
+        ShowPdf: false,
+        PdfUrl: '',
+        ShowVideo: false,
+        VideoUrl: '',
+      });
     }
 
     this.activeSkill = 1;

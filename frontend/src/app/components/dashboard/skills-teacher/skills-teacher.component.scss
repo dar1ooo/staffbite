@@ -13,6 +13,18 @@
   color: #2cda9d;
 }
 
+.btn-info {
+  float: right;
+  margin: 0px 10px;
+  padding: 0px 5px;
+}
+
+.btn-info:hover {
+  background-color: #4580c3;
+  border-color: #4580c3;
+  padding: 0px 5px;
+}
+
 /* Background-color of the odd rows */
 .container tr {
   border-bottom: 1px solid #21262d;
@@ -73,9 +85,9 @@
 
 .container td,
 .container th {
-  padding-bottom: 2%;
-  padding-top: 2%;
-  padding-left: 2%;
+  padding-bottom: 1%;
+  padding-top: 1%;
+  padding-left: 1%;
 }
 
 .container td:first-child {
