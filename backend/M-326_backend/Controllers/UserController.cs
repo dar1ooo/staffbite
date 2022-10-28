@@ -14,7 +14,7 @@ public class UserController : ControllerBase
     public async Task<IActionResult> Create(UserRegister userRegister)
     {
         UserManagement userManagement = new UserManagement();
-        User user = new User(); 
+        User user = new User();
         user.Email = userRegister.Email;
         user.Password = userRegister.Password;
         user.Username = userRegister.Username;
