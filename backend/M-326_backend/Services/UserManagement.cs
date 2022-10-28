@@ -24,7 +24,7 @@ namespace business_logic.Services
 
         public void deleteUser (User user)
         {
-            var deleteFilter = Builders<BsonDocument>.Filter.Eq("_id", user.Id);
+            var deleteFilter = Builders<BsonDocument>.Filter.Eq("_id", user.UserId);
             MongoCRUD.DeleteRecord(Database, deleteFilter);
         }
 

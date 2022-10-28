@@ -11,9 +11,17 @@ public class UserController : ControllerBase
 {
     [HttpPost]
     [Route("register")]
-    public async Task<IActionResult> Create(User user)
+    public async Task<IActionResult> Create(UserRegister userRegister)
     {
         UserManagement userManagement = new UserManagement();
+        User user = new User(); 
+        user.Email = userRegister.Email;
+        user.Password = userRegister.Password;
+        user.Username = userRegister.Username;
+        user.UserRole = 0;
+
+        Random rdm = new Random();
+        user.UserId = rdm.Next(100000);
         userManagement.createUser(user);
         return CreatedAtAction(nameof(Create), user);
     }
