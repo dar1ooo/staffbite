@@ -24,6 +24,8 @@ export class SkillsAdminComponent implements OnInit {
   public videoLink: string = '';
   public activeSkill: number = 1;
 
+  public isEditing: boolean = false;
+
   constructor(
     private toastr: ToastrService,
     private skillService: SKillsService
@@ -249,5 +251,12 @@ export class SkillsAdminComponent implements OnInit {
     if (e && e.stopPropagation) e.stopPropagation();
 
     window.open(selectedSkill.VideoUrl, '_blank');
+  }
+
+  public deleteSkill(selectedSkill: Skills) {
+    let index = this.currentSkills.indexOf(selectedSkill);
+    if (index > -1) {
+      this.currentSkills.splice(index, 1);
+    }
   }
 }

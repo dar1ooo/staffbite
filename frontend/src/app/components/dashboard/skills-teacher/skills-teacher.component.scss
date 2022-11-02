@@ -60,10 +60,20 @@
 .subskills {
   width: 100%;
 }
+
 .btn-primary {
+  color: #01161e;
   margin: 15px 0px;
+  background-color: #58a6ff;
+  border-color: #58a6ff;
 }
 
+.btn-primary:hover {
+  margin: 15px 0px;
+  color: #01161e;
+  background-color: #2cda9d;
+  border-color: #2cda9d;
+}
 .container th h1 {
   font-weight: bold;
   font-size: 1.5em;

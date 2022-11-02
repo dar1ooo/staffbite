@@ -40,6 +40,11 @@
               </td>
             </table>
           </td>
+          <td style="width: 5vw">
+            <button class="btn btn-info" (click)="deleteSkill(skillgroup)">
+              delete
+            </button>
+          </td>
         </tr>
       </tbody>
     </table>
@@ -150,7 +155,9 @@
         </div>
       </div>
 
-      <button class="btn btn-primary" (click)="saveSkill()">Save</button>
+      <button class="btn btn-primary save-button" (click)="saveSkill()">
+        Save
+      </button>
     </div>
   </div>
 </div>
