@@ -13,8 +13,12 @@
   color: #2cda9d;
 }
 
+.current-skills {
+  width: 100%;
+}
+
 /* Background-color of the odd rows */
-.container tr {
+.current-skills tr {
   border-bottom: 1px solid #21262d;
 
   .skill-checked {
@@ -27,7 +31,7 @@
   }
 }
 
-.container td:first-child {
+.current-skills td:first-child {
   cursor: default;
   color: #01161e;
   font-size: 20px;
@@ -72,40 +76,33 @@
   margin: 20px 0px;
   padding: 10px;
 }
-.container th h1 {
+.current-skills th h1 {
   font-weight: bold;
   font-size: 1.5em;
   color: #58a6ff;
 }
 
-.container td {
+.current-skills td {
   font-weight: normal;
   font-size: 1em;
   max-width: 15vw;
 }
 
-.container td,
-.container th {
+.current-skills td,
+.current-skills th {
   padding-bottom: 1%;
   padding-top: 1%;
   padding-left: 1%;
 }
 
-.container td:first-child {
+.current-skills td:first-child {
   color: #38aab3;
   max-width: 5vw;
 }
 
 @media (max-width: 800px) {
-  .container td:nth-child(4),
-  .container th:nth-child(4) {
-    display: none;
-  }
-}
-
-@media (max-width: 800px) {
-  .container td:nth-child(4),
-  .container th:nth-child(4) {
+  .current-skills td:nth-child(4),
+  .current-skills th:nth-child(4) {
     display: none;
   }
 }
@@ -158,11 +155,4 @@
 .btn-primary:hover {
   background-color: #5f7470;
   border-color: #5f7470;
-}
-
-@media (max-width: 800px) {
-  .container td:nth-child(4),
-  .container th:nth-child(4) {
-    display: none;
-  }
 }
