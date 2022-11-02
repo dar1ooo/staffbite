@@ -1,6 +1,7 @@
 <h1 class="completedmessage">
-  <span class="blue"></span>Current Teacher: <span class="blue"></span>
-  <span class="yellow">{{ teacher.Username }}</span>
+  <span class="yellow">{{ teacher.Username }}</span> has mastered
+  <span class="blue"></span>
+  <span class="yellow">{{ totalSkills }} %</span> of all Skills
 </h1>
 <table class="container">
   <thead>
@@ -14,13 +15,22 @@
   <tbody>
     <tr *ngFor="let skillgroup of teacher.SkillGroup">
       <td>{{ skillgroup.SkillTopic }}</td>
-      <td
-        *ngFor="let skill of skillgroup.Skills"
-        class="skill-area"
-        [ngClass]="skill.IsChecked ? 'skill-checked' : 'skill-not-checked'"
-        (click)="CheckSkill(skill, skillgroup)"
-      >
-        <span class="skill-description">{{ skill.Description }}</span>
+      <td *ngFor="let skillLevel of skillgroup.Skills">
+        <table class="subskills">
+          <td>
+            <tr
+              *ngFor="let subskill of skillLevel.SubSkills"
+              class="skill-area"
+              [ngClass]="
+                subskill.IsChecked ? 'skill-checked' : 'skill-not-checked'
+              "
+            >
+              <span class="skill-description">
+                {{ subskill.Description }}
+              </span>
+            </tr>
+          </td>
+        </table>
       </td>
     </tr>
   </tbody>

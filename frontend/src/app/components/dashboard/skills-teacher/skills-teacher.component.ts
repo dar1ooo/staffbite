@@ -28,12 +28,13 @@ export class SkillsTeacherComponent implements OnInit {
   public CheckSkill(skill: SubSkill, SkillGroup: Skills): void {
     this.user.SkillGroup.find(
       (skillGroup) => skillGroup.SkillTopic === SkillGroup.SkillTopic
-    ).Skills.find(
-      (s) =>
-        (s.SubSkills.find(
-          (sub) => sub.Description === skill.Description
-        ).IsChecked = !skill.IsChecked)
-    );
+    ).Skills.find((s) => {
+      s.SubSkills.forEach((subskill) => {
+        if (subskill.Description === skill.Description) {
+          subskill.IsChecked = !subskill.IsChecked;
+        }
+      });
+    });
     sessionStorage.setItem('user', JSON.stringify(this.user));
     this.SkillProgress();
   }
@@ -66,11 +67,14 @@ export class SkillsTeacherComponent implements OnInit {
     this.totalSkills = Math.round((skillsChecked / totalSkills) * 100);
   }
 
-  public openPdf(selectedSkill: SubSkill) {
+  public openPdf(selectedSkill: SubSkill, e: Event) {
+    if (e && e.stopPropagation) e.stopPropagation();
     window.open(selectedSkill.PdfUrl, '_blank');
   }
 
-  public openVideo(selectedSkill: SubSkill) {
+  public openVideo(selectedSkill: SubSkill, e: Event) {
+    if (e && e.stopPropagation) e.stopPropagation();
+
     window.open(selectedSkill.VideoUrl, '_blank');
   }
 }
