@@ -14,30 +14,39 @@
   <tbody>
     <tr *ngFor="let skillgroup of user.SkillGroup">
       <td>{{ skillgroup.SkillTopic }}</td>
-      <td
-        *ngFor="let skill of skillgroup.Skills"
-        class="skill-area"
-        [ngClass]="skill.IsChecked ? 'skill-checked' : 'skill-not-checked'"
-      >
-        <span
-          (click)="CheckSkill(skill, skillgroup)"
-          class="skill-description"
-          >{{ skill.Description }}</span
-        >
-        <button
-          class="btn btn-info"
-          (click)="openPdf(skill)"
-          *ngIf="skill.ShowPdf"
-        >
-          Pdf
-        </button>
-        <button
-          class="btn btn-info"
-          (click)="openVideo(skill)"
-          *ngIf="skill.ShowVideo"
-        >
-          Video
-        </button>
+      <td *ngFor="let skillLevel of skillgroup.Skills">
+        <table class="subskills">
+          <td>
+            <tr
+              *ngFor="let subskill of skillLevel.SubSkills"
+              class="skill-area"
+              [ngClass]="
+                subskill.IsChecked ? 'skill-checked' : 'skill-not-checked'
+              "
+            >
+              <span
+                (click)="CheckSkill(subskill, skillgroup)"
+                class="skill-description"
+              >
+                {{ subskill.Description }}
+              </span>
+              <button
+                class="btn btn-info"
+                (click)="openPdf(subskill)"
+                *ngIf="subskill.ShowPdf"
+              >
+                Pdf
+              </button>
+              <button
+                class="btn btn-info"
+                (click)="openVideo(subskill)"
+                *ngIf="subskill.ShowVideo"
+              >
+                Video
+              </button>
+            </tr>
+          </td>
+        </table>
       </td>
     </tr>
   </tbody>

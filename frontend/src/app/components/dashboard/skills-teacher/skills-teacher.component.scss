@@ -27,8 +27,6 @@
 
 /* Background-color of the odd rows */
 .container tr {
-  border-bottom: 1px solid #21262d;
-
   .skill-checked {
     background-color: rgb(0 255 84 / 31%);
     color: white;
@@ -49,13 +47,16 @@
 .skill-description {
   font-family: "Roboto", sans-serif;
   font-size: 1.1em;
+  max-width: 5vw;
 }
 
 .skill-area {
   max-width: 15vw;
   cursor: pointer;
 }
-
+.subskills {
+  width: 100%;
+}
 .btn-primary {
   margin: 15px 0px;
 }
@@ -94,12 +95,12 @@
   color: #38aab3;
 }
 
-.container td:hover.skill-area.skill-not-checked {
+.container tr:hover.skill-area.skill-not-checked {
   background-color: #497750;
   color: white;
 
-  box-shadow: #7f7c21 -1px 1px, #7f7c21 -2px 2px, #7f7c21 -3px 3px,
-    #7f7c21 -4px 4px, #7f7c21 -5px 5px, #7f7c21 -6px 6px;
+  box-shadow: #497750 -1px 1px, #497750 -2px 2px, #497750 -3px 3px,
+    #497750 -4px 4px, #497750 -5px 5px, #497750 -6px 6px;
   transform: translate3d(6px, -6px, 0);
 
   transition-delay: 0s;
@@ -108,12 +109,12 @@
   transition-timing-function: line;
 }
 
-.container td:hover.skill-area.skill-checked {
-  background-color: rgb(150, 4, 4, 0.76);
+.container tr:hover.skill-area.skill-checked {
+  background-color: #960404c2;
   color: white;
 
-  box-shadow: #7f7c21 -1px 1px, #7f7c21 -2px 2px, #7f7c21 -3px 3px,
-    #7f7c21 -4px 4px, #7f7c21 -5px 5px, #7f7c21 -6px 6px;
+  box-shadow: #960404c2 -1px 1px, #960404c2 -2px 2px, #960404c2 -3px 3px,
+    #960404c2 -4px 4px, #960404c2 -5px 5px, #960404c2 -6px 6px;
   transform: translate3d(6px, -6px, 0);
 
   transition-delay: 0s;
