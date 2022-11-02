@@ -36,18 +36,42 @@
 
 .skill-description {
   font-family: "Roboto", sans-serif;
-  font-size: 1.1em;
+  font-size: 0.75em;
+}
+
+.subskills {
+  width: 100%;
 }
 
 .skill-area {
-  max-width: 15vw;
   color: white;
 }
 
 .btn-primary {
   margin: 15px 0px;
 }
+.btn-info {
+  float: right;
+  margin: 0px 10px;
+  padding: 0px 5px;
+  color: white;
+  background-color: #161b22 !important;
+  border-color: #161b22 !important;
+}
 
+.btn-info:hover {
+  background-color: #e0e2db !important;
+  border-color: #e0e2db !important;
+  color: black;
+  padding: 0px 5px;
+}
+
+.white-border {
+  border: 1px solid white;
+  border-radius: 30px;
+  margin: 20px 0px;
+  padding: 10px;
+}
 .container th h1 {
   font-weight: bold;
   font-size: 1.5em;
@@ -57,9 +81,7 @@
 .container td {
   font-weight: normal;
   font-size: 1em;
-  -webkit-box-shadow: 0 2px 2px -2px #0e1119;
-  -moz-box-shadow: 0 2px 2px -2px #0e1119;
-  box-shadow: 0 2px 2px -2px #0e1119;
+  max-width: 15vw;
 }
 
 .container td,
@@ -71,6 +93,7 @@
 
 .container td:first-child {
   color: #38aab3;
+  max-width: 5vw;
 }
 
 @media (max-width: 800px) {

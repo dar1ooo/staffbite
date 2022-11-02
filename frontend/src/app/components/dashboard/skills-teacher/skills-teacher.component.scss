@@ -17,11 +17,15 @@
   float: right;
   margin: 0px 10px;
   padding: 0px 5px;
+  color: white;
+  background-color: #161b22 !important;
+  border-color: #161b22 !important;
 }
 
 .btn-info:hover {
-  background-color: #4580c3;
-  border-color: #4580c3;
+  background-color: #e0e2db !important;
+  border-color: #e0e2db !important;
+  color: black;
   padding: 0px 5px;
 }
 
@@ -46,12 +50,11 @@
 
 .skill-description {
   font-family: "Roboto", sans-serif;
-  font-size: 1.1em;
+  font-size: 0.9em;
   max-width: 5vw;
 }
 
 .skill-area {
-  max-width: 15vw;
   cursor: pointer;
 }
 .subskills {
@@ -70,9 +73,7 @@
 .container td {
   font-weight: normal;
   font-size: 1em;
-  -webkit-box-shadow: 0 2px 2px -2px #0e1119;
-  -moz-box-shadow: 0 2px 2px -2px #0e1119;
-  box-shadow: 0 2px 2px -2px #0e1119;
+  max-width: 15vw;
 }
 
 .container {
@@ -95,7 +96,7 @@
   color: #38aab3;
 }
 
-.container tr:hover.skill-area.skill-not-checked {
+.container div:hover.skill-area.skill-not-checked {
   background-color: #497750;
   color: white;
 
@@ -109,7 +110,7 @@
   transition-timing-function: line;
 }
 
-.container tr:hover.skill-area.skill-checked {
+.container div:hover.skill-area.skill-checked {
   background-color: #960404c2;
   color: white;
 

@@ -17,7 +17,7 @@
       <td *ngFor="let skillLevel of skillgroup.Skills">
         <table class="subskills">
           <td>
-            <tr
+            <div
               *ngFor="let subskill of skillLevel.SubSkills"
               class="skill-area"
               [ngClass]="
@@ -42,7 +42,7 @@
               >
                 Video
               </button>
-            </tr>
+            </div>
           </td>
         </table>
       </td>

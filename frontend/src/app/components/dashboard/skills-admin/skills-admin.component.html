@@ -15,14 +15,28 @@
           <td *ngFor="let skillLevel of skillgroup.Skills">
             <table class="subskills">
               <td>
-                <tr
+                <div
                   *ngFor="let subskill of skillLevel.SubSkills"
                   class="skill-area"
                 >
                   <span class="skill-description">
                     {{ subskill.Description }}
                   </span>
-                </tr>
+                  <button
+                    class="btn btn-info"
+                    (click)="openPdf(subskill, $event)"
+                    *ngIf="subskill.ShowPdf"
+                  >
+                    Pdf
+                  </button>
+                  <button
+                    class="btn btn-info"
+                    (click)="openVideo(subskill, $event)"
+                    *ngIf="subskill.ShowVideo"
+                  >
+                    Video
+                  </button>
+                </div>
               </td>
             </table>
           </td>
@@ -72,21 +86,68 @@
         <textarea
           class="form-control skill-form"
           id="skill1"
-          [(ngModel)]="newSkill.Skills[0].Description"
+          [(ngModel)]="beginnerDescription"
           *ngIf="activeSkill === 1"
         ></textarea>
         <textarea
           class="form-control skill-form"
           id="skill2"
-          [(ngModel)]="newSkill.Skills[1].Description"
+          [(ngModel)]="advancedDescription"
           *ngIf="activeSkill === 2"
         ></textarea>
         <textarea
           class="form-control skill-form"
           id="skill3"
-          [(ngModel)]="newSkill.Skills[2].Description"
+          [(ngModel)]="expertDescription"
           *ngIf="activeSkill === 3"
         ></textarea>
+        <div>
+          <label>PDF Link:</label>
+          <input
+            type="text"
+            class="form-control"
+            id="skill1"
+            [(ngModel)]="pdfLink"
+          />
+        </div>
+        <div>
+          <label>Video Link:</label>
+          <input
+            type="text"
+            class="form-control"
+            id="skill1"
+            [(ngModel)]="videoLink"
+          />
+        </div>
+        <button class="skill-button btn btn-primary" (click)="addSubSkill()">
+          Add subskill
+        </button>
+        <div class="white-border">
+          <div>
+            <label>Beginner:</label>
+            <span *ngIf="newSkill.Skills[0]">
+              <span *ngFor="let subskill of newSkill.Skills[0].SubSkills">
+                {{ subskill.Description }},
+              </span>
+            </span>
+          </div>
+          <div>
+            <label>Advanced:</label>
+            <span *ngIf="newSkill.Skills[1]">
+              <span *ngFor="let subskill of newSkill.Skills[1].SubSkills">
+                {{ subskill.Description }},
+              </span>
+            </span>
+          </div>
+          <div>
+            <label>Expert:</label>
+            <span *ngIf="newSkill.Skills[2]">
+              <span *ngFor="let subskill of newSkill.Skills[2].SubSkills">
+                {{ subskill.Description }},
+              </span>
+            </span>
+          </div>
+        </div>
       </div>
 
       <button class="btn btn-primary" (click)="saveSkill()">Save</button>
