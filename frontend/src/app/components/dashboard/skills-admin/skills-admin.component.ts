@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { catchError, tap } from 'rxjs';
-import { Skills, User } from 'src/app/models';
+import { Skill, Skills, User } from 'src/app/models';
 import { SKillsService } from 'src/app/services/skills.service';
 
 @Component({
@@ -11,10 +11,10 @@ import { SKillsService } from 'src/app/services/skills.service';
 })
 export class SkillsAdminComponent implements OnInit {
   @Input()
-  public user: User = new User();
+  public user: User;
 
+  public currentSkills: Skills[] = [];
   public newSkill: Skills = new Skills();
-
   public activeSkill: number = 1;
 
   constructor(
@@ -36,12 +36,88 @@ export class SkillsAdminComponent implements OnInit {
         },
       ],
     });
+
+    let mockedSkills = new Skills();
+    mockedSkills = {
+      SkillTopic: 'English',
+      Skills: [
+        {
+          SubSkills: [
+            {
+              Description: 'Grammar',
+              IsChecked: true,
+              ShowPdf: true,
+              PdfUrl: 'https://www.orimi.com/pdf-test.pdf',
+              ShowVideo: true,
+              VideoUrl: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
+            },
+            {
+              Description: 'Writing',
+              IsChecked: true,
+              ShowPdf: false,
+              PdfUrl: '',
+              ShowVideo: false,
+              VideoUrl: '',
+            },
+            {
+              Description: 'Reading',
+              IsChecked: true,
+              ShowPdf: true,
+              PdfUrl: 'https://www.orimi.com/pdf-test.pdf',
+              ShowVideo: true,
+              VideoUrl: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
+            },
+            {
+              Description: 'Basic listening',
+              IsChecked: true,
+              ShowPdf: true,
+              PdfUrl: 'https://www.orimi.com/pdf-test.pdf',
+              ShowVideo: true,
+              VideoUrl: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
+            },
+          ],
+        },
+        {
+          SubSkills: [
+            {
+              Description: 'Listening',
+              IsChecked: true,
+              ShowPdf: false,
+              PdfUrl: '',
+              ShowVideo: false,
+              VideoUrl: '',
+            },
+            {
+              Description: 'Read at least 3 books in english',
+              IsChecked: true,
+              ShowPdf: false,
+              PdfUrl: '',
+              ShowVideo: false,
+              VideoUrl: '',
+            },
+          ],
+        },
+        {
+          SubSkills: [
+            {
+              Description: 'Essays',
+              IsChecked: true,
+              ShowPdf: false,
+              PdfUrl: '',
+              ShowVideo: false,
+              VideoUrl: '',
+            },
+          ],
+        },
+      ],
+    };
+    this.currentSkills.push(mockedSkills);
   }
 
   public saveSkill(): void {
     if (this.skillFormValid()) {
       this.skillService
-        .saveNewSkill(this.user, this.newSkill)
+        .saveNewSkill(this.user, this.currentSkills)
         .pipe(
           tap((data) => {
             this.toastr.success('Skill saved successfully');

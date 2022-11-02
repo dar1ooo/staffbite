@@ -10,10 +10,21 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let skillgroup of user.SkillGroup">
+        <tr *ngFor="let skillgroup of currentSkills">
           <td>{{ skillgroup.SkillTopic }}</td>
-          <td *ngFor="let skill of skillgroup.Skills" class="skill-area">
-            <span class="skill-description">{{ skill.Description }}</span>
+          <td *ngFor="let skillLevel of skillgroup.Skills">
+            <table class="subskills">
+              <td>
+                <tr
+                  *ngFor="let subskill of skillLevel.SubSkills"
+                  class="skill-area"
+                >
+                  <span class="skill-description">
+                    {{ subskill.Description }}
+                  </span>
+                </tr>
+              </td>
+            </table>
           </td>
         </tr>
       </tbody>
