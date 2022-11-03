@@ -1,4 +1,5 @@
+import { SubSkill } from './subskill.model';
+
 export class Skill {
-  Description: string = '';
-  IsChecked: boolean = false;
+  SubSkills: SubSkill[] = [];
 }

@@ -31,82 +31,76 @@ export class LoginComponent implements OnInit {
     this.mockedUser.UserId = 1;
     this.mockedUser.SkillGroup = [
       {
-        SkillTopic: 'German',
-        Skills: [
-          { Description: 'Grammatik', IsChecked: true },
-          { Description: 'Rechtschreibung', IsChecked: false },
-          { Description: 'Literatur', IsChecked: false },
-        ],
-      },
-      {
         SkillTopic: 'English',
         Skills: [
-          { Description: 'Fehlerfreies Sprechen', IsChecked: true },
-          { Description: 'Schreiben', IsChecked: false },
-          { Description: 'Formelles Schreiben', IsChecked: true },
-        ],
-      },
-      {
-        SkillTopic: 'French',
-        Skills: [
-          { Description: 'Verstehen', IsChecked: false },
-          { Description: 'Schreiben', IsChecked: false },
-          { Description: 'Formelles Schreiben', IsChecked: false },
-        ],
-      },
-      {
-        SkillTopic: 'Mathe',
-        Skills: [
-          { Description: 'Listening', IsChecked: true },
-          { Description: 'Reading', IsChecked: true },
-          { Description: 'Writing', IsChecked: true },
-        ],
-      },
-      {
-        SkillTopic: 'c#',
-        Skills: [
-          { Description: 'Methods', IsChecked: false },
           {
-            Description: 'Object Oriented Programming',
-            IsChecked: true,
+            SubSkills: [
+              {
+                Description: 'Grammar',
+                IsChecked: false,
+                ShowPdf: true,
+                PdfUrl: 'https://www.orimi.com/pdf-test.pdf',
+                ShowVideo: true,
+                VideoUrl: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
+              },
+              {
+                Description: 'Writing',
+                IsChecked: false,
+                ShowPdf: false,
+                PdfUrl: '',
+                ShowVideo: false,
+                VideoUrl: '',
+              },
+              {
+                Description: 'Reading',
+                IsChecked: false,
+                ShowPdf: true,
+                PdfUrl: 'https://www.orimi.com/pdf-test.pdf',
+                ShowVideo: true,
+                VideoUrl: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
+              },
+              {
+                Description: 'Basic listening',
+                IsChecked: false,
+                ShowPdf: true,
+                PdfUrl: 'https://www.orimi.com/pdf-test.pdf',
+                ShowVideo: true,
+                VideoUrl: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
+              },
+            ],
           },
-          { Description: 'Polymorphism', IsChecked: true },
-        ],
-      },
-
-      {
-        SkillTopic: 'JS',
-        Skills: [
-          { Description: 'Listening', IsChecked: false },
-          { Description: 'Reading', IsChecked: true },
-          { Description: 'Writing', IsChecked: false },
-        ],
-      },
-
-      {
-        SkillTopic: 'SQL',
-        Skills: [
-          { Description: 'Listening', IsChecked: false },
-          { Description: 'Reading', IsChecked: true },
-          { Description: 'Writing', IsChecked: false },
-        ],
-      },
-
-      {
-        SkillTopic: 'Python',
-        Skills: [
-          { Description: 'Listening', IsChecked: true },
-          { Description: 'Reading', IsChecked: false },
-          { Description: 'Writing', IsChecked: true },
-        ],
-      },
-
-      {
-        SkillTopic: 'Networking',
-        Skills: [
-          { Description: 'Listening', IsChecked: true },
-          { Description: 'Reading', IsChecked: false },
-          { Description: 'Writing', IsChecked: false },
+          {
+            SubSkills: [
+              {
+                Description: 'Listening',
+                IsChecked: false,
+                ShowPdf: false,
+                PdfUrl: '',
+                ShowVideo: false,
+                VideoUrl: '',
+              },
+              {
+                Description: 'Read at least 3 books in english',
+                IsChecked: false,
+                ShowPdf: false,
+                PdfUrl: '',
+                ShowVideo: false,
+                VideoUrl: '',
+              },
+            ],
+          },
+          {
+            SubSkills: [
+              {
+                Description: 'Essays',
+                IsChecked: false,
+                ShowPdf: false,
+                PdfUrl: '',
+                ShowVideo: false,
+                VideoUrl: '',
+              },
+            ],
+          },
         ],
       },
     ];

@@ -6,8 +6,31 @@ import { User } from 'src/app/models';
   templateUrl: './teacher-detail.component.html',
   styleUrls: ['./teacher-detail.component.scss'],
 })
-export class TeacherDetailComponent {
+export class TeacherDetailComponent implements OnInit {
   @Input()
   public teacher: User = new User();
+
+  public totalSkills = 0;
+
   constructor() {}
+
+  ngOnInit(): void {
+    this.SkillProgress();
+  }
+
+  public SkillProgress() {
+    let skillsChecked = 0;
+    let totalSkills = 0;
+    this.teacher.SkillGroup.forEach((skillGroup) => {
+      skillGroup.Skills.forEach((skill) => {
+        skill.SubSkills.forEach((subSkill) => {
+          if (subSkill.IsChecked) {
+            skillsChecked++;
+          }
+          totalSkills++;
+        });
+      });
+    });
+    this.totalSkills = Math.round((skillsChecked / totalSkills) * 100);
+  }
 }

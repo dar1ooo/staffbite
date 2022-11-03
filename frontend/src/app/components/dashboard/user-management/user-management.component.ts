@@ -17,301 +17,88 @@ export class UserManagementComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {
-    this.teachers = [
+    const mockedUser = new User();
+
+    mockedUser.Username = 'Alfred';
+    mockedUser.Email = 'alfredhitchcock@online.gibz.ch';
+    mockedUser.UserRole = UserRole.Admin;
+    mockedUser.UserId = 1;
+    mockedUser.SkillGroup = [
       {
-        Username: 'Amy',
-        Email: 'amywinehouser@gmail.com',
-        UserRole: UserRole.Teacher,
-        UserId: 1,
-        SkillGroup: [
+        SkillTopic: 'English',
+        Skills: [
           {
-            SkillTopic: 'German',
-            Skills: [
-              { Description: 'Grammatik', IsChecked: true },
-              { Description: 'Rechtschreibung', IsChecked: false },
-              { Description: 'Literatur', IsChecked: false },
-            ],
-          },
-          {
-            SkillTopic: 'English',
-            Skills: [
-              { Description: 'Fehlerfreies Sprechen', IsChecked: true },
-              { Description: 'Schreiben', IsChecked: false },
-              { Description: 'Formelles Schreiben', IsChecked: true },
-            ],
-          },
-          {
-            SkillTopic: 'French',
-            Skills: [
-              { Description: 'Verstehen', IsChecked: false },
-              { Description: 'Schreiben', IsChecked: false },
-              { Description: 'Formelles Schreiben', IsChecked: false },
-            ],
-          },
-          {
-            SkillTopic: 'Mathe',
-            Skills: [
-              { Description: 'Listening', IsChecked: true },
-              { Description: 'Reading', IsChecked: true },
-              { Description: 'Writing', IsChecked: true },
-            ],
-          },
-          {
-            SkillTopic: 'c#',
-            Skills: [
-              { Description: 'Methods', IsChecked: false },
+            SubSkills: [
               {
-                Description: 'Object Oriented Programming',
+                Description: 'Grammar',
                 IsChecked: true,
+                ShowPdf: true,
+                PdfUrl: 'https://www.orimi.com/pdf-test.pdf',
+                ShowVideo: true,
+                VideoUrl: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
               },
-              { Description: 'Polymorphism', IsChecked: true },
-            ],
-          },
-
-          {
-            SkillTopic: 'JS',
-            Skills: [
-              { Description: 'Listening', IsChecked: false },
-              { Description: 'Reading', IsChecked: true },
-              { Description: 'Writing', IsChecked: false },
-            ],
-          },
-
-          {
-            SkillTopic: 'SQL',
-            Skills: [
-              { Description: 'Listening', IsChecked: false },
-              { Description: 'Reading', IsChecked: true },
-              { Description: 'Writing', IsChecked: false },
-            ],
-          },
-
-          {
-            SkillTopic: 'Python',
-            Skills: [
-              { Description: 'Listening', IsChecked: true },
-              { Description: 'Reading', IsChecked: false },
-              { Description: 'Writing', IsChecked: true },
-            ],
-          },
-
-          {
-            SkillTopic: 'Networking',
-            Skills: [
-              { Description: 'Listening', IsChecked: true },
-              { Description: 'Reading', IsChecked: false },
-              { Description: 'Writing', IsChecked: false },
-            ],
-          },
-        ],
-      },
-      {
-        Username: 'Robert',
-        Email: 'robert@gmail.com',
-        UserRole: UserRole.Teacher,
-        UserId: 1,
-        SkillGroup: [
-          {
-            SkillTopic: 'German',
-            Skills: [
-              { Description: 'Grammatik', IsChecked: true },
-              { Description: 'Rechtschreibung', IsChecked: false },
-              { Description: 'Literatur', IsChecked: false },
-            ],
-          },
-          {
-            SkillTopic: 'English',
-            Skills: [
-              { Description: 'Fehlerfreies Sprechen', IsChecked: true },
-              { Description: 'Schreiben', IsChecked: false },
-              { Description: 'Formelles Schreiben', IsChecked: true },
-            ],
-          },
-          {
-            SkillTopic: 'French',
-            Skills: [
-              { Description: 'Verstehen', IsChecked: false },
-              { Description: 'Schreiben', IsChecked: false },
-              { Description: 'Formelles Schreiben', IsChecked: false },
-            ],
-          },
-          {
-            SkillTopic: 'Mathe',
-            Skills: [
-              { Description: 'Listening', IsChecked: true },
-              { Description: 'Reading', IsChecked: true },
-              { Description: 'Writing', IsChecked: true },
-            ],
-          },
-          {
-            SkillTopic: 'c#',
-            Skills: [
-              { Description: 'Methods', IsChecked: false },
               {
-                Description: 'Object Oriented Programming',
+                Description: 'Writing',
                 IsChecked: true,
+                ShowPdf: false,
+                PdfUrl: '',
+                ShowVideo: false,
+                VideoUrl: '',
               },
-              { Description: 'Polymorphism', IsChecked: true },
-            ],
-          },
-
-          {
-            SkillTopic: 'JS',
-            Skills: [
-              { Description: 'Listening', IsChecked: false },
-              { Description: 'Reading', IsChecked: true },
-              { Description: 'Writing', IsChecked: false },
-            ],
-          },
-
-          {
-            SkillTopic: 'SQL',
-            Skills: [
-              { Description: 'Listening', IsChecked: false },
-              { Description: 'Reading', IsChecked: true },
-              { Description: 'Writing', IsChecked: false },
-            ],
-          },
-
-          {
-            SkillTopic: 'Python',
-            Skills: [
-              { Description: 'Listening', IsChecked: true },
-              { Description: 'Reading', IsChecked: false },
-              { Description: 'Writing', IsChecked: true },
-            ],
-          },
-
-          {
-            SkillTopic: 'Networking',
-            Skills: [
-              { Description: 'Listening', IsChecked: true },
-              { Description: 'Reading', IsChecked: false },
-              { Description: 'Writing', IsChecked: false },
-            ],
-          },
-        ],
-      },
-      {
-        Username: 'James',
-        Email: 'james@gmail.com',
-        UserRole: UserRole.Teacher,
-        UserId: 1,
-        SkillGroup: [
-          {
-            SkillTopic: 'German',
-            Skills: [
-              { Description: 'Grammatik', IsChecked: true },
-              { Description: 'Rechtschreibung', IsChecked: false },
-              { Description: 'Literatur', IsChecked: false },
-            ],
-          },
-          {
-            SkillTopic: 'English',
-            Skills: [
-              { Description: 'Fehlerfreies Sprechen', IsChecked: true },
-              { Description: 'Schreiben', IsChecked: false },
-              { Description: 'Formelles Schreiben', IsChecked: true },
-            ],
-          },
-          {
-            SkillTopic: 'French',
-            Skills: [
-              { Description: 'Verstehen', IsChecked: false },
-              { Description: 'Schreiben', IsChecked: false },
-              { Description: 'Formelles Schreiben', IsChecked: false },
-            ],
-          },
-          {
-            SkillTopic: 'Mathe',
-            Skills: [
-              { Description: 'Listening', IsChecked: true },
-              { Description: 'Reading', IsChecked: true },
-              { Description: 'Writing', IsChecked: true },
-            ],
-          },
-          {
-            SkillTopic: 'c#',
-            Skills: [
-              { Description: 'Methods', IsChecked: false },
               {
-                Description: 'Object Oriented Programming',
+                Description: 'Reading',
                 IsChecked: true,
+                ShowPdf: true,
+                PdfUrl: 'https://www.orimi.com/pdf-test.pdf',
+                ShowVideo: true,
+                VideoUrl: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
               },
-              { Description: 'Polymorphism', IsChecked: true },
+              {
+                Description: 'Basic listening',
+                IsChecked: true,
+                ShowPdf: true,
+                PdfUrl: 'https://www.orimi.com/pdf-test.pdf',
+                ShowVideo: true,
+                VideoUrl: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
+              },
             ],
           },
-
           {
-            SkillTopic: 'JS',
-            Skills: [
-              { Description: 'Listening', IsChecked: false },
-              { Description: 'Reading', IsChecked: true },
-              { Description: 'Writing', IsChecked: false },
+            SubSkills: [
+              {
+                Description: 'Listening',
+                IsChecked: true,
+                ShowPdf: false,
+                PdfUrl: '',
+                ShowVideo: false,
+                VideoUrl: '',
+              },
+              {
+                Description: 'Read at least 3 books in english',
+                IsChecked: true,
+                ShowPdf: false,
+                PdfUrl: '',
+                ShowVideo: false,
+                VideoUrl: '',
+              },
             ],
           },
-
           {
-            SkillTopic: 'SQL',
-            Skills: [
-              { Description: 'Listening', IsChecked: false },
-              { Description: 'Reading', IsChecked: true },
-              { Description: 'Writing', IsChecked: false },
-            ],
-          },
-
-          {
-            SkillTopic: 'Python',
-            Skills: [
-              { Description: 'Listening', IsChecked: true },
-              { Description: 'Reading', IsChecked: false },
-              { Description: 'Writing', IsChecked: true },
-            ],
-          },
-
-          {
-            SkillTopic: 'Networking',
-            Skills: [
-              { Description: 'Listening', IsChecked: true },
-              { Description: 'Reading', IsChecked: false },
-              { Description: 'Writing', IsChecked: false },
-            ],
-          },
-        ],
-      },
-      {
-        Username: 'Hans',
-        Email: 'hanszimmer@gmail.com',
-        UserRole: UserRole.Teacher,
-        UserId: 1,
-        SkillGroup: [
-          {
-            SkillTopic: 'German',
-            Skills: [
-              { Description: 'Grammatik', IsChecked: true },
-              { Description: 'Rechtschreibung', IsChecked: false },
-              { Description: 'Literatur', IsChecked: false },
-            ],
-          },
-        ],
-      },
-      {
-        Username: 'Peter',
-        Email: 'peter@gmail.com',
-        UserRole: UserRole.Teacher,
-        UserId: 1,
-        SkillGroup: [
-          {
-            SkillTopic: 'German',
-            Skills: [
-              { Description: 'Grammatik', IsChecked: true },
-              { Description: 'Rechtschreibung', IsChecked: false },
-              { Description: 'Literatur', IsChecked: false },
+            SubSkills: [
+              {
+                Description: 'Essays',
+                IsChecked: true,
+                ShowPdf: false,
+                PdfUrl: '',
+                ShowVideo: false,
+                VideoUrl: '',
+              },
             ],
           },
         ],
       },
     ];
+    this.teachers.push(mockedUser);
   }
 
   public viewSkills(teacher: User) {

@@ -15,7 +15,7 @@ export class SKillsService {
     return this.http.post(this.baseurl, user);
   }
 
-  saveNewSkill(user: User, skills: Skills): Observable<Skills> {
+  saveNewSkill(user: User, skills: Skills[]): Observable<Skills> {
     if (user.UserRole === UserRole.Admin) {
       return this.http.post<Skills>(this.baseurl, skills);
     } else {

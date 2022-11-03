@@ -1,6 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
-import { Skill, Skills, User } from 'src/app/models';
+import { catchError, tap } from 'rxjs';
+import { Skills, User } from 'src/app/models';
+import { SubSkill } from 'src/app/models/subskill.model';
 import { SKillsService } from 'src/app/services/skills.service';
 
 @Component({
@@ -23,23 +25,29 @@ export class SkillsTeacherComponent implements OnInit {
     this.SkillProgress();
   }
 
-  public CheckSkill(skill: Skill, SkillGroup: Skills): void {
+  public CheckSkill(skill: SubSkill, SkillGroup: Skills): void {
     this.user.SkillGroup.find(
       (skillGroup) => skillGroup.SkillTopic === SkillGroup.SkillTopic
-    ).Skills.find((s) => s.Description === skill.Description).IsChecked =
-      !skill.IsChecked;
+    ).Skills.find((s) => {
+      s.SubSkills.forEach((subskill) => {
+        if (subskill.Description === skill.Description) {
+          subskill.IsChecked = !subskill.IsChecked;
+        }
+      });
+    });
     sessionStorage.setItem('user', JSON.stringify(this.user));
     this.SkillProgress();
   }
 
   public saveSkills(): void {
-    this.skillsService.updateSkillProgress(this.user).subscribe(
-      (result) => {
+    this.skillsService.updateSkillProgress(this.user).pipe(
+      tap((result) => {
         this.toastr.success('Saving successful', 'Success');
-      },
-      (error) => {
+      }),
+      catchError((err) => {
         this.toastr.error('Saving failed', 'Failed');
-      }
+        return err;
+      })
     );
   }
 
@@ -48,12 +56,25 @@ export class SkillsTeacherComponent implements OnInit {
     let totalSkills = 0;
     this.user.SkillGroup.forEach((skillGroup) => {
       skillGroup.Skills.forEach((skill) => {
-        if (skill.IsChecked) {
-          skillsChecked++;
-        }
-        totalSkills++;
+        skill.SubSkills.forEach((subSkill) => {
+          if (subSkill.IsChecked) {
+            skillsChecked++;
+          }
+          totalSkills++;
+        });
       });
     });
     this.totalSkills = Math.round((skillsChecked / totalSkills) * 100);
+  }
+
+  public openPdf(selectedSkill: SubSkill, e: Event) {
+    if (e && e.stopPropagation) e.stopPropagation();
+    window.open(selectedSkill.PdfUrl, '_blank');
+  }
+
+  public openVideo(selectedSkill: SubSkill, e: Event) {
+    if (e && e.stopPropagation) e.stopPropagation();
+
+    window.open(selectedSkill.VideoUrl, '_blank');
   }
 }
