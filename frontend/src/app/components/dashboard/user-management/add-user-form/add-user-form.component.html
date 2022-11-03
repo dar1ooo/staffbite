@@ -1,0 +1,101 @@
+<div class="container settings-card">
+  <div class="mb-3">
+    <div class="header">
+      <h4>Create a new User</h4>
+    </div>
+    <label for="Username" class="form-label">Username</label>
+    <div class="input-group mb-3">
+      <span class="input-group-text" id="basic-addon1">@</span>
+      <input
+        type="text"
+        id="Username"
+        class="form-control"
+        [(ngModel)]="user.Username"
+        placeholder="{{ user.Username }}"
+        aria-label="Username"
+        aria-describedby="basic-addon1"
+      />
+    </div>
+
+    <label for="exampleInputEmail1" class="form-label">Email address</label>
+    <input
+      class="form-control"
+      id="exampleInputEmail1"
+      aria-describedby="emailHelp"
+      [(ngModel)]="user.Email"
+    />
+    <div id="emailHelp" class="form-text">
+      We'll never share the email with anyone else.
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-4">
+      <div class="dropdown">
+        <button
+          class="btn btn-light dropdown-toggle"
+          type="button"
+          data-bs-toggle="dropdown"
+          aria-expanded="false"
+        >
+          Job Field
+        </button>
+        <ul class="dropdown-menu">
+          <li><a class="dropdown-item" href="#">KV</a></li>
+          <li>
+            <a class="dropdown-item" href="#">Applikationsentwickler</a>
+          </li>
+          <li><a class="dropdown-item" href="#">Koch</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="col-4">
+      <div class="form-check form-switch">
+        <input
+          class="form-check-input"
+          type="checkbox"
+          role="switch"
+          id="flexSwitchCheckDefault"
+        />
+        <label class="form-check-label" for="flexSwitchCheckDefault"
+          >Is Admin</label
+        >
+      </div>
+    </div>
+  </div>
+  <div class="col-4">
+    <label for="newPassword" class="form-label">Password</label>
+
+    <div class="input-group mb-3">
+      <input
+        type="password"
+        class="form-control"
+        aria-describedby="confirmPasswordHelp"
+        id="newPassword"
+        [(ngModel)]="newPassword"
+        *ngIf="!showPassword"
+      />
+      <input
+        type="text"
+        class="form-control"
+        aria-describedby="confirmPasswordHelp"
+        *ngIf="showPassword"
+        [(ngModel)]="newPassword"
+      />
+
+      <span class="input-group-text" id="basic-addon2"
+        ><img
+          *ngIf="!showPassword"
+          (click)="changeShowPassword()"
+          class="eye-icon"
+          src="../../../../assets/images/eye-open.png" />
+        <img
+          *ngIf="showPassword"
+          (click)="changeShowPassword()"
+          class="eye-icon"
+          src="../../../../assets/images/eye-closed.png"
+      /></span>
+    </div>
+  </div>
+  <button (click)="saveSettings()" class="btn btn-primary">Save</button>
+  <button class="btn btn-primary" (click)="back()">Back</button>
+</div>

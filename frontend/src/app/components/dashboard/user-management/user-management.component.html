@@ -1,4 +1,4 @@
-<div *ngIf="!showUserDetail">
+<div *ngIf="!showUserDetail && !showAddUser">
   <h1 class="completedmessage">
     <span class="blue"></span>All Teachers: <span class="blue"></span>
   </h1>
@@ -24,10 +24,16 @@
       </tr>
     </tbody>
   </table>
+  <div class="container mt-4">
+    <button class="btn btn-primary" (click)="addUser()">Add User</button>
+  </div>
 </div>
 <div *ngIf="showUserDetail">
   <app-teacher-detail [teacher]="selectedTeacher"></app-teacher-detail>
   <div class="container mt-4">
     <button class="btn btn-primary" (click)="backToUserList()">Back</button>
   </div>
+</div>
+<div *ngIf="showAddUser">
+  <app-add-user-form (backToUserList)="backToUserList()"></app-add-user-form>
 </div>

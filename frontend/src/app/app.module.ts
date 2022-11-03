@@ -19,6 +19,7 @@ import { UserManagementComponent } from './components/dashboard/user-management/
 import { LoginComponent } from './components/login/login.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
+import { AddUserFormComponent } from './components/dashboard/user-management/add-user-form/add-user-form.component';
 
 @NgModule({
   declarations: [
@@ -35,6 +36,7 @@ import { PageNotFoundComponent } from './components/page-not-found/page-not-foun
     UserManagementComponent,
     TeacherDetailComponent,
     RandomGroupsComponent,
+    AddUserFormComponent,
   ],
   imports: [
     CommonModule,
