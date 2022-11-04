@@ -17,15 +17,17 @@ export class SkillsAdminComponent implements OnInit {
 
   public currentSkills: Skills[] = [];
   public newSkill: Skills = new Skills();
+  public editedSkill: Skills = new Skills();
   public beginnerDescription: string = '';
   public advancedDescription: string = '';
   public expertDescription: string = '';
   public pdfLink: string = '';
   public videoLink: string = '';
   public activeSkill: number = 1;
-
   public isEditing: boolean = false;
-
+  public activeEditSubskillIndex: number = -1;
+  public activeEditSubskillLevel: string;
+  public editingSubSkill: boolean = false;
   constructor(
     private toastr: ToastrService,
     private skillService: SKillsService
@@ -156,7 +158,11 @@ export class SkillsAdminComponent implements OnInit {
         }
 
         subSkill.Description = this.beginnerDescription;
-        this.newSkill.Skills[0].SubSkills.push(subSkill);
+        if (this.isEditing) {
+          this.editedSkill.Skills[0].SubSkills.push(subSkill);
+        } else {
+          this.newSkill.Skills[0].SubSkills.push(subSkill);
+        }
         this.beginnerDescription = '';
         break;
 
@@ -177,7 +183,11 @@ export class SkillsAdminComponent implements OnInit {
         }
 
         subSkill.Description = this.advancedDescription;
-        this.newSkill.Skills[1].SubSkills.push(subSkill);
+        if (this.isEditing) {
+          this.editedSkill.Skills[1].SubSkills.push(subSkill);
+        } else {
+          this.newSkill.Skills[1].SubSkills.push(subSkill);
+        }
         this.advancedDescription = '';
 
         break;
@@ -195,7 +205,11 @@ export class SkillsAdminComponent implements OnInit {
         }
 
         subSkill.Description = this.expertDescription;
-        this.newSkill.Skills[2].SubSkills.push(subSkill);
+        if (this.isEditing) {
+          this.editedSkill.Skills[2].SubSkills.push(subSkill);
+        } else {
+          this.newSkill.Skills[2].SubSkills.push(subSkill);
+        }
         this.expertDescription = '';
 
         break;
@@ -259,4 +273,37 @@ export class SkillsAdminComponent implements OnInit {
       this.currentSkills.splice(index, 1);
     }
   }
+
+  public editSkill(selectedSkill: Skills) {
+    let skill = selectedSkill;
+    this.editedSkill = { ...skill };
+    this.activeSkill = 1;
+    this.isEditing = true;
+  }
+
+  public editSusbkill(selectedSkill: SubSkill, index: number, level: string) {
+    this.activeEditSubskillIndex = index;
+    this.activeEditSubskillLevel = level;
+    this.editingSubSkill = true;
+    this.beginnerDescription = selectedSkill.Description;
+    this.pdfLink = selectedSkill.PdfUrl;
+    this.videoLink = selectedSkill.VideoUrl;
+  }
+
+  public saveEditedSkill() {
+    this.isEditing = false;
+    this.resetSkillForm();
+  }
+
+  public cancelEdit() {
+    this.isEditing = false;
+    this.resetSkillForm();
+  }
+
+  public saveEditedSubskill() {
+    this.editingSubSkill = false;
+    this.editSusbkill;
+  }
+
+  public addEditedSusbkill() {}
 }
