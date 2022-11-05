@@ -10,7 +10,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let skillgroup of currentSkills">
+        <tr *ngFor="let skillgroup of currentSkills; let i = index">
           <td>{{ skillgroup.SkillTopic }}</td>
           <td *ngFor="let skillLevel of skillgroup.Skills">
             <table class="subskills">
@@ -41,10 +41,10 @@
             </table>
           </td>
           <td style="width: 10vw">
-            <button class="btn btn-info" (click)="deleteSkill(skillgroup)">
+            <button class="btn btn-info" (click)="deleteSkill(i)">
               delete
             </button>
-            <button class="btn btn-info" (click)="editSkill(skillgroup)">
+            <button class="btn btn-info" (click)="editSkill(skillgroup, i)">
               edit
             </button>
           </td>
@@ -191,6 +191,7 @@
           class="skill-button btn btn-primary"
           [ngClass]="activeSkill === 1 ? 'active-skill' : ''"
           (click)="changeSkill(1)"
+          [disabled]="editingSubSkill"
         >
           Beginner
         </button>
@@ -198,6 +199,7 @@
           [ngClass]="activeSkill === 2 ? 'active-skill' : ''"
           class="skill-button btn btn-primary margin-skill"
           (click)="changeSkill(2)"
+          [disabled]="editingSubSkill"
         >
           Advanced
         </button>
@@ -205,6 +207,7 @@
           [ngClass]="activeSkill === 3 ? 'active-skill' : ''"
           class="skill-button btn btn-primary margin-skill"
           (click)="changeSkill(3)"
+          [disabled]="editingSubSkill"
         >
           Expert
         </button>
@@ -253,8 +256,15 @@
           Save subskill
         </button>
         <button
+          class="skill-button btn btn-primary margin-skill"
+          (click)="deleteSubskill()"
+          *ngIf="editingSubSkill"
+        >
+          Delete Subskill
+        </button>
+        <button
           class="skill-button btn btn-primary"
-          (click)="addEditedSusbkill()"
+          (click)="addSubSkill()"
           *ngIf="!editingSubSkill"
         >
           Add subskill
@@ -264,6 +274,7 @@
             <label>Beginner:</label>
             <span *ngIf="editedSkill.Skills[0]">
               <span
+                class="new-subskill-description"
                 *ngFor="
                   let subskill of editedSkill.Skills[0].SubSkills;
                   let i = index
@@ -278,8 +289,12 @@
             <label>Advanced:</label>
             <span *ngIf="editedSkill.Skills[1]">
               <span
-                *ngFor="let subskill of editedSkill.Skills[1].SubSkills"
-                (click)="editSusbkill(subskill)"
+                class="new-subskill-description"
+                *ngFor="
+                  let subskill of editedSkill.Skills[1].SubSkills;
+                  let i = index
+                "
+                (click)="editSusbkill(subskill, i, 'advanced')"
               >
                 {{ subskill.Description }},
               </span>
@@ -289,8 +304,12 @@
             <label>Expert:</label>
             <span *ngIf="editedSkill.Skills[2]">
               <span
-                *ngFor="let subskill of editedSkill.Skills[2].SubSkills"
-                (click)="editSusbkill(subskill)"
+                class="new-subskill-description"
+                *ngFor="
+                  let subskill of editedSkill.Skills[2].SubSkills;
+                  let i = index
+                "
+                (click)="editSusbkill(subskill, i, 'expert')"
               >
                 {{ subskill.Description }},
               </span>
@@ -298,7 +317,6 @@
           </div>
         </div>
       </div>
-
       <button class="btn btn-primary save-button" (click)="saveEditedSkill()">
         Save
       </button>
