@@ -11,8 +11,9 @@ export class SKillsService {
   private baseurl = 'http://localhost:5079/api/Skills';
   constructor(private http: HttpClient) {}
 
-  updateSkillProgress(user: User) {
-    return this.http.post(this.baseurl, user);
+  updateSkillProgress(user: User): Observable<any> {
+    const url = this.baseurl + '/updateProgress';
+    return this.http.post<User>(url, user, { withCredentials: true });
   }
 
   saveNewSkill(user: User, skills: Skills[]): Observable<Skills> {

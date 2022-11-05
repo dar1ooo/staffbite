@@ -10,7 +10,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let skillgroup of currentSkills">
+        <tr *ngFor="let skillgroup of currentSkills; let i = index">
           <td>{{ skillgroup.SkillTopic }}</td>
           <td *ngFor="let skillLevel of skillgroup.Skills">
             <table class="subskills">
@@ -40,9 +40,12 @@
               </td>
             </table>
           </td>
-          <td style="width: 5vw">
-            <button class="btn btn-info" (click)="deleteSkill(skillgroup)">
+          <td style="width: 10vw">
+            <button class="btn btn-info" (click)="deleteSkill(i)">
               delete
+            </button>
+            <button class="btn btn-info" (click)="editSkill(skillgroup, i)">
+              edit
             </button>
           </td>
         </tr>
@@ -50,10 +53,10 @@
     </table>
   </div>
   <div class="col-4">
-    <div class="settings-card">
+    <div class="settings-card" *ngIf="!isEditing">
       <div class="mb-3">
         <div class="header">
-          <h4>Define new Skills</h4>
+          <h4>Add Skills</h4>
         </div>
         <label for="topic" class="form-label">Topic</label>
         <div class="input-group mb-3">
@@ -131,7 +134,10 @@
           <div>
             <label>Beginner:</label>
             <span *ngIf="newSkill.Skills[0]">
-              <span *ngFor="let subskill of newSkill.Skills[0].SubSkills">
+              <span
+                *ngFor="let subskill of newSkill.Skills[0].SubSkills"
+                (click)="editSusbkill(subskill)"
+              >
                 {{ subskill.Description }},
               </span>
             </span>
@@ -139,7 +145,10 @@
           <div>
             <label>Advanced:</label>
             <span *ngIf="newSkill.Skills[1]">
-              <span *ngFor="let subskill of newSkill.Skills[1].SubSkills">
+              <span
+                *ngFor="let subskill of newSkill.Skills[1].SubSkills"
+                (click)="editSusbkill(subskill)"
+              >
                 {{ subskill.Description }},
               </span>
             </span>
@@ -147,7 +156,10 @@
           <div>
             <label>Expert:</label>
             <span *ngIf="newSkill.Skills[2]">
-              <span *ngFor="let subskill of newSkill.Skills[2].SubSkills">
+              <span
+                *ngFor="let subskill of newSkill.Skills[2].SubSkills"
+                (click)="editSusbkill(subskill)"
+              >
                 {{ subskill.Description }},
               </span>
             </span>
@@ -156,6 +168,156 @@
       </div>
 
       <button class="btn btn-primary save-button" (click)="saveSkill()">
+        Save
+      </button>
+    </div>
+    <div class="settings-card" *ngIf="isEditing">
+      <div class="mb-3">
+        <div class="header">
+          <h4>Edit Skills</h4>
+        </div>
+        <label for="topic" class="form-label">Topic</label>
+        <div class="input-group mb-3">
+          <input
+            type="text"
+            id="topic"
+            class="form-control"
+            [(ngModel)]="editedSkill.SkillTopic"
+            aria-label="Username"
+            aria-describedby="basic-addon1"
+          />
+        </div>
+        <button
+          class="skill-button btn btn-primary"
+          [ngClass]="activeSkill === 1 ? 'active-skill' : ''"
+          (click)="changeSkill(1)"
+          [disabled]="editingSubSkill"
+        >
+          Beginner
+        </button>
+        <button
+          [ngClass]="activeSkill === 2 ? 'active-skill' : ''"
+          class="skill-button btn btn-primary margin-skill"
+          (click)="changeSkill(2)"
+          [disabled]="editingSubSkill"
+        >
+          Advanced
+        </button>
+        <button
+          [ngClass]="activeSkill === 3 ? 'active-skill' : ''"
+          class="skill-button btn btn-primary margin-skill"
+          (click)="changeSkill(3)"
+          [disabled]="editingSubSkill"
+        >
+          Expert
+        </button>
+
+        <textarea
+          class="form-control skill-form"
+          id="skill1"
+          [(ngModel)]="beginnerDescription"
+          *ngIf="activeSkill === 1"
+        ></textarea>
+        <textarea
+          class="form-control skill-form"
+          id="skill2"
+          [(ngModel)]="advancedDescription"
+          *ngIf="activeSkill === 2"
+        ></textarea>
+        <textarea
+          class="form-control skill-form"
+          id="skill3"
+          [(ngModel)]="expertDescription"
+          *ngIf="activeSkill === 3"
+        ></textarea>
+        <div>
+          <label>PDF Link:</label>
+          <input
+            type="text"
+            class="form-control"
+            id="skill1"
+            [(ngModel)]="pdfLink"
+          />
+        </div>
+        <div>
+          <label>Video Link:</label>
+          <input
+            type="text"
+            class="form-control"
+            id="skill1"
+            [(ngModel)]="videoLink"
+          />
+        </div>
+        <button
+          class="skill-button btn btn-primary"
+          (click)="saveEditedSubskill()"
+          *ngIf="editingSubSkill"
+        >
+          Save subskill
+        </button>
+        <button
+          class="skill-button btn btn-primary margin-skill"
+          (click)="deleteSubskill()"
+          *ngIf="editingSubSkill"
+        >
+          Delete Subskill
+        </button>
+        <button
+          class="skill-button btn btn-primary"
+          (click)="addSubSkill()"
+          *ngIf="!editingSubSkill"
+        >
+          Add subskill
+        </button>
+        <div class="white-border">
+          <div>
+            <label>Beginner:</label>
+            <span *ngIf="editedSkill.Skills[0]">
+              <span
+                class="new-subskill-description"
+                *ngFor="
+                  let subskill of editedSkill.Skills[0].SubSkills;
+                  let i = index
+                "
+                (click)="editSusbkill(subskill, i, 'beginner')"
+              >
+                {{ subskill.Description }},
+              </span>
+            </span>
+          </div>
+          <div>
+            <label>Advanced:</label>
+            <span *ngIf="editedSkill.Skills[1]">
+              <span
+                class="new-subskill-description"
+                *ngFor="
+                  let subskill of editedSkill.Skills[1].SubSkills;
+                  let i = index
+                "
+                (click)="editSusbkill(subskill, i, 'advanced')"
+              >
+                {{ subskill.Description }},
+              </span>
+            </span>
+          </div>
+          <div>
+            <label>Expert:</label>
+            <span *ngIf="editedSkill.Skills[2]">
+              <span
+                class="new-subskill-description"
+                *ngFor="
+                  let subskill of editedSkill.Skills[2].SubSkills;
+                  let i = index
+                "
+                (click)="editSusbkill(subskill, i, 'expert')"
+              >
+                {{ subskill.Description }},
+              </span>
+            </span>
+          </div>
+        </div>
+      </div>
+      <button class="btn btn-primary save-button" (click)="saveEditedSkill()">
         Save
       </button>
     </div>

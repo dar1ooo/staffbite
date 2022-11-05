@@ -26,6 +26,16 @@ export class SkillsTeacherComponent implements OnInit {
   }
 
   public CheckSkill(skill: SubSkill, SkillGroup: Skills): void {
+    this.skillsService.updateSkillProgress(this.user).pipe(
+      tap((result) => {
+        this.toastr.success('Saving successful', 'Success');
+      }),
+      catchError((err) => {
+        this.toastr.error('Saving failed', 'Failed');
+        return err;
+      })
+    );
+
     this.user.SkillGroup.find(
       (skillGroup) => skillGroup.SkillTopic === SkillGroup.SkillTopic
     ).Skills.find((s) => {
@@ -37,18 +47,6 @@ export class SkillsTeacherComponent implements OnInit {
     });
     sessionStorage.setItem('user', JSON.stringify(this.user));
     this.SkillProgress();
-  }
-
-  public saveSkills(): void {
-    this.skillsService.updateSkillProgress(this.user).pipe(
-      tap((result) => {
-        this.toastr.success('Saving successful', 'Success');
-      }),
-      catchError((err) => {
-        this.toastr.error('Saving failed', 'Failed');
-        return err;
-      })
-    );
   }
 
   public SkillProgress() {

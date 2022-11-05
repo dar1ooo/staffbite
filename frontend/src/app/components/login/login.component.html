@@ -1,72 +1,54 @@
-<div class="parent-login">
-  <div class="main">
-    <div class="container a-container" id="a-container">
-      <div class="form" id="a-form">
-        <h2 class="form_title title">Create Account</h2>
-        <input
-          class="form__input"
-          type="text"
-          placeholder="Username"
-          [(ngModel)]="userSignup.Username"
-        />
-        <input
-          class="form__input"
-          type="text"
-          placeholder="Email"
-          [(ngModel)]="userSignup.Email"
-        />
-        <input
-          class="form__input"
-          type="password"
-          placeholder="Password"
-          [(ngModel)]="userSignup.Password"
-        />
-        <button class="form__button button submit" (click)="signup()">
-          SIGN UP
-        </button>
-      </div>
+<div class="container mt-5 settings-card">
+  <div class="mb-3">
+    <div class="header">
+      <h4>Login</h4>
     </div>
-    <div class="container b-container" id="b-container">
-      <div class="form" id="b-form" method="" action="">
-        <h2 class="form_title title">Sign in</h2>
-        <input
-          class="form__input"
-          type="text"
-          placeholder="Username"
-          [(ngModel)]="userLogin.Username"
-        />
-        <input
-          class="form__input"
-          type="password"
-          placeholder="Password"
-          [(ngModel)]="userLogin.Password"
-        />
-        <button class="form__button button submit" (click)="login()">
-          SIGN IN
-        </button>
-      </div>
-    </div>
-    <div class="switch" id="switch-cnt">
-      <div class="switch__circle"></div>
-      <div class="switch__circle switch__circle--t"></div>
-      <div class="switch__container" id="switch-c1">
-        <h2 class="switch__title title">Welcome Back !</h2>
-        <p class="switch__description description">
-          To keep connected with us please login with your personal info
-        </p>
-        <button class="switch__button button switch-btn" (click)="changeForm()">
-          SIGN IN
-        </button>
-      </div>
-      <div class="switch__container is-hidden" id="switch-c2">
-        <h2 class="switch__title title">Hello !</h2>
-        <p class="switch__description description">
-          Enter your personal details and start journey with us
-        </p>
-        <button class="switch__button button switch-btn" (click)="changeForm()">
-          SIGN UP
-        </button>
-      </div>
+    <label for="Username" class="form-label">Username</label>
+    <div class="input-group mb-3">
+      <span class="input-group-text" id="basic-addon1">@</span>
+      <input
+        type="text"
+        id="Username"
+        class="form-control"
+        [(ngModel)]="userLogin.Username"
+        placeholder="{{ userLogin.Username }}"
+        aria-label="Username"
+        aria-describedby="basic-addon1"
+      />
     </div>
   </div>
+
+  <label for="newPassword" class="form-label">Password</label>
+
+  <div class="input-group mb-3">
+    <input
+      type="password"
+      class="form-control"
+      aria-describedby="confirmPasswordHelp"
+      id="newPassword"
+      [(ngModel)]="newPassword"
+      *ngIf="!showPassword"
+    />
+    <input
+      type="text"
+      class="form-control"
+      aria-describedby="confirmPasswordHelp"
+      *ngIf="showPassword"
+      [(ngModel)]="newPassword"
+    />
+
+    <span class="input-group-text" id="basic-addon2"
+      ><img
+        *ngIf="!showPassword"
+        (click)="changeShowPassword()"
+        class="eye-icon"
+        src="../../../../assets/images/eye-open.png" />
+      <img
+        *ngIf="showPassword"
+        (click)="changeShowPassword()"
+        class="eye-icon"
+        src="../../../../assets/images/eye-closed.png"
+    /></span>
+  </div>
+  <button (click)="login()" class="btn btn-primary">Login</button>
 </div>

@@ -131,7 +131,7 @@
 }
 
 .settings-card {
-  padding: 30px;
+  padding: 30px 30px 15px 30px;
   border-radius: 30px;
   color: #c9d1d9;
   border: 1px solid rgba(56, 139, 253, 0.4);
@@ -162,4 +162,9 @@
   color: #01161e;
   background-color: #2cda9d;
   border-color: #2cda9d;
+}
+
+.new-subskill-description:hover {
+  cursor: pointer;
+  color: #58a6ff;
 }

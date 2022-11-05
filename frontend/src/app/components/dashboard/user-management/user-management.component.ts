@@ -13,6 +13,7 @@ export class UserManagementComponent implements OnInit {
   public teachers: User[] = [];
 
   public selectedTeacher: User = new User();
+  public showAddUser: boolean = false;
 
   constructor() {}
 
@@ -108,5 +109,10 @@ export class UserManagementComponent implements OnInit {
 
   public backToUserList(): void {
     this.showUserDetail = false;
+    this.showAddUser = false;
+  }
+
+  public addUser(): void {
+    this.showAddUser = true;
   }
 }
