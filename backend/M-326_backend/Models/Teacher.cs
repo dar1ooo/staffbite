@@ -2,14 +2,12 @@
 
 namespace business_logic.Models
 {
-    public class User
+    public class Teacher
     {
         [BsonId]
         public Guid Id { get; set; }
-
         public string Username { get; set; }
         public string Email { get; set; }
-        public string Password { get; set; }
         public UserRole UserRole { get; set; }
         public List<TeacherSkills> TeacherSkills { get; set; }
     }

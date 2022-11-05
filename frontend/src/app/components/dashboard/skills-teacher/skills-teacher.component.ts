@@ -1,9 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { catchError, tap } from 'rxjs';
-import { Skills, User } from 'src/app/models';
+import { TeacherSkills, User } from 'src/app/models';
 import { SubSkill } from 'src/app/models/subskill.model';
-import { SKillsService } from 'src/app/services/skills.service';
+import { SkillsService } from 'src/app/services/skills.service';
 
 @Component({
   selector: 'app-skills-teacher',
@@ -17,7 +17,7 @@ export class SkillsTeacherComponent implements OnInit {
   public totalSkills: number = 0;
 
   constructor(
-    private skillsService: SKillsService,
+    private skillsService: SkillsService,
     private toastr: ToastrService
   ) {}
 
@@ -25,7 +25,7 @@ export class SkillsTeacherComponent implements OnInit {
     this.SkillProgress();
   }
 
-  public CheckSkill(skill: SubSkill, SkillGroup: Skills): void {
+  public CheckSkill(skill: SubSkill, SkillGroup: TeacherSkills): void {
     this.skillsService.updateSkillProgress(this.user).pipe(
       tap((result) => {
         this.toastr.success('Saving successful', 'Success');
@@ -36,15 +36,15 @@ export class SkillsTeacherComponent implements OnInit {
       })
     );
 
-    this.user.SkillGroup.find(
-      (skillGroup) => skillGroup.SkillTopic === SkillGroup.SkillTopic
-    ).Skills.find((s) => {
-      s.SubSkills.forEach((subskill) => {
-        if (subskill.Description === skill.Description) {
-          subskill.IsChecked = !subskill.IsChecked;
-        }
+    this.user.teacherSkills
+      .find((skillGroup) => skillGroup.skillTopic === SkillGroup.skillTopic)
+      .skills.find((s) => {
+        s.subSkills.forEach((subskill) => {
+          if (subskill.description === skill.description) {
+            subskill.isChecked = !subskill.isChecked;
+          }
+        });
       });
-    });
     sessionStorage.setItem('user', JSON.stringify(this.user));
     this.SkillProgress();
   }
@@ -52,10 +52,10 @@ export class SkillsTeacherComponent implements OnInit {
   public SkillProgress() {
     let skillsChecked = 0;
     let totalSkills = 0;
-    this.user.SkillGroup.forEach((skillGroup) => {
-      skillGroup.Skills.forEach((skill) => {
-        skill.SubSkills.forEach((subSkill) => {
-          if (subSkill.IsChecked) {
+    this.user.teacherSkills.forEach((skillGroup) => {
+      skillGroup.skills.forEach((skill) => {
+        skill.subSkills.forEach((subSkill) => {
+          if (subSkill.isChecked) {
             skillsChecked++;
           }
           totalSkills++;
@@ -67,12 +67,12 @@ export class SkillsTeacherComponent implements OnInit {
 
   public openPdf(selectedSkill: SubSkill, e: Event) {
     if (e && e.stopPropagation) e.stopPropagation();
-    window.open(selectedSkill.PdfUrl, '_blank');
+    window.open(selectedSkill.pdfUrl, '_blank');
   }
 
   public openVideo(selectedSkill: SubSkill, e: Event) {
     if (e && e.stopPropagation) e.stopPropagation();
 
-    window.open(selectedSkill.VideoUrl, '_blank');
+    window.open(selectedSkill.videoUrl, '_blank');
   }
 }

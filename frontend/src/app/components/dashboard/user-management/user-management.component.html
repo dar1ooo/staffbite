@@ -14,8 +14,8 @@
     <tbody>
       <tr *ngFor="let teacher of teachers; let i = index">
         <td>{{ i }}</td>
-        <td class="skill-area">{{ teacher.Username }}</td>
-        <td class="skill-area">{{ teacher.Email }}</td>
+        <td class="skill-area">{{ teacher.username }}</td>
+        <td class="skill-area">{{ teacher.email }}</td>
         <td class="skill-area">
           <button class="btn btn-primary" (click)="viewSkills(teacher)">
             Skills

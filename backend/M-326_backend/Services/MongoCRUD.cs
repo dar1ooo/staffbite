@@ -7,7 +7,6 @@ namespace business_logic.Services
     {
         private readonly IMongoDatabase db;
 
-
         public MongoCRUD(string connectionString, string database)
         {
             var client = new MongoClient(connectionString);
@@ -31,6 +30,25 @@ namespace business_logic.Services
             var collection = db.GetCollection<T>(table);
             var value = await collection.FindAsync<T>(filter);
             return value;
+        }
+
+        public List<T> LoadRecords<T>(string table)
+        {
+            var collection = db.GetCollection<T>(table);
+            return collection.Find(new BsonDocument()).ToList();
+        }
+
+        public T LoadRecordById<T>(string table, Guid id)
+        {
+            var collection = db.GetCollection<T>(table);
+            var filter = Builders<T>.Filter.Eq("Id", id);
+
+            return collection.Find(filter).First();
+        }
+
+        public void ClearTable<T>(string table)
+        {
+            db.DropCollection(table);
         }
     }
 }

@@ -11,7 +11,7 @@ import { UserService } from 'src/app/services/user.service';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent {
   public userLogin: UserLogin = new UserLogin();
   private user: User = new User();
   public showPassword: boolean = false;
@@ -22,89 +22,6 @@ export class LoginComponent implements OnInit {
     private userService: UserService,
     private toastr: ToastrService
   ) {}
-
-  ngOnInit(): void {
-    this.mockedUser.Username = 'Alfred';
-    this.mockedUser.Email = 'alfredhitchcock@online.gibz.ch';
-    this.mockedUser.UserRole = UserRole.Admin;
-    this.mockedUser.UserId = 1;
-    this.mockedUser.SkillGroup = [
-      {
-        SkillTopic: 'English',
-        Skills: [
-          {
-            SubSkills: [
-              {
-                Description: 'Grammar',
-                IsChecked: false,
-                ShowPdf: true,
-                PdfUrl: 'https://www.orimi.com/pdf-test.pdf',
-                ShowVideo: true,
-                VideoUrl: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
-              },
-              {
-                Description: 'Writing',
-                IsChecked: false,
-                ShowPdf: false,
-                PdfUrl: '',
-                ShowVideo: false,
-                VideoUrl: '',
-              },
-              {
-                Description: 'Reading',
-                IsChecked: false,
-                ShowPdf: true,
-                PdfUrl: 'https://www.orimi.com/pdf-test.pdf',
-                ShowVideo: true,
-                VideoUrl: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
-              },
-              {
-                Description: 'Basic listening',
-                IsChecked: false,
-                ShowPdf: true,
-                PdfUrl: 'https://www.orimi.com/pdf-test.pdf',
-                ShowVideo: true,
-                VideoUrl: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
-              },
-            ],
-          },
-          {
-            SubSkills: [
-              {
-                Description: 'Listening',
-                IsChecked: false,
-                ShowPdf: false,
-                PdfUrl: '',
-                ShowVideo: false,
-                VideoUrl: '',
-              },
-              {
-                Description: 'Read at least 3 books in english',
-                IsChecked: false,
-                ShowPdf: false,
-                PdfUrl: '',
-                ShowVideo: false,
-                VideoUrl: '',
-              },
-            ],
-          },
-          {
-            SubSkills: [
-              {
-                Description: 'Essays',
-                IsChecked: false,
-                ShowPdf: false,
-                PdfUrl: '',
-                ShowVideo: false,
-                VideoUrl: '',
-              },
-            ],
-          },
-        ],
-      },
-    ];
-    sessionStorage.setItem('user', JSON.stringify(this.mockedUser));
-  }
 
   public login(): void {
     this.userService.loginUser(this.userLogin).subscribe(

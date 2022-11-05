@@ -1,5 +1,5 @@
 <h1 class="completedmessage">
-  <span class="yellow">{{ teacher.Username }}</span> has mastered
+  <span class="yellow">{{ teacher.username }}</span> has mastered
   <span class="blue"></span>
   <span class="yellow">{{ totalSkills }} %</span> of all Skills
 </h1>
@@ -13,20 +13,20 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let skillgroup of teacher.SkillGroup">
-      <td>{{ skillgroup.SkillTopic }}</td>
-      <td *ngFor="let skillLevel of skillgroup.Skills">
+    <tr *ngFor="let skillgroup of teacher.teacherSkills">
+      <td>{{ skillgroup.skillTopic }}</td>
+      <td *ngFor="let skillLevel of skillgroup.skills">
         <table class="subskills">
           <td>
             <tr
-              *ngFor="let subskill of skillLevel.SubSkills"
+              *ngFor="let subskill of skillLevel.subSkills"
               class="skill-area"
               [ngClass]="
-                subskill.IsChecked ? 'skill-checked' : 'skill-not-checked'
+                subskill.isChecked ? 'skill-checked' : 'skill-not-checked'
               "
             >
               <span class="skill-description">
-                {{ subskill.Description }}
+                {{ subskill.description }}
               </span>
             </tr>
           </td>

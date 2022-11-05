@@ -21,10 +21,10 @@ export class TeacherDetailComponent implements OnInit {
   public SkillProgress() {
     let skillsChecked = 0;
     let totalSkills = 0;
-    this.teacher.SkillGroup.forEach((skillGroup) => {
-      skillGroup.Skills.forEach((skill) => {
-        skill.SubSkills.forEach((subSkill) => {
-          if (subSkill.IsChecked) {
+    this.teacher.teacherSkills.forEach((skillGroup) => {
+      skillGroup.skills.forEach((skill) => {
+        skill.subSkills.forEach((subSkill) => {
+          if (subSkill.isChecked) {
             skillsChecked++;
           }
           totalSkills++;

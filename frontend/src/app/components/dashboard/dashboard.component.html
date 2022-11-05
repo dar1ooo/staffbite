@@ -1,13 +1,13 @@
 <!-- <div *ngIf="!user">Please Log in to view your dashboard</div> -->
 <button
-  *ngIf="user.UserRole === userLevel.Admin"
+  *ngIf="user.userRole === userLevel.Admin"
   class="btn btn-dark"
   (click)="changeUserType()"
 >
   Teacher view
 </button>
 <button
-  *ngIf="user.UserRole === userLevel.Teacher"
+  *ngIf="user.userRole === userLevel.Teacher"
   class="btn btn-dark"
   (click)="changeUserType()"
 >
@@ -116,7 +116,7 @@
         </svg>
       </a>
       <a
-        *ngIf="user.UserRole === userLevel.Teacher"
+        *ngIf="user.userRole === userLevel.Teacher"
         (click)="changeSection('timer')"
         class="app-sidebar-link"
         [ngClass]="selectedSection === 'timer' ? 'active' : ''"
@@ -290,11 +290,11 @@
         </div>
         <app-skills-admin
           [user]="user"
-          *ngIf="user.UserRole === userLevel.Admin"
+          *ngIf="user.userRole === userLevel.Admin"
         ></app-skills-admin>
         <app-skills-teacher
           [user]="user"
-          *ngIf="user.UserRole === userLevel.Teacher"
+          *ngIf="user.userRole === userLevel.Teacher"
         ></app-skills-teacher>
       </div>
       <div *ngIf="selectedSection === 'timer'">
@@ -307,23 +307,23 @@
       <div *ngIf="selectedSection === 'user-management'">
         <div
           class="projects-section-header"
-          *ngIf="user.UserRole === userLevel.Admin"
+          *ngIf="user.userRole === userLevel.Admin"
         >
           <p>User Management</p>
           <p class="time">{{ day }}, {{ myDate }}</p>
         </div>
         <app-user-management
-          *ngIf="user.UserRole === userLevel.Admin"
+          *ngIf="user.userRole === userLevel.Admin"
         ></app-user-management>
         <div
           class="projects-section-header"
-          *ngIf="user.UserRole === userLevel.Teacher"
+          *ngIf="user.userRole === userLevel.Teacher"
         >
           <p>Random Groups</p>
           <p class="time">{{ day }}, {{ myDate }}</p>
         </div>
         <app-random-groups
-          *ngIf="user.UserRole === userLevel.Teacher"
+          *ngIf="user.userRole === userLevel.Teacher"
         ></app-random-groups>
       </div>
       <div *ngIf="selectedSection === 'settings'">

@@ -1,11 +1,10 @@
-import { ThisReceiver } from '@angular/compiler';
 import { Component, Input, OnInit } from '@angular/core';
-import { defaultUrlMatcher } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { catchError, tap } from 'rxjs';
-import { Skill, Skills, User } from 'src/app/models';
+import { Skill, TeacherSkills, User, UserSignup } from 'src/app/models';
 import { SubSkill } from 'src/app/models/subskill.model';
-import { SKillsService } from 'src/app/services/skills.service';
+import { SkillsService } from 'src/app/services/skills.service';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-skills-admin',
@@ -16,9 +15,9 @@ export class SkillsAdminComponent implements OnInit {
   @Input()
   public user: User;
 
-  public currentSkills: Skills[] = [];
-  public newSkill: Skills = new Skills();
-  public editedSkill: Skills = new Skills();
+  public currentSkills: TeacherSkills[] = [];
+  public newSkill: TeacherSkills = new TeacherSkills();
+  public editedSkill: TeacherSkills = new TeacherSkills();
   public beginnerDescription: string = '';
   public advancedDescription: string = '';
   public expertDescription: string = '';
@@ -33,109 +32,47 @@ export class SkillsAdminComponent implements OnInit {
 
   constructor(
     private toastr: ToastrService,
-    private skillService: SKillsService
+    private skillService: SkillsService
   ) {}
 
   ngOnInit(): void {
-    this.newSkill.SkillTopic = '';
-    this.newSkill.Skills = [];
-    this.newSkill.Skills.push(new Skill());
-    this.newSkill.Skills.push(new Skill());
-    this.newSkill.Skills.push(new Skill());
+    this.newSkill.skillTopic = '';
+    this.newSkill.skills = [];
+    this.newSkill.skills.push(new Skill());
+    this.newSkill.skills.push(new Skill());
+    this.newSkill.skills.push(new Skill());
 
-    let mockedSkills = new Skills();
-    mockedSkills = {
-      SkillTopic: 'English',
-      Skills: [
-        {
-          SubSkills: [
-            {
-              Description: 'Grammar',
-              IsChecked: true,
-              ShowPdf: true,
-              PdfUrl: 'https://www.orimi.com/pdf-test.pdf',
-              ShowVideo: true,
-              VideoUrl: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
-            },
-            {
-              Description: 'Writing',
-              IsChecked: true,
-              ShowPdf: false,
-              PdfUrl: '',
-              ShowVideo: false,
-              VideoUrl: '',
-            },
-            {
-              Description: 'Reading',
-              IsChecked: true,
-              ShowPdf: true,
-              PdfUrl: 'https://www.orimi.com/pdf-test.pdf',
-              ShowVideo: true,
-              VideoUrl: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
-            },
-            {
-              Description: 'Basic listening',
-              IsChecked: true,
-              ShowPdf: true,
-              PdfUrl: 'https://www.orimi.com/pdf-test.pdf',
-              ShowVideo: true,
-              VideoUrl: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
-            },
-          ],
-        },
-        {
-          SubSkills: [
-            {
-              Description: 'Listening',
-              IsChecked: true,
-              ShowPdf: false,
-              PdfUrl: '',
-              ShowVideo: false,
-              VideoUrl: '',
-            },
-            {
-              Description: 'Read at least 3 books in english',
-              IsChecked: true,
-              ShowPdf: false,
-              PdfUrl: '',
-              ShowVideo: false,
-              VideoUrl: '',
-            },
-          ],
-        },
-        {
-          SubSkills: [
-            {
-              Description: 'Essays',
-              IsChecked: true,
-              ShowPdf: false,
-              PdfUrl: '',
-              ShowVideo: false,
-              VideoUrl: '',
-            },
-          ],
-        },
-      ],
-    };
-    this.currentSkills.push(mockedSkills);
+    this.skillService
+      .getSkills()
+      .pipe(
+        tap((res) => {
+          this.currentSkills = res;
+        }),
+        catchError((err) => {
+          this.toastr.error('Error getting skills');
+          return err;
+        })
+      )
+      .subscribe();
   }
 
   public saveSkill(): void {
     if (this.skillFormValid()) {
       this.currentSkills.push(this.newSkill);
       this.resetSkillForm();
-      // this.skillService
-      //   .saveNewSkill(this.user, this.currentSkills)
-      //   .pipe(
-      //     tap((data) => {
-      //       this.toastr.success('Skill saved successfully');
-      //     }),
-      //     catchError((err) => {
-      //       this.toastr.error('Error saving skill');
-      //       return err;
-      //     })
-      //   )
-      //   .subscribe();
+
+      this.skillService
+        .saveSkills(this.currentSkills)
+        .pipe(
+          tap((res) => {
+            this.toastr.success('Skills saved successfully');
+          }),
+          catchError((err) => {
+            this.toastr.error('Error saving skills');
+            return err;
+          })
+        )
+        .subscribe();
     }
   }
 
@@ -152,19 +89,19 @@ export class SkillsAdminComponent implements OnInit {
         }
 
         if (this.pdfLink !== null && this.pdfLink !== '') {
-          subSkill.ShowPdf = true;
-          subSkill.PdfUrl = this.pdfLink;
+          subSkill.showPdf = true;
+          subSkill.pdfUrl = this.pdfLink;
         }
         if (this.videoLink !== null && this.videoLink !== '') {
-          subSkill.ShowVideo = true;
-          subSkill.VideoUrl = this.videoLink;
+          subSkill.showVideo = true;
+          subSkill.videoUrl = this.videoLink;
         }
 
-        subSkill.Description = this.beginnerDescription;
+        subSkill.description = this.beginnerDescription;
         if (this.isEditing) {
-          this.editedSkill.Skills[0].SubSkills.push(subSkill);
+          this.editedSkill.skills[0].subSkills.push(subSkill);
         } else {
-          this.newSkill.Skills[0].SubSkills.push(subSkill);
+          this.newSkill.skills[0].subSkills.push(subSkill);
         }
         this.beginnerDescription = '';
         break;
@@ -177,19 +114,19 @@ export class SkillsAdminComponent implements OnInit {
           return;
         }
         if (this.pdfLink !== null && this.pdfLink !== '') {
-          subSkill.ShowPdf = true;
-          subSkill.PdfUrl = this.pdfLink;
+          subSkill.showPdf = true;
+          subSkill.pdfUrl = this.pdfLink;
         }
         if (this.videoLink !== null && this.videoLink !== '') {
-          subSkill.ShowVideo = true;
-          subSkill.VideoUrl = this.videoLink;
+          subSkill.showVideo = true;
+          subSkill.videoUrl = this.videoLink;
         }
 
-        subSkill.Description = this.advancedDescription;
+        subSkill.description = this.advancedDescription;
         if (this.isEditing) {
-          this.editedSkill.Skills[1].SubSkills.push(subSkill);
+          this.editedSkill.skills[1].subSkills.push(subSkill);
         } else {
-          this.newSkill.Skills[1].SubSkills.push(subSkill);
+          this.newSkill.skills[1].subSkills.push(subSkill);
         }
         this.advancedDescription = '';
 
@@ -199,19 +136,19 @@ export class SkillsAdminComponent implements OnInit {
           return;
         }
         if (this.pdfLink !== null && this.pdfLink !== '') {
-          subSkill.ShowPdf = true;
-          subSkill.PdfUrl = this.pdfLink;
+          subSkill.showPdf = true;
+          subSkill.pdfUrl = this.pdfLink;
         }
         if (this.videoLink !== null && this.videoLink !== '') {
-          subSkill.ShowVideo = true;
-          subSkill.VideoUrl = this.videoLink;
+          subSkill.showVideo = true;
+          subSkill.videoUrl = this.videoLink;
         }
 
-        subSkill.Description = this.expertDescription;
+        subSkill.description = this.expertDescription;
         if (this.isEditing) {
-          this.editedSkill.Skills[2].SubSkills.push(subSkill);
+          this.editedSkill.skills[2].subSkills.push(subSkill);
         } else {
-          this.newSkill.Skills[2].SubSkills.push(subSkill);
+          this.newSkill.skills[2].subSkills.push(subSkill);
         }
         this.expertDescription = '';
 
@@ -224,34 +161,34 @@ export class SkillsAdminComponent implements OnInit {
   }
 
   private skillFormValid(): boolean {
-    if (this.newSkill.SkillTopic === '' || this.newSkill.SkillTopic === null) {
+    if (this.newSkill.skillTopic === '' || this.newSkill.skillTopic === null) {
       this.toastr.error('Please enter a skill topic');
       return false;
-    } else if (this.newSkill.Skills[0].SubSkills.length === 0) {
+    } else if (this.newSkill.skills[0].subSkills.length === 0) {
       this.toastr.error('Please enter at least one subskill for beginner');
       return false;
-    } else if (this.newSkill.Skills[1].SubSkills.length === 0) {
+    } else if (this.newSkill.skills[1].subSkills.length === 0) {
       this.toastr.error('Please enter at least one subskill for advanced');
       return false;
-    } else if (this.newSkill.Skills[2].SubSkills.length === 0) {
+    } else if (this.newSkill.skills[2].subSkills.length === 0) {
       this.toastr.error('Please enter at least one subskill for expert');
       return false;
     } else {
-      this.newSkill.SkillTopic = this.newSkill.SkillTopic.trim();
-      this.newSkill.Skills[0] = this.newSkill.Skills[0];
-      this.newSkill.Skills[1] = this.newSkill.Skills[1];
-      this.newSkill.Skills[2] = this.newSkill.Skills[2];
+      this.newSkill.skillTopic = this.newSkill.skillTopic.trim();
+      this.newSkill.skills[0] = this.newSkill.skills[0];
+      this.newSkill.skills[1] = this.newSkill.skills[1];
+      this.newSkill.skills[2] = this.newSkill.skills[2];
       return true;
     }
   }
 
   private resetSkillForm(): void {
-    this.newSkill = new Skills();
-    this.newSkill.SkillTopic = '';
-    this.newSkill.Skills = [];
-    this.newSkill.Skills.push(new Skill());
-    this.newSkill.Skills.push(new Skill());
-    this.newSkill.Skills.push(new Skill());
+    this.newSkill = new TeacherSkills();
+    this.newSkill.skillTopic = '';
+    this.newSkill.skills = [];
+    this.newSkill.skills.push(new Skill());
+    this.newSkill.skills.push(new Skill());
+    this.newSkill.skills.push(new Skill());
     this.activeSkill = 1;
     this.beginnerDescription = '';
     this.advancedDescription = '';
@@ -266,13 +203,13 @@ export class SkillsAdminComponent implements OnInit {
 
   public openPdf(selectedSkill: SubSkill, e: Event) {
     if (e && e.stopPropagation) e.stopPropagation();
-    window.open(selectedSkill.PdfUrl, '_blank');
+    window.open(selectedSkill.pdfUrl, '_blank');
   }
 
   public openVideo(selectedSkill: SubSkill, e: Event) {
     if (e && e.stopPropagation) e.stopPropagation();
 
-    window.open(selectedSkill.VideoUrl, '_blank');
+    window.open(selectedSkill.videoUrl, '_blank');
   }
 
   public deleteSkill(index: number) {
@@ -280,13 +217,13 @@ export class SkillsAdminComponent implements OnInit {
       this.currentSkills.splice(index, 1);
       if (this.isEditing) {
         this.resetSkillForm();
-        this.editedSkill = new Skills();
+        this.editedSkill = new TeacherSkills();
         this.isEditing = false;
       }
     }
   }
 
-  public editSkill(selectedSkill: Skills, index: number) {
+  public editSkill(selectedSkill: TeacherSkills, index: number) {
     let skill = selectedSkill;
     this.editedSkill = { ...skill };
     this.editedSkillIndex = index;
@@ -300,14 +237,14 @@ export class SkillsAdminComponent implements OnInit {
     this.activeSkill = this.getSkillLevel(level);
     this.editingSubSkill = true;
     if (this.activeSkill === 1) {
-      this.beginnerDescription = selectedSkill.Description;
+      this.beginnerDescription = selectedSkill.description;
     } else if (this.activeSkill === 2) {
-      this.advancedDescription = selectedSkill.Description;
+      this.advancedDescription = selectedSkill.description;
     } else if (this.activeSkill === 3) {
-      this.expertDescription = selectedSkill.Description;
+      this.expertDescription = selectedSkill.description;
     }
-    this.pdfLink = selectedSkill.PdfUrl;
-    this.videoLink = selectedSkill.VideoUrl;
+    this.pdfLink = selectedSkill.pdfUrl;
+    this.videoLink = selectedSkill.videoUrl;
   }
 
   private getSkillLevel(level: string): number {
@@ -331,82 +268,82 @@ export class SkillsAdminComponent implements OnInit {
   public saveEditedSubskill() {
     this.editingSubSkill = false;
     if (this.activeEditSubskillLevel === 'beginner') {
-      this.editedSkill.Skills[0].SubSkills[
+      this.editedSkill.skills[0].subSkills[
         this.activeEditSubskillIndex
-      ].Description = this.beginnerDescription;
+      ].description = this.beginnerDescription;
 
-      this.editedSkill.Skills[0].SubSkills[
+      this.editedSkill.skills[0].subSkills[
         this.activeEditSubskillIndex
-      ].VideoUrl = this.videoLink;
+      ].videoUrl = this.videoLink;
       if (this.pdfLink !== null && this.pdfLink !== '') {
-        this.editedSkill.Skills[0].SubSkills[
+        this.editedSkill.skills[0].subSkills[
           this.activeEditSubskillIndex
-        ].ShowPdf = true;
-        this.editedSkill.Skills[0].SubSkills[
+        ].showPdf = true;
+        this.editedSkill.skills[0].subSkills[
           this.activeEditSubskillIndex
-        ].PdfUrl = this.pdfLink;
+        ].pdfUrl = this.pdfLink;
       }
       if (this.videoLink !== null && this.videoLink !== '') {
-        this.editedSkill.Skills[0].SubSkills[
+        this.editedSkill.skills[0].subSkills[
           this.activeEditSubskillIndex
-        ].ShowVideo = true;
-        this.editedSkill.Skills[0].SubSkills[
+        ].showVideo = true;
+        this.editedSkill.skills[0].subSkills[
           this.activeEditSubskillIndex
-        ].VideoUrl = this.pdfLink;
+        ].videoUrl = this.pdfLink;
       }
     }
     if (this.activeEditSubskillLevel === 'advanced') {
-      this.editedSkill.Skills[1].SubSkills[
+      this.editedSkill.skills[1].subSkills[
         this.activeEditSubskillIndex
-      ].Description = this.advancedDescription;
-      this.editedSkill.Skills[1].SubSkills[
+      ].description = this.advancedDescription;
+      this.editedSkill.skills[1].subSkills[
         this.activeEditSubskillIndex
-      ].PdfUrl = this.pdfLink;
-      this.editedSkill.Skills[1].SubSkills[
+      ].pdfUrl = this.pdfLink;
+      this.editedSkill.skills[1].subSkills[
         this.activeEditSubskillIndex
-      ].VideoUrl = this.videoLink;
+      ].videoUrl = this.videoLink;
       if (this.pdfLink !== null && this.pdfLink !== '') {
-        this.editedSkill.Skills[1].SubSkills[
+        this.editedSkill.skills[1].subSkills[
           this.activeEditSubskillIndex
-        ].ShowPdf = true;
-        this.editedSkill.Skills[1].SubSkills[
+        ].showPdf = true;
+        this.editedSkill.skills[1].subSkills[
           this.activeEditSubskillIndex
-        ].PdfUrl = this.pdfLink;
+        ].pdfUrl = this.pdfLink;
       }
       if (this.videoLink !== null && this.videoLink !== '') {
-        this.editedSkill.Skills[1].SubSkills[
+        this.editedSkill.skills[1].subSkills[
           this.activeEditSubskillIndex
-        ].ShowVideo = true;
-        this.editedSkill.Skills[1].SubSkills[
+        ].showVideo = true;
+        this.editedSkill.skills[1].subSkills[
           this.activeEditSubskillIndex
-        ].VideoUrl = this.pdfLink;
+        ].videoUrl = this.pdfLink;
       }
     }
     if (this.activeEditSubskillLevel === 'expert') {
-      this.editedSkill.Skills[2].SubSkills[
+      this.editedSkill.skills[2].subSkills[
         this.activeEditSubskillIndex
-      ].Description = this.expertDescription;
-      this.editedSkill.Skills[2].SubSkills[
+      ].description = this.expertDescription;
+      this.editedSkill.skills[2].subSkills[
         this.activeEditSubskillIndex
-      ].PdfUrl = this.pdfLink;
-      this.editedSkill.Skills[2].SubSkills[
+      ].pdfUrl = this.pdfLink;
+      this.editedSkill.skills[2].subSkills[
         this.activeEditSubskillIndex
-      ].VideoUrl = this.videoLink;
+      ].videoUrl = this.videoLink;
       if (this.pdfLink !== null && this.pdfLink !== '') {
-        this.editedSkill.Skills[2].SubSkills[
+        this.editedSkill.skills[2].subSkills[
           this.activeEditSubskillIndex
-        ].ShowPdf = true;
-        this.editedSkill.Skills[2].SubSkills[
+        ].showPdf = true;
+        this.editedSkill.skills[2].subSkills[
           this.activeEditSubskillIndex
-        ].PdfUrl = this.pdfLink;
+        ].pdfUrl = this.pdfLink;
       }
       if (this.videoLink !== null && this.videoLink !== '') {
-        this.editedSkill.Skills[2].SubSkills[
+        this.editedSkill.skills[2].subSkills[
           this.activeEditSubskillIndex
-        ].ShowVideo = true;
-        this.editedSkill.Skills[2].SubSkills[
+        ].showVideo = true;
+        this.editedSkill.skills[2].subSkills[
           this.activeEditSubskillIndex
-        ].VideoUrl = this.pdfLink;
+        ].videoUrl = this.pdfLink;
       }
     }
     this.currentSkills[this.editedSkillIndex] = this.editedSkill;
@@ -415,26 +352,38 @@ export class SkillsAdminComponent implements OnInit {
 
   public saveEditedSkill() {
     this.currentSkills[this.editedSkillIndex] = this.editedSkill;
-    this.isEditing = false;
-    this.resetSkillForm();
+    this.skillService
+      .saveSkills(this.currentSkills)
+      .pipe(
+        tap((res) => {
+          this.toastr.success('Skills saved successfully');
+          this.resetSkillForm();
+          this.isEditing = false;
+        }),
+        catchError((err) => {
+          this.toastr.error('Error saving skills');
+          return err;
+        })
+      )
+      .subscribe();
   }
 
   public deleteSubskill() {
     this.editingSubSkill = false;
     if (this.activeEditSubskillLevel === 'beginner') {
-      this.editedSkill.Skills[0].SubSkills.splice(
+      this.editedSkill.skills[0].subSkills.splice(
         this.activeEditSubskillIndex,
         1
       );
     }
     if (this.activeEditSubskillLevel === 'advanced') {
-      this.editedSkill.Skills[1].SubSkills.splice(
+      this.editedSkill.skills[1].subSkills.splice(
         this.activeEditSubskillIndex,
         1
       );
     }
     if (this.activeEditSubskillLevel === 'expert') {
-      this.editedSkill.Skills[2].SubSkills.splice(
+      this.editedSkill.skills[2].subSkills.splice(
         this.activeEditSubskillIndex,
         1
       );

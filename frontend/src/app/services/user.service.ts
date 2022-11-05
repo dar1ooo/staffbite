@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { TeacherSkills } from '../models';
 import { UserLogin } from '../models/user-login.model';
 import { UserSignup } from '../models/user-signup.model';
 import { User } from '../models/user.model';
@@ -22,24 +23,13 @@ export class UserService {
     return this.http.post<User>(url, userSignUp);
   }
 
-  getUserList(): Observable<any[]> {
-    return this.http.get<any>(this.baseurl);
+  public getAllUsernames(): Observable<string[]> {
+    const url = this.baseurl + '/usernames';
+    return this.http.get<string[]>(url);
   }
 
-  deleteUser(id: number) {
-    const url = this.baseurl + '/' + id;
-    return this.http.delete(url);
-  }
-
-  addUser(params: any) {
-    return this.http.post(this.baseurl, params);
-  }
-
-  updateUser(user: User) {
-    return this.http.put(this.baseurl, user);
-  }
-  savePortfolio(user: User): Observable<any> {
-    const url = this.baseurl + '/savePortfolio';
-    return this.http.post<User>(url, user);
+  getAllTeachers(): Observable<User[]> {
+    const url = this.baseurl + '/teachers';
+    return this.http.get<User[]>(url);
   }
 }

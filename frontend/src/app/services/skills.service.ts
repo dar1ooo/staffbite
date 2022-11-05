@@ -2,13 +2,14 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { UserRole } from '../enums/user-role';
-import { Skills, User } from '../models';
+import { User } from '../models';
+import { TeacherSkills } from '../models/skills.model';
 
 @Injectable({
   providedIn: 'root',
 })
-export class SKillsService {
-  private baseurl = 'http://localhost:5079/api/Skills';
+export class SkillsService {
+  private baseurl = 'http://localhost:5079/api/Skill';
   constructor(private http: HttpClient) {}
 
   updateSkillProgress(user: User): Observable<any> {
@@ -16,13 +17,13 @@ export class SKillsService {
     return this.http.post<User>(url, user, { withCredentials: true });
   }
 
-  saveNewSkill(user: User, skills: Skills[]): Observable<Skills> {
-    if (user.UserRole === UserRole.Admin) {
-      return this.http.post<Skills>(this.baseurl, skills);
-    } else {
-      return throwError(
-        () => new Error(' You are not authorized to save a new skill')
-      );
-    }
+  saveSkills(skills: TeacherSkills[]): Observable<TeacherSkills[]> {
+    const url = this.baseurl + '/saveSkills';
+    return this.http.post<TeacherSkills[]>(url, skills);
+  }
+
+  getSkills(): Observable<any> {
+    const url = this.baseurl + '/getSkills';
+    return this.http.get<TeacherSkills[]>(url);
   }
 }
