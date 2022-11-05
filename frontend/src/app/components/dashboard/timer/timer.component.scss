@@ -1,0 +1,62 @@
+:host ::ng-deep .custom-style {
+  font-size: 10em;
+
+  .item {
+    padding: 10px;
+  }
+}
+.card-body {
+  text-align: center !important;
+}
+
+.btn {
+  margin: 20px 5px;
+}
+
+.begin-button {
+  margin: 0px !important;
+}
+
+.btn-primary {
+  color: #01161e;
+  background-color: #58a6ff;
+  border-color: #58a6ff;
+}
+.btn-primary:hover {
+  color: #01161e;
+  background-color: #2cda9d;
+  border-color: #2cda9d;
+}
+
+.timeup {
+  color: #da2c2c;
+  text-align: center;
+  font-size: 9em;
+}
+
+.timer-input {
+  width: fit-content;
+  text-align: center;
+  font-size: 20px;
+  font-weight: bold;
+  padding: 10px;
+  border-radius: 30px;
+  border: 1px solid transparent;
+  margin: 10px;
+}
+
+.timer-input:focus {
+  outline: none;
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type="number"] {
+  -moz-appearance: textfield;
+}

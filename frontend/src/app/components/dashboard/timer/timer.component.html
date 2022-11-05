@@ -1,0 +1,34 @@
+<div class="card-body" *ngIf="!showTimeUp">
+  <div *ngIf="showTimer">
+    <countdown
+      #cd
+      (event)="handleEvent($event)"
+      [config]="config"
+      class="custom-style"
+    ></countdown>
+  </div>
+  <div *ngIf="!showTimer">
+    <div class="timer-message">
+      <label>Enter Time in Minutes</label>
+    </div>
+    <input
+      class="timer-input"
+      type="number"
+      [(ngModel)]="time"
+      (change)="configChanged()"
+      placeholder="0"
+    />
+  </div>
+  <div *ngIf="!showTimer" class="begin">
+    <button (click)="begin()" class="btn btn-primary begin-button">
+      begin
+    </button>
+  </div>
+</div>
+
+<div *ngIf="showTimeUp" class="timeup">
+  <span>Time is UP !!!</span>
+  <div>
+    <button class="btn btn-primary" (click)="back()">Back</button>
+  </div>
+</div>
