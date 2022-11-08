@@ -1,6 +1,11 @@
 # staffbite
-
+![image](https://user-images.githubusercontent.com/63245314/200532999-10c6778c-387d-494c-b47c-211773c997be.png)
+<br>
 [![DeepSource](https://deepsource.io/gh/dar1ooo/staffbite.svg/?label=active+issues&show_trend=true&token=66Voe4peEfnKk8zJuk7e5e9h)](https://deepsource.io/gh/dar1ooo/staffbite/?ref=repository-badge)
+![visitors](https://visitor-badge.deta.dev/badge?page_id=staffbite&left_color=black&right_color=green)
+<br>
+![.NET](https://github.com/dar1ooo/staffbite/actions/workflows/dotnet.yml/badge.svg)
+![CodeQL](https://github.com/dar1ooo/staffbite/actions/workflows/codeql.yml/badge.svg)
 
 # Installation
 
