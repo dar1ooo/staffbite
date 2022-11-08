@@ -2,9 +2,9 @@ name: .NET
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "staffbite" ]
   pull_request:
-    branches: [ "main" ]
+    branches: [ "staffbite" ]
 
 jobs:
   build:
@@ -18,8 +18,8 @@ jobs:
       with:
         dotnet-version: 6.0.x
     - name: Restore dependencies
-      run: dotnet restore M-326_backend/M-326_backend.sln
+      run: dotnet restore backend/staffbite.sln
     - name: Build
-      run: dotnet build M-326_backend/M-326_backend/M-326_backend.csproj --no-restore
+      run: dotnet build backend/M-326_backend/business_logic.csproj --no-restore
     - name: Test
-      run: dotnet test M-326_backend/M-326_backend.sln --no-build --verbosity normal
+      run: dotnet test backend/staffbite.sln --no-build --verbosity normal
