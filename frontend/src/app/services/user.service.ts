@@ -15,7 +15,7 @@ export class UserService {
 
   loginUser(userLogin: UserLogin): Observable<any> {
     const url = this.baseurl + '/login';
-    return this.http.post<User>(url, userLogin, { withCredentials: true });
+    return this.http.post<User>(url, userLogin);
   }
 
   registerUser(userSignUp: UserSignup): Observable<any> {

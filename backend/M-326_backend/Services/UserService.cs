@@ -16,7 +16,7 @@ namespace business_logic.Services
             collection = "Users";
         }
 
-        public void CreateUser(User user)
+        public void CreateUser(MongoDbUser user)
         {
             List<TeacherSkills> teacherSkills = new List<TeacherSkills>();
             List<TeacherSkillsMongoDb> skills = MongoCRUD.LoadRecords<TeacherSkillsMongoDb>("Skills");
@@ -31,42 +31,60 @@ namespace business_logic.Services
 
             user.TeacherSkills = teacherSkills;
 
-            MongoCRUD.InsertRecord<User>(collection, user);
+            MongoCRUD.InsertRecord<MongoDbUser>(collection, user);
         }
 
-        public void deleteUser(User user)
+        public void DeleteUser(MongoDbUser user)
         {
             var deleteFilter = Builders<BsonDocument>.Filter.Eq("_id", user.Id);
             MongoCRUD.DeleteRecord(collection, deleteFilter);
         }
 
-        public async Task<IAsyncCursor<User>> authenticateUser(User user)
+        public User AuthenticateUser(UserLogin user)
         {
-            var arrayFilter = Builders<User>.Filter.Eq("username", user.Username)
-            & Builders<User>.Filter.Eq("password", user.Password);
-            return await MongoCRUD.FindRecord<User>(collection, arrayFilter);
+            var arrayFilter = Builders<MongoDbUser>.Filter.Eq("Username", user.Username)
+            & Builders<MongoDbUser>.Filter.Eq("Password", user.Password);
+            try
+            {
+                MongoDbUser foundUser = MongoCRUD.FindRecord<MongoDbUser>(collection, arrayFilter);
+                return new User()
+                {
+                    Id = foundUser.Id,
+                    Username = foundUser.Username,
+                    Email = foundUser.Email,
+                    UserRole = foundUser.UserRole,
+                    TeacherSkills = foundUser.TeacherSkills,
+                };
+            }
+            catch
+            {
+                throw;
+            }
         }
 
         public List<string> GetTakenUsernames()
         {
-            List<User> users = MongoCRUD.LoadRecords<User>("Users");
+            List<MongoDbUser> users = MongoCRUD.LoadRecords<MongoDbUser>("Users");
             return users.Select(x => x.Username).ToList();
         }
 
-        public List<Teacher> GetAllTeachers()
+        public List<User> GetAllTeachers()
         {
-            List<User> users = MongoCRUD.LoadRecords<User>("Users");
-            List<Teacher> teachers = new List<Teacher>();
-            foreach (User user in users)
+            List<MongoDbUser> users = MongoCRUD.LoadRecords<MongoDbUser>("Users");
+            List<User> teachers = new List<User>();
+            foreach (MongoDbUser user in users)
             {
-                teachers.Add(new Teacher()
+                if (user.UserRole == UserRole.Teacher)
                 {
-                    Id = user.Id,
-                    Username = user.Username,
-                    Email = user.Email,
-                    UserRole = user.UserRole,
-                    TeacherSkills = user.TeacherSkills
-                });
+                    teachers.Add(new User()
+                    {
+                        Id = user.Id,
+                        Username = user.Username,
+                        Email = user.Email,
+                        UserRole = user.UserRole,
+                        TeacherSkills = user.TeacherSkills
+                    });
+                }
             }
 
             return teachers;

@@ -1,19 +1,4 @@
-<!-- <div *ngIf="!user">Please Log in to view your dashboard</div> -->
-<button
-  *ngIf="user.userRole === userLevel.Admin"
-  class="btn btn-dark"
-  (click)="changeUserType()"
->
-  Teacher view
-</button>
-<button
-  *ngIf="user.userRole === userLevel.Teacher"
-  class="btn btn-dark"
-  (click)="changeUserType()"
->
-  Admin view
-</button>
-<div class="app-container">
+<div class="app-container" *ngIf="user">
   <div class="app-content">
     <div class="app-sidebar">
       <a
@@ -334,5 +319,10 @@
         <app-settings [user]="user"></app-settings>
       </div>
     </div>
+  </div>
+</div>
+<div class="app-container" *ngIf="!user">
+  <div class="not-logged-in">
+    <p>Please Login first</p>
   </div>
 </div>

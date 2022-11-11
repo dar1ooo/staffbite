@@ -1,7 +1,6 @@
 using business_logic.Models;
-using Microsoft.AspNetCore.Mvc;
-using MongoDB.Driver;
 using business_logic.Services;
+using Microsoft.AspNetCore.Mvc;
 
 namespace business_logic.Controllers;
 
@@ -14,7 +13,7 @@ public class UserController : BaseController
     public async Task<IActionResult> Create(UserRegister userRegister)
     {
         UserService userManagement = new UserService();
-        User user = new User();
+        MongoDbUser user = new MongoDbUser();
         user.Email = userRegister.Email;
         user.Password = userRegister.Password;
         user.Username = userRegister.Username;
@@ -33,24 +32,34 @@ public class UserController : BaseController
 
     [HttpPost]
     [Route("login")]
-    public async Task<ActionResult<User>> Find(User user)
+    public IActionResult Login(UserLogin user)
     {
-        UserService userManagement = new UserService();
-        var result = await userManagement.authenticateUser(user);
-        if (user == null)
+        try
+        {
+            var result = this.UserService.AuthenticateUser(user);
+            return Ok(result);
+        }
+        catch
         {
             return NotFound();
         }
-        return (ActionResult)result;
     }
 
     [HttpPost]
     [Route("delete")]
-    public async Task<IActionResult> Delete(User user)
+    public IActionResult Delete(MongoDbUser user)
     {
         UserService userManagement = new UserService();
-        userManagement.deleteUser(user);
-        return CreatedAtAction(nameof(Create), user);
+        try
+        {
+            userManagement.DeleteUser(user);
+            return Ok();
+        }
+        catch
+        {
+            return NotFound();
+        }
+        
     }
 
     [HttpGet]
@@ -66,8 +75,7 @@ public class UserController : BaseController
     [Route("teachers")]
     public IActionResult GetAllTeachers()
     {
-        List<Teacher> teachers = this.UserService.GetAllTeachers();
+        List<User> teachers = this.UserService.GetAllTeachers();
         return Ok(teachers);
     }
 }
-

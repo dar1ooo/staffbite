@@ -26,7 +26,7 @@
       class="form-control"
       aria-describedby="confirmPasswordHelp"
       id="newPassword"
-      [(ngModel)]="newPassword"
+      [(ngModel)]="userLogin.Password"
       *ngIf="!showPassword"
     />
     <input
@@ -34,7 +34,7 @@
       class="form-control"
       aria-describedby="confirmPasswordHelp"
       *ngIf="showPassword"
-      [(ngModel)]="newPassword"
+      [(ngModel)]="userLogin.Password"
     />
 
     <span class="input-group-text" id="basic-addon2"

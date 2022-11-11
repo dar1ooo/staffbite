@@ -25,11 +25,18 @@ namespace business_logic.Services
             collection.DeleteOne(filter);
         }
 
-        public async Task<IAsyncCursor<T>> FindRecord<T>(string table, FilterDefinition<T> filter)
+        public T FindRecord<T>(string table, FilterDefinition<T> filter)
         {
             var collection = db.GetCollection<T>(table);
-            var value = await collection.FindAsync<T>(filter);
-            return value;
+            try
+            {
+                var value = collection.Find<T>(filter).First();
+                return value;
+            }
+            catch
+            {
+                throw;
+            }
         }
 
         public List<T> LoadRecords<T>(string table)
@@ -41,7 +48,7 @@ namespace business_logic.Services
         public T LoadRecordById<T>(string table, Guid id)
         {
             var collection = db.GetCollection<T>(table);
-            var filter = Builders<T>.Filter.Eq("Id", id);
+            var filter = Builders<T>.Filter.Eq("_id", id);
 
             return collection.Find(filter).First();
         }
@@ -49,6 +56,12 @@ namespace business_logic.Services
         public void ClearTable<T>(string table)
         {
             db.DropCollection(table);
+        }
+
+        public void UpsertRecord<T>(string table, Guid id, T record)
+        {
+            var collection = db.GetCollection<T>(table);
+            var result = collection.ReplaceOne(new BsonDocument("_id", id), record, new UpdateOptions { IsUpsert = true });
         }
     }
 }
