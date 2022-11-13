@@ -58,10 +58,22 @@ namespace business_logic.Services
             db.DropCollection(table);
         }
 
-        public void UpsertRecord<T>(string table, Guid id, T record)
+        public void UpsertRecord<T>(string table, Guid id, UpdateDefinition<T> record)
         {
             var collection = db.GetCollection<T>(table);
-            var result = collection.ReplaceOne(new BsonDocument("_id", id), record, new UpdateOptions { IsUpsert = true });
+
+            var filter = Builders<T>.Filter.Eq("_id", id);
+
+            var documentBefore = collection.FindOneAndUpdate(filter, record, new FindOneAndUpdateOptions<T> { ReturnDocument = ReturnDocument.Before });
+
+            if (documentBefore != null)
+            {
+                // The document already existed and was updated.
+            }
+            else
+            {
+                // The document did not exist and was inserted.
+            }
         }
     }
 }

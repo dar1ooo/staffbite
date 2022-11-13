@@ -45,9 +45,14 @@ export class LoginComponent implements OnInit {
       )
       .subscribe();
   }
+
   public changeShowPassword(): void {
     this.showPassword
       ? (this.showPassword = false)
       : (this.showPassword = true);
+  }
+
+  public onKeydown(event) {
+    this.login();
   }
 }

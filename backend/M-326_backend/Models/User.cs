@@ -1,11 +1,8 @@
-﻿using MongoDB.Bson.Serialization.Attributes;
-
-namespace business_logic.Models
+﻿namespace business_logic.Models
 {
     public class User
     {
-        [BsonId]
-        public Guid Id { get; set; }
+        public string Id { get; set; }
 
         public string Username { get; set; } = string.Empty;
         public string Email { get; set; } = string.Empty;

@@ -28,6 +28,7 @@
       id="newPassword"
       [(ngModel)]="userLogin.Password"
       *ngIf="!showPassword"
+      (keydown.enter)="onKeydown($event)"
     />
     <input
       type="text"
@@ -35,6 +36,7 @@
       aria-describedby="confirmPasswordHelp"
       *ngIf="showPassword"
       [(ngModel)]="userLogin.Password"
+      (keydown.enter)="onKeydown($event)"
     />
 
     <span class="input-group-text" id="basic-addon2"

@@ -59,7 +59,6 @@ public class UserController : BaseController
         {
             return NotFound();
         }
-        
     }
 
     [HttpGet]
@@ -77,5 +76,13 @@ public class UserController : BaseController
     {
         List<User> teachers = this.UserService.GetAllTeachers();
         return Ok(teachers);
+    }
+
+    [HttpPost]
+    [Route("update")]
+    public IActionResult Update(User user)
+    {
+        this.UserService.UpdateUser(user);
+        return Ok();
     }
 }

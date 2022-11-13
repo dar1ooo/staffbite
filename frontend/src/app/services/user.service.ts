@@ -32,4 +32,9 @@ export class UserService {
     const url = this.baseurl + '/teachers';
     return this.http.get<User[]>(url);
   }
+
+  updateUser(user: User): Observable<any> {
+    const url = this.baseurl + '/update';
+    return this.http.post<any>(url, user);
+  }
 }

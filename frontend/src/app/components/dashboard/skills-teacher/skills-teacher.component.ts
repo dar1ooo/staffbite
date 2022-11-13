@@ -4,6 +4,7 @@ import { catchError, tap } from 'rxjs';
 import { TeacherSkills, User } from 'src/app/models';
 import { SubSkill } from 'src/app/models/subskill.model';
 import { SkillsService } from 'src/app/services/skills.service';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-skills-teacher',
@@ -17,7 +18,7 @@ export class SkillsTeacherComponent implements OnInit {
   public totalSkills: number = 0;
 
   constructor(
-    private skillsService: SkillsService,
+    private userService: UserService,
     private toastr: ToastrService
   ) {}
 
@@ -25,28 +26,31 @@ export class SkillsTeacherComponent implements OnInit {
     this.SkillProgress();
   }
 
-  public CheckSkill(skill: SubSkill, SkillGroup: TeacherSkills): void {
-    this.skillsService.updateSkillProgress(this.user).pipe(
-      tap((result) => {
-        this.toastr.success('Saving successful', 'Success');
-      }),
-      catchError((err) => {
-        this.toastr.error('Saving failed', 'Failed');
-        return err;
-      })
-    );
+  public CheckSkill(
+    skill: SubSkill,
+    SkillGroup: TeacherSkills,
+    level: number,
+    index: number
+  ): void {
+    this.user.teacherSkills.find(
+      (skillGroup) => skillGroup.skillTopic === SkillGroup.skillTopic
+    ).skills[level].subSkills[index].isChecked = !skill.isChecked;
 
-    this.user.teacherSkills
-      .find((skillGroup) => skillGroup.skillTopic === SkillGroup.skillTopic)
-      .skills.find((s) => {
-        s.subSkills.forEach((subskill) => {
-          if (subskill.description === skill.description) {
-            subskill.isChecked = !subskill.isChecked;
-          }
-        });
-      });
-    sessionStorage.setItem('user', JSON.stringify(this.user));
-    this.SkillProgress();
+    this.userService
+      .updateUser(this.user)
+      .pipe(
+        tap(() => {
+          this.SkillProgress();
+        }),
+        catchError((err) => {
+          this.toastr.error('Saving failed', 'Failed');
+          this.user.teacherSkills.find(
+            (skillGroup) => skillGroup.skillTopic === SkillGroup.skillTopic
+          ).skills[level].subSkills[index].isChecked = !skill.isChecked;
+          return err;
+        })
+      )
+      .subscribe();
   }
 
   public SkillProgress() {

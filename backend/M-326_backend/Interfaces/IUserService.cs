@@ -11,5 +11,7 @@ namespace business_logic.Interfaces
         public List<User> GetAllTeachers();
 
         public User AuthenticateUser(UserLogin user);
+
+        void UpdateUser(User user);
     }
 }

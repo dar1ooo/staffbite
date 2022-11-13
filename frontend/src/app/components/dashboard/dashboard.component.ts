@@ -14,7 +14,7 @@ export class DashboardComponent implements OnInit {
   public user: User | undefined;
   public myDate: string;
   public day: string;
-  public selectedSection: string = 'timer';
+  public selectedSection: string = 'home';
 
   constructor(private datePipe: DatePipe) {
     const date = new Date();

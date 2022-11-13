@@ -14,16 +14,16 @@
   <tbody>
     <tr *ngFor="let skillgroup of user.teacherSkills">
       <td>{{ skillgroup.skillTopic }}</td>
-      <td *ngFor="let skillLevel of skillgroup.skills">
+      <td *ngFor="let skillLevel of skillgroup.skills; let level = index">
         <table class="subskills">
           <td>
             <div
-              *ngFor="let subskill of skillLevel.subSkills"
+              *ngFor="let subskill of skillLevel.subSkills; let i = index"
               class="skill-area"
               [ngClass]="
                 subskill.isChecked ? 'skill-checked' : 'skill-not-checked'
               "
-              (click)="CheckSkill(subskill, skillgroup)"
+              (click)="CheckSkill(subskill, skillgroup, level, i)"
             >
               <span class="skill-description">
                 {{ subskill.description }}

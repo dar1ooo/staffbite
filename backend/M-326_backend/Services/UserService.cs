@@ -49,7 +49,7 @@ namespace business_logic.Services
                 MongoDbUser foundUser = MongoCRUD.FindRecord<MongoDbUser>(collection, arrayFilter);
                 return new User()
                 {
-                    Id = foundUser.Id,
+                    Id = foundUser.Id.ToString(),
                     Username = foundUser.Username,
                     Email = foundUser.Email,
                     UserRole = foundUser.UserRole,
@@ -78,7 +78,7 @@ namespace business_logic.Services
                 {
                     teachers.Add(new User()
                     {
-                        Id = user.Id,
+                        Id = user.Id.ToString(),
                         Username = user.Username,
                         Email = user.Email,
                         UserRole = user.UserRole,
@@ -88,6 +88,22 @@ namespace business_logic.Services
             }
 
             return teachers;
+        }
+
+        public void UpdateUser(User user)
+        {
+            MongoDbUser dbUser = new MongoDbUser()
+            {
+                Id = new Guid(user.Id),
+                Username = user.Username,
+                Email = user.Email,
+                UserRole = user.UserRole,
+                TeacherSkills = user.TeacherSkills
+            };
+
+            var update = Builders<MongoDbUser>.Update.Set(p => p.TeacherSkills, dbUser.TeacherSkills);
+
+            MongoCRUD.UpsertRecord<MongoDbUser>("Users", dbUser.Id, update);
         }
     }
 }
