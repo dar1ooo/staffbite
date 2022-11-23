@@ -15,7 +15,7 @@ public class UserController : BaseController
         UserService userManagement = new UserService();
         MongoDbUser user = new MongoDbUser();
         user.Email = userRegister.Email;
-        user.Password = userRegister.Password;
+        user.Password =userManagement.HashPassword(userRegister.Password);
         user.Username = userRegister.Username;
         if (userRegister.IsAdmin)
         {
@@ -37,6 +37,11 @@ public class UserController : BaseController
         try
         {
             var result = this.UserService.AuthenticateUser(user);
+            const string userId = "_UserId";
+            const string userName = "_UserName";
+
+            HttpContext.Session.SetString(userId, result.Id.ToString());
+            HttpContext.Session.SetString(userName, result.Username.ToString());
             return Ok(result);
         }
         catch

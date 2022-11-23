@@ -2,6 +2,10 @@
 using business_logic.Models;
 using MongoDB.Bson;
 using MongoDB.Driver;
+using Microsoft.AspNetCore.Cryptography.KeyDerivation;
+using System.Security.Cryptography;
+using System.Linq;
+using Microsoft.AspNetCore.Mvc;
 
 namespace business_logic.Services
 {
@@ -42,19 +46,23 @@ namespace business_logic.Services
 
         public User AuthenticateUser(UserLogin user)
         {
-            var arrayFilter = Builders<MongoDbUser>.Filter.Eq("Username", user.Username)
-            & Builders<MongoDbUser>.Filter.Eq("Password", user.Password);
+            var arrayFilter = Builders<MongoDbUser>.Filter.Eq("Username", user.Username);
             try
             {
                 MongoDbUser foundUser = MongoCRUD.FindRecord<MongoDbUser>(collection, arrayFilter);
-                return new User()
+
+                if (VerifyHashedPassword(foundUser.Password, user.Password))
                 {
-                    Id = foundUser.Id.ToString(),
-                    Username = foundUser.Username,
-                    Email = foundUser.Email,
-                    UserRole = foundUser.UserRole,
-                    TeacherSkills = foundUser.TeacherSkills,
-                };
+                    return new User()
+                    {
+                        Id = foundUser.Id.ToString(),
+                        Username = foundUser.Username,
+                        Email = foundUser.Email,
+                        UserRole = foundUser.UserRole,
+                        TeacherSkills = foundUser.TeacherSkills,
+                    };
+                }
+                throw new Exception();
             }
             catch
             {
@@ -104,6 +112,39 @@ namespace business_logic.Services
             var update = Builders<MongoDbUser>.Update.Set(p => p.TeacherSkills, dbUser.TeacherSkills);
 
             MongoCRUD.UpsertRecord<MongoDbUser>("Users", dbUser.Id, update);
+        }
+        public string HashPassword(string password)
+        {
+            byte[] salt;
+            byte[] buffer2;
+            using (Rfc2898DeriveBytes bytes = new Rfc2898DeriveBytes(password, 0x10, 0x3e8))
+            {
+                salt = bytes.Salt;
+                buffer2 = bytes.GetBytes(0x20);
+            }
+            byte[] dst = new byte[0x31];
+            Buffer.BlockCopy(salt, 0, dst, 1, 0x10);
+            Buffer.BlockCopy(buffer2, 0, dst, 0x11, 0x20);
+            return Convert.ToBase64String(dst);
+        }
+
+        public static bool VerifyHashedPassword(string hashedPassword, string password)
+        {
+            byte[] buffer4;
+            byte[] src = Convert.FromBase64String(hashedPassword);
+            if ((src.Length != 0x31) || (src[0] != 0))
+            {
+                return false;
+            }
+            byte[] dst = new byte[0x10];
+            Buffer.BlockCopy(src, 1, dst, 0, 0x10);
+            byte[] buffer3 = new byte[0x20];
+            Buffer.BlockCopy(src, 0x11, buffer3, 0, 0x20);
+            using (Rfc2898DeriveBytes bytes = new Rfc2898DeriveBytes(password, dst, 0x3e8))
+            {
+                buffer4 = bytes.GetBytes(0x20);
+            }
+            return buffer4.SequenceEqual(buffer3);
         }
     }
 }
