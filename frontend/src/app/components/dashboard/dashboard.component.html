@@ -3,6 +3,7 @@
     <div class="app-sidebar">
       <a
         (click)="changeSection('home')"
+        id="navhome"
         class="app-sidebar-link"
         [ngClass]="selectedSection === 'home' ? 'active' : ''"
       >
@@ -104,6 +105,7 @@
         *ngIf="user.userRole === userLevel.Teacher"
         (click)="changeSection('timer')"
         class="app-sidebar-link"
+        id="navtimer"
         [ngClass]="selectedSection === 'timer' ? 'active' : ''"
       >
         <svg
@@ -140,6 +142,7 @@
       <a
         (click)="changeSection('user-management')"
         class="app-sidebar-link"
+        id="navusermanagement"
         [ngClass]="selectedSection === 'user-management' ? 'active' : ''"
       >
         <svg
@@ -216,6 +219,7 @@
       <a
         (click)="changeSection('settings')"
         class="app-sidebar-link"
+        id="navsettings"
         [ngClass]="selectedSection === 'settings' ? 'active' : ''"
       >
         <svg
