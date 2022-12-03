@@ -2,10 +2,7 @@
 using business_logic.Models;
 using MongoDB.Bson;
 using MongoDB.Driver;
-using Microsoft.AspNetCore.Cryptography.KeyDerivation;
 using System.Security.Cryptography;
-using System.Linq;
-using Microsoft.AspNetCore.Mvc;
 
 namespace business_logic.Services
 {
@@ -109,10 +106,14 @@ namespace business_logic.Services
                 TeacherSkills = user.TeacherSkills
             };
 
-            var update = Builders<MongoDbUser>.Update.Set(p => p.TeacherSkills, dbUser.TeacherSkills);
+            var update = Builders<MongoDbUser>.Update
+                .Set(p => p.TeacherSkills, dbUser.TeacherSkills)
+                .Set(p => p.Username, dbUser.Username)
+                .Set(p => p.Email, dbUser.Email);
 
             MongoCRUD.UpsertRecord<MongoDbUser>("Users", dbUser.Id, update);
         }
+
         public string HashPassword(string password)
         {
             byte[] salt;
