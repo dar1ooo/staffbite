@@ -29,6 +29,7 @@
       <a
         (click)="changeSection('skills')"
         class="app-sidebar-link"
+        id="skills"
         [ngClass]="selectedSection === 'skills' ? 'active' : ''"
       >
         <svg
@@ -327,6 +328,6 @@
 </div>
 <div class="app-container" *ngIf="!user">
   <div class="not-logged-in">
-    <p>Please Login first</p>
+    <p id="notloggedin-msg">Please Login first</p>
   </div>
 </div>
