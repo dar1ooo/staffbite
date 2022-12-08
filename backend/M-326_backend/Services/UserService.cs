@@ -50,6 +50,7 @@ namespace business_logic.Services
 
                 if (VerifyHashedPassword(foundUser.Password, user.Password))
                 {
+
                     return new User()
                     {
                         Id = foundUser.Id.ToString(),
@@ -129,7 +130,7 @@ namespace business_logic.Services
             return Convert.ToBase64String(dst);
         }
 
-        public static bool VerifyHashedPassword(string hashedPassword, string password)
+        public bool VerifyHashedPassword(string hashedPassword, string password)
         {
             byte[] buffer4;
             byte[] src = Convert.FromBase64String(hashedPassword);

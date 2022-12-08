@@ -1,3 +1,5 @@
+using business_logic.Interfaces;
+using business_logic.Services;
 using Microsoft.AspNetCore.Server.Kestrel.Core;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -35,6 +37,8 @@ builder.Services.Configure<KestrelServerOptions>(options =>
 });
 
 builder.Services.AddDistributedMemoryCache();
+
+builder.Services.AddScoped<IUserService, UserService>();
 
 builder.Services.AddSession(options =>
 {

@@ -1,3 +1,4 @@
+using business_logic.Interfaces;
 using business_logic.Models;
 using business_logic.Services;
 using Microsoft.AspNetCore.Mvc;
@@ -8,14 +9,21 @@ namespace business_logic.Controllers;
 [Route("api/[controller]")]
 public class UserController : BaseController
 {
+    public UserController(IUserService service) : base(service)
+    {
+    }
+
     [HttpPost]
     [Route("register")]
-    public async Task<IActionResult> Create(UserRegister userRegister)
+    public IActionResult Create(UserRegister userRegister)
     {
-        UserService userManagement = new UserService();
+        if(!ModelState.IsValid)
+        {
+            return BadRequest(ModelState);
+        }
         MongoDbUser user = new MongoDbUser();
         user.Email = userRegister.Email;
-        user.Password =userManagement.HashPassword(userRegister.Password);
+        user.Password = _userService.HashPassword(userRegister.Password);
         user.Username = userRegister.Username;
         if (userRegister.IsAdmin)
         {
@@ -26,7 +34,7 @@ public class UserController : BaseController
             user.UserRole = UserRole.Teacher;
         }
 
-        userManagement.CreateUser(user);
+        _userService.CreateUser(user);
         return CreatedAtAction(nameof(Create), user);
     }
 
@@ -36,12 +44,16 @@ public class UserController : BaseController
     {
         try
         {
-            var result = this.UserService.AuthenticateUser(user);
-            const string userId = "_UserId";
-            const string userName = "_UserName";
+            var result = _userService.AuthenticateUser(user);
+            if(result == null)
+            {
+                return NotFound();
+            }
+            //const string userId = "_UserId";
+            //const string userName = "_UserName";
 
-            HttpContext.Session.SetString(userId, result.Id.ToString());
-            HttpContext.Session.SetString(userName, result.Username.ToString());
+            //HttpContext.Session.SetString(userId, result.Id.ToString());
+            //HttpContext.Session.SetString(userName, result.Username.ToString());
             return Ok(result);
         }
         catch
@@ -54,10 +66,10 @@ public class UserController : BaseController
     [Route("delete")]
     public IActionResult Delete(User user)
     {
-        UserService userManagement = new UserService();
+      
         try
         {
-            userManagement.DeleteUser(user);
+            _userService.DeleteUser(user);
             return Ok();
         }
         catch
@@ -70,7 +82,7 @@ public class UserController : BaseController
     [Route("usernames")]
     public IActionResult GetTakenUsernames()
     {
-        List<string> usernames = this.UserService.GetTakenUsernames();
+        List<string> usernames = _userService.GetTakenUsernames();
 
         return Ok(usernames);
     }
@@ -79,7 +91,7 @@ public class UserController : BaseController
     [Route("teachers")]
     public IActionResult GetAllTeachers()
     {
-        List<User> teachers = this.UserService.GetAllTeachers();
+        List<User> teachers = _userService.GetAllTeachers();
         return Ok(teachers);
     }
 
@@ -87,7 +99,7 @@ public class UserController : BaseController
     [Route("update")]
     public IActionResult Update(User user)
     {
-        this.UserService.UpdateUser(user);
+        _userService.UpdateUser(user);
         return Ok();
     }
 }

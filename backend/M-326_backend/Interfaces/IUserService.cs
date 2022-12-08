@@ -5,6 +5,9 @@ namespace business_logic.Interfaces
     public interface IUserService
     {
         public void CreateUser(MongoDbUser user);
+        public void DeleteUser(User user);
+        public string HashPassword(string password);
+        public bool VerifyHashedPassword(string hashedPassword, string password);
 
         public List<string> GetTakenUsernames();
 
@@ -12,6 +15,6 @@ namespace business_logic.Interfaces
 
         public User AuthenticateUser(UserLogin user);
 
-        void UpdateUser(User user);
+        public void UpdateUser(User user);
     }
 }

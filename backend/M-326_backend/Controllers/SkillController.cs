@@ -1,4 +1,5 @@
-﻿using business_logic.Models;
+﻿using business_logic.Interfaces;
+using business_logic.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace business_logic.Controllers;
@@ -7,6 +8,10 @@ namespace business_logic.Controllers;
 [Route("api/[controller]")]
 public class SkillController : BaseController
 {
+    public SkillController(IUserService service) : base(service)
+    {
+    }
+
     [HttpPost]
     [Route("saveSkills")]
     public IActionResult SaveSkills(List<TeacherSkills> skills)
