@@ -1,6 +1,6 @@
 ﻿namespace business_logic.Models
 {
-    public class Skill
+    public class SkillLevel
     {
         public List<SubSkill> SubSkills { get; set; } = new List<SubSkill>();
     }

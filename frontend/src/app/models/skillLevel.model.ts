@@ -1,5 +1,5 @@
 import { SubSkill } from './subskill.model';
 
-export class Skill {
+export class SkillLevel {
   subSkills: SubSkill[] = [];
 }

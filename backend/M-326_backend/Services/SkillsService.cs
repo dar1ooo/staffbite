@@ -22,7 +22,7 @@ namespace business_logic.Services
             {
                 TeacherSkillsMongoDb skill = new TeacherSkillsMongoDb();
                 skill.SkillTopic = sk.SkillTopic;
-                skill.Skills = sk.Skills;
+                skill.SkillLevels = sk.SkillLevels;
                 MongoCRUD.InsertRecord<TeacherSkillsMongoDb>(collection, skill);
             }
         }
@@ -41,7 +41,7 @@ namespace business_logic.Services
             {
                 TeacherSkills teacherSkill = new TeacherSkills();
                 teacherSkill.SkillTopic = sk.SkillTopic;
-                teacherSkill.Skills = sk.Skills;
+                teacherSkill.SkillLevels = sk.SkillLevels;
                 teacherSkills.Add(teacherSkill);
             }
 

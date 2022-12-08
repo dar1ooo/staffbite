@@ -37,4 +37,9 @@ export class UserService {
     const url = this.baseurl + '/update';
     return this.http.post<any>(url, user);
   }
+
+  deleteUser(user: User): Observable<any> {
+    const url = this.baseurl + '/delete';
+    return this.http.post<any>(url, user);
+  }
 }

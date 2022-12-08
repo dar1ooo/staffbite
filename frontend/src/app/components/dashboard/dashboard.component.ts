@@ -1,7 +1,7 @@
 import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { UserRole } from 'src/app/enums/user-role';
-import { Skill } from 'src/app/models';
+import { SkillLevel } from 'src/app/models';
 import { User } from 'src/app/models/user.model';
 
 @Component({

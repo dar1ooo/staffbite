@@ -12,7 +12,7 @@
       <tbody>
         <tr *ngFor="let skillgroup of currentSkills; let i = index">
           <td>{{ skillgroup.skillTopic }}</td>
-          <td *ngFor="let skillLevel of skillgroup.skills">
+          <td *ngFor="let skillLevel of skillgroup.skillLevels">
             <table class="subskills">
               <td>
                 <div
@@ -119,13 +119,12 @@
         <div class="white-border">
           <div>
             <label>Beginner:</label>
-            <span *ngIf="newSkill.skills[0]">
+            <span *ngIf="newSkill.skillLevels[0]">
               <span
                 *ngFor="
-                  let subskill of newSkill.skills[0].subSkills;
+                  let subskill of newSkill.skillLevels[0].subSkills;
                   let i = index
                 "
-                (click)="editSusbkill(subskill, i, 'beginner')"
               >
                 {{ subskill.description }},
               </span>
@@ -133,13 +132,12 @@
           </div>
           <div>
             <label>Advanced:</label>
-            <span *ngIf="newSkill.skills[1]">
+            <span *ngIf="newSkill.skillLevels[1]">
               <span
                 *ngFor="
-                  let subskill of newSkill.skills[1].subSkills;
+                  let subskill of newSkill.skillLevels[1].subSkills;
                   let i = index
                 "
-                (click)="editSusbkill(subskill, i, 'advanced')"
               >
                 {{ subskill.description }},
               </span>
@@ -147,13 +145,12 @@
           </div>
           <div>
             <label>Expert:</label>
-            <span *ngIf="newSkill.skills[2]">
+            <span *ngIf="newSkill.skillLevels[2]">
               <span
                 *ngFor="
-                  let subskill of newSkill.skills[2].subSkills;
+                  let subskill of newSkill.skillLevels[2].subSkills;
                   let i = index
                 "
-                (click)="editSusbkill(subskill, i, 'expert')"
               >
                 {{ subskill.description }},
               </span>
@@ -253,11 +250,11 @@
         <div class="white-border">
           <div>
             <label>Beginner:</label>
-            <span *ngIf="editedSkill.skills[0]">
+            <span *ngIf="editedSkill.skillLevels[0]">
               <span
                 class="new-subskill-description"
                 *ngFor="
-                  let subskill of editedSkill.skills[0].subSkills;
+                  let subskill of editedSkill.skillLevels[0].subSkills;
                   let i = index
                 "
                 (click)="editSusbkill(subskill, i, 'beginner')"
@@ -268,11 +265,11 @@
           </div>
           <div>
             <label>Advanced:</label>
-            <span *ngIf="editedSkill.skills[1]">
+            <span *ngIf="editedSkill.skillLevels[1]">
               <span
                 class="new-subskill-description"
                 *ngFor="
-                  let subskill of editedSkill.skills[1].subSkills;
+                  let subskill of editedSkill.skillLevels[1].subSkills;
                   let i = index
                 "
                 (click)="editSusbkill(subskill, i, 'advanced')"
@@ -283,11 +280,11 @@
           </div>
           <div>
             <label>Expert:</label>
-            <span *ngIf="editedSkill.skills[2]">
+            <span *ngIf="editedSkill.skillLevels[2]">
               <span
                 class="new-subskill-description"
                 *ngFor="
-                  let subskill of editedSkill.skills[2].subSkills;
+                  let subskill of editedSkill.skillLevels[2].subSkills;
                   let i = index
                 "
                 (click)="editSusbkill(subskill, i, 'expert')"

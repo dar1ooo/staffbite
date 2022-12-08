@@ -14,7 +14,7 @@
   <tbody>
     <tr *ngFor="let skillgroup of user.teacherSkills">
       <td>{{ skillgroup.skillTopic }}</td>
-      <td *ngFor="let skillLevel of skillgroup.skills; let level = index">
+      <td *ngFor="let skillLevel of skillgroup.skillLevels; let level = index">
         <table class="subskills">
           <td>
             <div

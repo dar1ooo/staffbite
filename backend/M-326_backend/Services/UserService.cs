@@ -26,7 +26,7 @@ namespace business_logic.Services
             {
                 TeacherSkills teacherSkill = new TeacherSkills();
                 teacherSkill.SkillTopic = sk.SkillTopic;
-                teacherSkill.Skills = sk.Skills;
+                teacherSkill.SkillLevels = sk.SkillLevels;
                 teacherSkills.Add(teacherSkill);
             }
 
@@ -35,9 +35,9 @@ namespace business_logic.Services
             MongoCRUD.InsertRecord<MongoDbUser>(collection, user);
         }
 
-        public void DeleteUser(MongoDbUser user)
+        public void DeleteUser(User user)
         {
-            var deleteFilter = Builders<BsonDocument>.Filter.Eq("_id", user.Id);
+            var deleteFilter = Builders<BsonDocument>.Filter.Eq("_id", Guid.Parse(user.Id));
             MongoCRUD.DeleteRecord(collection, deleteFilter);
         }
 

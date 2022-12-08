@@ -3,6 +3,6 @@
     public class TeacherSkills
     {
         public string SkillTopic { get; set; }
-        public List<Skill> Skills { get; set; } = new List<Skill>();
+        public List<SkillLevel> SkillLevels { get; set; } = new List<SkillLevel>();
     }
 }

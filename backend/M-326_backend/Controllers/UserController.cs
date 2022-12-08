@@ -52,7 +52,7 @@ public class UserController : BaseController
 
     [HttpPost]
     [Route("delete")]
-    public IActionResult Delete(MongoDbUser user)
+    public IActionResult Delete(User user)
     {
         UserService userManagement = new UserService();
         try

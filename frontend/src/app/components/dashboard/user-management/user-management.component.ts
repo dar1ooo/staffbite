@@ -24,6 +24,42 @@ export class UserManagementComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.loadAllTeachers();
+  }
+
+  public viewSkills(teacher: User) {
+    this.showUserDetail = true;
+    this.selectedTeacher = teacher;
+  }
+
+  public deleteUser(teacher: User) {
+    this.userService
+      .deleteUser(teacher)
+      .pipe(
+        tap((result) => {
+          this.toastr.success('User deleted');
+          this.teachers = this.teachers.filter((t) => t.id !== teacher.id);
+        }),
+        catchError((err) => {
+          this.toastr.error("Couldn't delete user");
+          return err;
+        })
+      )
+      .subscribe();
+  }
+
+  public backToUserList(): void {
+    this.showUserDetail = false;
+    this.showAddUser = false;
+    this.loadAllTeachers();
+  }
+
+  public addUser(): void {
+    this.showAddUser = true;
+    this.showUserDetail = false;
+  }
+
+  public loadAllTeachers(): void {
     this.userService
       .getAllTeachers()
       .pipe(
@@ -36,19 +72,5 @@ export class UserManagementComponent implements OnInit {
         })
       )
       .subscribe();
-  }
-
-  public viewSkills(teacher: User) {
-    this.showUserDetail = true;
-    this.selectedTeacher = teacher;
-  }
-
-  public backToUserList(): void {
-    this.showUserDetail = false;
-    this.showAddUser = false;
-  }
-
-  public addUser(): void {
-    this.showAddUser = true;
   }
 }

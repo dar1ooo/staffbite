@@ -34,7 +34,7 @@ export class SkillsTeacherComponent implements OnInit {
   ): void {
     this.user.teacherSkills.find(
       (skillGroup) => skillGroup.skillTopic === SkillGroup.skillTopic
-    ).skills[level].subSkills[index].isChecked = !skill.isChecked;
+    ).skillLevels[level].subSkills[index].isChecked = !skill.isChecked;
 
     this.userService
       .updateUser(this.user)
@@ -46,7 +46,7 @@ export class SkillsTeacherComponent implements OnInit {
           this.toastr.error('Saving failed', 'Failed');
           this.user.teacherSkills.find(
             (skillGroup) => skillGroup.skillTopic === SkillGroup.skillTopic
-          ).skills[level].subSkills[index].isChecked = !skill.isChecked;
+          ).skillLevels[level].subSkills[index].isChecked = !skill.isChecked;
           return err;
         })
       )
@@ -57,7 +57,7 @@ export class SkillsTeacherComponent implements OnInit {
     let skillsChecked = 0;
     let totalSkills = 0;
     this.user.teacherSkills.forEach((skillGroup) => {
-      skillGroup.skills.forEach((skill) => {
+      skillGroup.skillLevels.forEach((skill) => {
         skill.subSkills.forEach((subSkill) => {
           if (subSkill.isChecked) {
             skillsChecked++;

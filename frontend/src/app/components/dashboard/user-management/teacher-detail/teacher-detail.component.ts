@@ -22,7 +22,7 @@ export class TeacherDetailComponent implements OnInit {
     let skillsChecked = 0;
     let totalSkills = 0;
     this.teacher.teacherSkills.forEach((skillGroup) => {
-      skillGroup.skills.forEach((skill) => {
+      skillGroup.skillLevels.forEach((skill) => {
         skill.subSkills.forEach((subSkill) => {
           if (subSkill.isChecked) {
             skillsChecked++;
