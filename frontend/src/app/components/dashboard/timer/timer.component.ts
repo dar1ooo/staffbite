@@ -43,9 +43,10 @@ export class TimerComponent {
       this.time === 0 ||
       this.time === null ||
       this.time === undefined ||
-      this.time < 0
+      this.time < 0 ||
+      this.time > 1440
     ) {
-      this.toastr.error('Please enter a time');
+      this.toastr.error('Please enter a valid time');
     } else {
       this.showTimer = true;
     }

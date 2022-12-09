@@ -164,6 +164,9 @@ export class SkillsAdminComponent implements OnInit {
     if (this.newSkill.skillTopic === '' || this.newSkill.skillTopic === null) {
       this.toastr.error('Please enter a skill topic');
       return false;
+    } else if (this.newSkill.skillTopic.length > 25) {
+      this.toastr.error('Skill topic cannot be more than 25 characters');
+      return false;
     } else if (this.newSkill.skillLevels[0].subSkills.length === 0) {
       this.toastr.error('Please enter at least one subskill for beginner');
       return false;
