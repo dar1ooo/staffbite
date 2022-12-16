@@ -1,5 +1,5 @@
 import { UserRole } from '../enums/user-role';
-import { TeacherSkills } from './skills.model';
+import { TeacherSkills } from './teacherskills.model';
 
 export class User {
   id: string = '';

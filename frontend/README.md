@@ -1,4 +1,3 @@
-### staffbite
 sequenceDiagram
 participant Frontend as Frontend
 participant Controller as Controller
@@ -11,8 +10,6 @@ Service->>Database: Query Data
 Database-->>Service: Returned Data
 Service-->>Controller: Returned Data
 Controller-->>Frontend: HTTP Response
-
-
 
 example:
 Angular->>UserController: HTTP Request registerUser

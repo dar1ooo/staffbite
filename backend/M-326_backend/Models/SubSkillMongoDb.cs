@@ -1,8 +1,8 @@
 ﻿namespace business_logic.Models
 {
-    public class SubSkill
+    public class SubSkillMongoDb
     {
-        public string Id { get; set; }
+        public Guid Id { get; set; }
         public string Description { get; set; }
         public bool IsChecked { get; set; }
         public string PdfUrl { get; set; }

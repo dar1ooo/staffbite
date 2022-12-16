@@ -7,6 +7,6 @@ namespace business_logic.Models
         [BsonId]
         public Guid Id { get; set; }
         public string SkillTopic { get; set; }
-        public List<SkillLevel> SkillLevels { get; set; } = new List<SkillLevel>();
+        public List<SkillLevelMongoDb> SkillLevels { get; set; } = new List<SkillLevelMongoDb>();
     }
 }

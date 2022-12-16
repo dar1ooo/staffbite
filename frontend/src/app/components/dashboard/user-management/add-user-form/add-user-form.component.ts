@@ -53,7 +53,7 @@ export class AddUserFormComponent implements OnInit {
       this.user.Username !== '' &&
       this.user.Password !== ''
     ) {
-      if(this.takenUsernames.includes(this.user.Username)) {
+      if (this.takenUsernames.includes(this.user.Username)) {
         this.showUsernameTakenError = true;
         this.toastr.error('Username already taken');
         return;
