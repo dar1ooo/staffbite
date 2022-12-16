@@ -1,6 +1,6 @@
-import { Skill } from './skill.model';
+import { SkillLevel } from './skillLevel.model';
 
-export class Skills {
-  SkillTopic: string = '';
-  Skills: Skill[] = [];
+export class TeacherSkills {
+  skillTopic: string = '';
+  skillLevels: SkillLevel[] = [];
 }

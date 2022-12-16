@@ -1,10 +1,10 @@
 import { UserRole } from '../enums/user-role';
-import { Skills } from './skills.model';
+import { TeacherSkills } from './skills.model';
 
 export class User {
-  UserId: number = 0;
-  Username: string = '';
-  Email: string = '';
-  UserRole: UserRole = 0;
-  SkillGroup: Skills[] = [];
+  id: string = '';
+  username: string = '';
+  email: string = '';
+  userRole: UserRole = 0;
+  teacherSkills: TeacherSkills[] = [];
 }

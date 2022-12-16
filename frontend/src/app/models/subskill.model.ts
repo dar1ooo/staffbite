@@ -1,8 +1,8 @@
 export class SubSkill {
-  Description: string = '';
-  IsChecked: boolean = false;
-  PdfUrl: string = '';
-  ShowPdf: boolean = false;
-  VideoUrl: string = '';
-  ShowVideo: boolean = false;
+  description: string = '';
+  isChecked: boolean = false;
+  pdfUrl: string = '';
+  showPdf: boolean = false;
+  videoUrl: string = '';
+  showVideo: boolean = false;
 }

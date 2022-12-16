@@ -1,9 +1,9 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { catchError, tap } from 'rxjs';
-import { Skills, User } from 'src/app/models';
+import { TeacherSkills, User } from 'src/app/models';
 import { SubSkill } from 'src/app/models/subskill.model';
-import { SKillsService } from 'src/app/services/skills.service';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-skills-teacher',
@@ -17,7 +17,7 @@ export class SkillsTeacherComponent implements OnInit {
   public totalSkills: number = 0;
 
   constructor(
-    private skillsService: SKillsService,
+    private userService: UserService,
     private toastr: ToastrService
   ) {}
 
@@ -25,37 +25,42 @@ export class SkillsTeacherComponent implements OnInit {
     this.SkillProgress();
   }
 
-  public CheckSkill(skill: SubSkill, SkillGroup: Skills): void {
-    this.skillsService.updateSkillProgress(this.user).pipe(
-      tap((result) => {
-        this.toastr.success('Saving successful', 'Success');
-      }),
-      catchError((err) => {
-        this.toastr.error('Saving failed', 'Failed');
-        return err;
-      })
-    );
+  //Marks the selected skill as completed and saves it in the databse
+  public CheckSkill(
+    skill: SubSkill,
+    SkillGroup: TeacherSkills,
+    level: number,
+    index: number
+  ): void {
+    this.user.teacherSkills.find(
+      (skillGroup) => skillGroup.skillTopic === SkillGroup.skillTopic
+    ).skillLevels[level].subSkills[index].isChecked = !skill.isChecked;
 
-    this.user.SkillGroup.find(
-      (skillGroup) => skillGroup.SkillTopic === SkillGroup.SkillTopic
-    ).Skills.find((s) => {
-      s.SubSkills.forEach((subskill) => {
-        if (subskill.Description === skill.Description) {
-          subskill.IsChecked = !subskill.IsChecked;
-        }
-      });
-    });
-    sessionStorage.setItem('user', JSON.stringify(this.user));
-    this.SkillProgress();
+    this.userService
+      .updateUser(this.user)
+      .pipe(
+        tap(() => {
+          this.SkillProgress();
+        }),
+        catchError((err) => {
+          this.toastr.error('Saving failed', 'Failed');
+          this.user.teacherSkills.find(
+            (skillGroup) => skillGroup.skillTopic === SkillGroup.skillTopic
+          ).skillLevels[level].subSkills[index].isChecked = !skill.isChecked;
+          return err;
+        })
+      )
+      .subscribe();
   }
 
+  //Calculates the total skills completed in percentage
   public SkillProgress() {
     let skillsChecked = 0;
     let totalSkills = 0;
-    this.user.SkillGroup.forEach((skillGroup) => {
-      skillGroup.Skills.forEach((skill) => {
-        skill.SubSkills.forEach((subSkill) => {
-          if (subSkill.IsChecked) {
+    this.user.teacherSkills.forEach((skillGroup) => {
+      skillGroup.skillLevels.forEach((skill) => {
+        skill.subSkills.forEach((subSkill) => {
+          if (subSkill.isChecked) {
             skillsChecked++;
           }
           totalSkills++;
@@ -67,12 +72,12 @@ export class SkillsTeacherComponent implements OnInit {
 
   public openPdf(selectedSkill: SubSkill, e: Event) {
     if (e && e.stopPropagation) e.stopPropagation();
-    window.open(selectedSkill.PdfUrl, '_blank');
+    window.open(selectedSkill.pdfUrl, '_blank');
   }
 
   public openVideo(selectedSkill: SubSkill, e: Event) {
     if (e && e.stopPropagation) e.stopPropagation();
 
-    window.open(selectedSkill.VideoUrl, '_blank');
+    window.open(selectedSkill.videoUrl, '_blank');
   }
 }

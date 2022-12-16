@@ -19,8 +19,9 @@ export class NavbarComponent implements OnInit {
       this.user = undefined;
     }
   }
+
   public logout(): void {
     window.sessionStorage.clear();
-    window.location.href = '/login-signup';
+    window.location.href = '/login';
   }
 }

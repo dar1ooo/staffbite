@@ -10,6 +10,8 @@ import { ToastrService } from 'ngx-toastr';
 export class TimerComponent {
   public time: number = null;
   public showTimer: boolean = false;
+
+  //Config for the timer
   public config: CountdownConfig = {
     leftTime: this.time,
     notify: [1],
@@ -38,14 +40,16 @@ export class TimerComponent {
     this.time = this.config.leftTime = 0;
   }
 
+  //Starts the timer
   public begin() {
     if (
       this.time === 0 ||
       this.time === null ||
       this.time === undefined ||
-      this.time < 0
+      this.time < 0 ||
+      this.time > 1440
     ) {
-      this.toastr.error('Please enter a time');
+      this.toastr.error('Please enter a valid time');
     } else {
       this.showTimer = true;
     }

@@ -1,51 +1,138 @@
+using business_logic.Interfaces;
 using business_logic.Models;
-using Microsoft.AspNetCore.Mvc;
-using MongoDB.Driver;
 using business_logic.Services;
+using Microsoft.AspNetCore.Mvc;
 
 namespace business_logic.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-public class UserController : ControllerBase
+public class UserController : BaseController
 {
+    public UserController(IUserService service) : base(service)
+    {
+    }
+    /// <summary>
+    /// Route to create a user in the database
+    /// </summary>
+    /// <param name="userRegister"></param>
+    /// <returns>Status 200, 404 or 401 and the created user if successful</returns>
     [HttpPost]
     [Route("register")]
-    public async Task<IActionResult> Create(UserRegister userRegister)
+    public IActionResult Create(UserRegister userRegister)
     {
-        UserManagement userManagement = new UserManagement();
-        User user = new User();
-        user.Email = userRegister.Email;
-        user.Password = userRegister.Password;
-        user.Username = userRegister.Username;
-        user.UserRole = 0;
+        if(!ModelState.IsValid)
+        {
+            return BadRequest(ModelState);
+        }
+        List<string> usernames = _userService.GetTakenUsernames();
+        //check for taken usernames
+        if(usernames.Any(username => userRegister.Username == username))
+        {
+            return BadRequest(ModelState);
+        }
 
-        Random rdm = new Random();
-        user.UserId = rdm.Next(100000);
-        userManagement.createUser(user);
+        //create mongodb user to save in the database
+        MongoDbUser user = new MongoDbUser();
+        user.Email = userRegister.Email;
+        user.Password = _userService.HashPassword(userRegister.Password);
+        user.Username = userRegister.Username;
+        if (userRegister.IsAdmin)
+        {
+            user.UserRole = UserRole.Admin;
+        }
+        else
+        {
+            user.UserRole = UserRole.Teacher;
+        }
+
+        //creates user in db
+        _userService.CreateUser(user);
         return CreatedAtAction(nameof(Create), user);
     }
 
+    /// <summary>
+    /// Route for login
+    /// </summary>
+    /// <param name="user"></param>
+    /// <returns>404 or 200 and returns found user if successful</returns>
     [HttpPost]
     [Route("login")]
-    public async Task<ActionResult<User>> Find(User user)
+    public IActionResult Login(UserLogin user)
     {
-        UserManagement userManagement = new UserManagement();
-        var result = await userManagement.authenticateUser(user);
-        if (user == null)
+        try
+        {
+            var result = _userService.AuthenticateUser(user);
+            if(result == null)
+            {
+                return NotFound();
+            }
+            const string userId = "_UserId";
+            const string userName = "_UserName";
+            //set cookies
+            HttpContext.Session.SetString(userId, result.Id.ToString());
+            HttpContext.Session.SetString(userName, result.Username.ToString());
+            return Ok(result);
+        }
+        catch
         {
             return NotFound();
         }
-        return (ActionResult)result;
     }
-
+    /// <summary>
+    /// route to delete user in database
+    /// </summary>
+    /// <param name="user"></param>
+    /// <returns>status 200 or 404</returns>
     [HttpPost]
     [Route("delete")]
-    public async Task<IActionResult> Delete(User user)
+    public IActionResult Delete(User user)
     {
-        UserManagement userManagement = new UserManagement();
-        userManagement.deleteUser(user);
-        return CreatedAtAction(nameof(Create), user);
+      
+        try
+        {
+            _userService.DeleteUser(user);
+            return Ok();
+        }
+        catch
+        {
+            return NotFound();
+        }
+    }
+    /// <summary>
+    /// route get all usernames from db
+    /// </summary>
+    /// <returns>list with usernames</returns>
+    [HttpGet]
+    [Route("usernames")]
+    public IActionResult GetTakenUsernames()
+    {
+        List<string> usernames = _userService.GetTakenUsernames();
+
+        return Ok(usernames);
+    }
+
+    /// <summary>
+    /// route to get all teachers
+    /// </summary>
+    /// <returns>list with all teachers</returns>
+    [HttpGet]
+    [Route("teachers")]
+    public IActionResult GetAllTeachers()
+    {
+        List<User> teachers = _userService.GetAllTeachers();
+        return Ok(teachers);
+    }
+    /// <summary>
+    /// route to update user
+    /// </summary>
+    /// <param name="user"></param>
+    /// <returns>200</returns>
+    [HttpPost]
+    [Route("update")]
+    public IActionResult Update(User user)
+    {
+        _userService.UpdateUser(user);
+        return Ok();
     }
 }
-

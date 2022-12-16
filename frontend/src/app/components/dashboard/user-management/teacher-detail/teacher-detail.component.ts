@@ -18,13 +18,14 @@ export class TeacherDetailComponent implements OnInit {
     this.SkillProgress();
   }
 
+  //Calculates the total skills completed in percentage
   public SkillProgress() {
     let skillsChecked = 0;
     let totalSkills = 0;
-    this.teacher.SkillGroup.forEach((skillGroup) => {
-      skillGroup.Skills.forEach((skill) => {
-        skill.SubSkills.forEach((subSkill) => {
-          if (subSkill.IsChecked) {
+    this.teacher.teacherSkills.forEach((skillGroup) => {
+      skillGroup.skillLevels.forEach((skill) => {
+        skill.subSkills.forEach((subSkill) => {
+          if (subSkill.isChecked) {
             skillsChecked++;
           }
           totalSkills++;

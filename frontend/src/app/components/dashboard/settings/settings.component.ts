@@ -1,7 +1,8 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
+import { catchError, tap } from 'rxjs';
 import { User } from 'src/app/models/user.model';
-import { SettingsService } from 'src/app/services/settings.service';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-settings',
@@ -17,7 +18,7 @@ export class SettingsComponent {
 
   constructor(
     private toastr: ToastrService,
-    private settingsService: SettingsService
+    private userService: UserService
   ) {}
 
   public changeShowPassword(): void {
@@ -26,14 +27,20 @@ export class SettingsComponent {
       : (this.showPassword = true);
   }
 
+  //Saves the user settings
   public saveSettings(): void {
-    this.settingsService.saveSettings(this.user).subscribe(
-      (result) => {
-        this.toastr.success('Saving successful', 'Success');
-      },
-      (error) => {
-        this.toastr.error('Saving failed', 'Failed');
-      }
-    );
+    debugger;
+    this.userService
+      .updateUser(this.user)
+      .pipe(
+        tap((result) => {
+          this.toastr.success('Saving successful', 'Success');
+        }),
+        catchError((err) => {
+          this.toastr.error('Saving failed', 'Failed');
+          return err;
+        })
+      )
+      .subscribe();
   }
 }

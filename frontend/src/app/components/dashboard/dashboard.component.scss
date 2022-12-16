@@ -101,6 +101,13 @@
   }
 }
 
+.not-logged-in {
+  text-align: center;
+  font-size: 25px;
+  font-weight: bold;
+  margin-top: 10vh;
+}
+
 @media screen and (max-width: 520px) {
   .projects-section {
     padding: 24px 16px 0 16px;

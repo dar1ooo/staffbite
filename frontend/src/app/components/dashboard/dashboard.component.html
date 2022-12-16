@@ -1,23 +1,9 @@
-<!-- <div *ngIf="!user">Please Log in to view your dashboard</div> -->
-<button
-  *ngIf="user.UserRole === userLevel.Admin"
-  class="btn btn-dark"
-  (click)="changeUserType()"
->
-  Teacher view
-</button>
-<button
-  *ngIf="user.UserRole === userLevel.Teacher"
-  class="btn btn-dark"
-  (click)="changeUserType()"
->
-  Admin view
-</button>
-<div class="app-container">
+<div class="app-container" *ngIf="user">
   <div class="app-content">
     <div class="app-sidebar">
       <a
         (click)="changeSection('home')"
+        id="navhome"
         class="app-sidebar-link"
         [ngClass]="selectedSection === 'home' ? 'active' : ''"
       >
@@ -43,6 +29,7 @@
       <a
         (click)="changeSection('skills')"
         class="app-sidebar-link"
+        id="skills"
         [ngClass]="selectedSection === 'skills' ? 'active' : ''"
       >
         <svg
@@ -116,9 +103,10 @@
         </svg>
       </a>
       <a
-        *ngIf="user.UserRole === userLevel.Teacher"
+        *ngIf="user.userRole === userLevel.Teacher"
         (click)="changeSection('timer')"
         class="app-sidebar-link"
+        id="navtimer"
         [ngClass]="selectedSection === 'timer' ? 'active' : ''"
       >
         <svg
@@ -155,6 +143,7 @@
       <a
         (click)="changeSection('user-management')"
         class="app-sidebar-link"
+        id="navusermanagement"
         [ngClass]="selectedSection === 'user-management' ? 'active' : ''"
       >
         <svg
@@ -231,6 +220,7 @@
       <a
         (click)="changeSection('settings')"
         class="app-sidebar-link"
+        id="navsettings"
         [ngClass]="selectedSection === 'settings' ? 'active' : ''"
       >
         <svg
@@ -285,16 +275,16 @@
       </div>
       <div *ngIf="selectedSection === 'skills'">
         <div class="projects-section-header">
-          <p>Current Skills:</p>
+          <p>Skills</p>
           <p class="time">{{ day }}, {{ myDate }}</p>
         </div>
         <app-skills-admin
           [user]="user"
-          *ngIf="user.UserRole === userLevel.Admin"
+          *ngIf="user.userRole === userLevel.Admin"
         ></app-skills-admin>
         <app-skills-teacher
           [user]="user"
-          *ngIf="user.UserRole === userLevel.Teacher"
+          *ngIf="user.userRole === userLevel.Teacher"
         ></app-skills-teacher>
       </div>
       <div *ngIf="selectedSection === 'timer'">
@@ -307,23 +297,23 @@
       <div *ngIf="selectedSection === 'user-management'">
         <div
           class="projects-section-header"
-          *ngIf="user.UserRole === userLevel.Admin"
+          *ngIf="user.userRole === userLevel.Admin"
         >
           <p>User Management</p>
           <p class="time">{{ day }}, {{ myDate }}</p>
         </div>
         <app-user-management
-          *ngIf="user.UserRole === userLevel.Admin"
+          *ngIf="user.userRole === userLevel.Admin"
         ></app-user-management>
         <div
           class="projects-section-header"
-          *ngIf="user.UserRole === userLevel.Teacher"
+          *ngIf="user.userRole === userLevel.Teacher"
         >
           <p>Random Groups</p>
           <p class="time">{{ day }}, {{ myDate }}</p>
         </div>
         <app-random-groups
-          *ngIf="user.UserRole === userLevel.Teacher"
+          *ngIf="user.userRole === userLevel.Teacher"
         ></app-random-groups>
       </div>
       <div *ngIf="selectedSection === 'settings'">
@@ -334,5 +324,10 @@
         <app-settings [user]="user"></app-settings>
       </div>
     </div>
+  </div>
+</div>
+<div class="app-container" *ngIf="!user">
+  <div class="not-logged-in">
+    <p id="notloggedin-msg">Please Login first</p>
   </div>
 </div>

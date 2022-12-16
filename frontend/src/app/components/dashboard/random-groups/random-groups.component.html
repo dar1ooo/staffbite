@@ -9,14 +9,14 @@
         Example: DoS and DDoS, MITM, Phishing, Ransomware, SQL Injection, XSS
       </div>
     </div>
-    <label for="Username" class="form-label">Topics</label>
+    <label for="topics" class="form-label">Topics</label>
     <div class="input-group mb-3">
       <input
         type="text"
-        id="Username"
+        id="topics"
         class="form-control"
         [(ngModel)]="viewmodel.currentTopics"
-        aria-label="Username"
+        aria-label="topics"
         aria-describedby="basic-addon1"
       />
     </div>
@@ -28,6 +28,7 @@
   <div class="input-group mb-3">
     <input
       type="text"
+      id="students"
       class="form-control"
       aria-describedby="confirmPasswordHelp"
       [(ngModel)]="viewmodel.currentStudents"
@@ -36,14 +37,16 @@
   <div class="text-danger form-text fw-bold" *ngIf="showHintStudents">
     Check if you have to many Comas!
   </div>
-  <button (click)="save()" class="btn btn-primary">Generate</button>
+  <button (click)="save()" class="btn btn-primary" id="btngenerate">
+    Generate
+  </button>
 </div>
 <div *ngIf="viewmodel.randomGroups.length !== 0">
   <h1 class="completedmessage">
     <span class="blue"></span>Number of Groups: <span class="blue"></span>
     <span class="yellow">{{ viewmodel.randomGroups.length }}</span>
   </h1>
-  <table class="container">
+  <table class="container" id="randomgroups">
     <tbody>
       <tr *ngFor="let group of viewmodel.randomGroups">
         <td>{{ group.Topic }}</td>
@@ -51,7 +54,7 @@
           <span class="skill-description">{{ student }}</span>
         </td>
       </tr>
-      <button (click)="back()" class="btn btn-info">Back</button>
+      <button (click)="back()" class="btn btn-info" id="btnback">Back</button>
     </tbody>
   </table>
 </div>

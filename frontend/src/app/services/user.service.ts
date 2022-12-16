@@ -10,11 +10,12 @@ import { User } from '../models/user.model';
 })
 export class UserService {
   private baseurl = 'http://localhost:5079/api/User';
+
   constructor(private http: HttpClient) {}
 
   loginUser(userLogin: UserLogin): Observable<any> {
     const url = this.baseurl + '/login';
-    return this.http.post<User>(url, userLogin, { withCredentials: true });
+    return this.http.post<User>(url, userLogin);
   }
 
   registerUser(userSignUp: UserSignup): Observable<any> {
@@ -22,24 +23,23 @@ export class UserService {
     return this.http.post<User>(url, userSignUp);
   }
 
-  getUserList(): Observable<any[]> {
-    return this.http.get<any>(this.baseurl);
+  getAllUsernames(): Observable<string[]> {
+    const url = this.baseurl + '/usernames';
+    return this.http.get<string[]>(url);
   }
 
-  deleteUser(id: number) {
-    const url = this.baseurl + '/' + id;
-    return this.http.delete(url);
+  getAllTeachers(): Observable<User[]> {
+    const url = this.baseurl + '/teachers';
+    return this.http.get<User[]>(url);
   }
 
-  addUser(params: any) {
-    return this.http.post(this.baseurl, params);
+  updateUser(user: User): Observable<any> {
+    const url = this.baseurl + '/update';
+    return this.http.post<any>(url, user);
   }
 
-  updateUser(user: User) {
-    return this.http.put(this.baseurl, user);
-  }
-  savePortfolio(user: User): Observable<any> {
-    const url = this.baseurl + '/savePortfolio';
-    return this.http.post<User>(url, user);
+  deleteUser(user: User): Observable<any> {
+    const url = this.baseurl + '/delete';
+    return this.http.post<any>(url, user);
   }
 }
