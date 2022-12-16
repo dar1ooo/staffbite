@@ -90,7 +90,6 @@ export class RandomGroupsComponent {
    * @memberof RandomGroupsComponent
    */
   private shuffle(array: string[]) {
-    // suffle the students list
     for (
       var j, x, i = array.length;
       i;
