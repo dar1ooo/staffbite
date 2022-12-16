@@ -18,6 +18,7 @@ export class TeacherDetailComponent implements OnInit {
     this.SkillProgress();
   }
 
+  //Calculates the total skills completed in percentage
   public SkillProgress() {
     let skillsChecked = 0;
     let totalSkills = 0;

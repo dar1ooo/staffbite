@@ -27,6 +27,7 @@ export class SettingsComponent {
       : (this.showPassword = true);
   }
 
+  //Saves the user settings
   public saveSettings(): void {
     debugger;
     this.userService

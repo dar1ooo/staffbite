@@ -27,11 +27,13 @@ export class UserManagementComponent implements OnInit {
     this.loadAllTeachers();
   }
 
+  //Displays a new view where the admin can view a teachers information / skills
   public viewSkills(teacher: User) {
     this.showUserDetail = true;
     this.selectedTeacher = teacher;
   }
 
+  //deletes user in Database
   public deleteUser(teacher: User) {
     this.userService
       .deleteUser(teacher)
@@ -48,17 +50,20 @@ export class UserManagementComponent implements OnInit {
       .subscribe();
   }
 
+  //changes view from showing add user form back to the teacher list
   public backToUserList(): void {
     this.showUserDetail = false;
     this.showAddUser = false;
     this.loadAllTeachers();
   }
 
+  //controlls if the add user form is visible or not
   public addUser(): void {
     this.showAddUser = true;
     this.showUserDetail = false;
   }
 
+  //Gets a list of all teachers
   public loadAllTeachers(): void {
     this.userService
       .getAllTeachers()

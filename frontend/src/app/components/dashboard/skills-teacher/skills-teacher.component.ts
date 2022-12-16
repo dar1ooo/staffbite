@@ -3,7 +3,6 @@ import { ToastrService } from 'ngx-toastr';
 import { catchError, tap } from 'rxjs';
 import { TeacherSkills, User } from 'src/app/models';
 import { SubSkill } from 'src/app/models/subskill.model';
-import { SkillsService } from 'src/app/services/skills.service';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
@@ -26,6 +25,7 @@ export class SkillsTeacherComponent implements OnInit {
     this.SkillProgress();
   }
 
+  //Marks the selected skill as completed and saves it in the databse
   public CheckSkill(
     skill: SubSkill,
     SkillGroup: TeacherSkills,
@@ -53,6 +53,7 @@ export class SkillsTeacherComponent implements OnInit {
       .subscribe();
   }
 
+  //Calculates the total skills completed in percentage
   public SkillProgress() {
     let skillsChecked = 0;
     let totalSkills = 0;

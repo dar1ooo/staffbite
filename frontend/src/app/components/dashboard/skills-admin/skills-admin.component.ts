@@ -35,6 +35,7 @@ export class SkillsAdminComponent implements OnInit {
     private skillService: SkillsService
   ) {}
 
+  //Init of the skills data. Has to be done otherwise errors will occur
   ngOnInit(): void {
     this.newSkill.skillTopic = '';
     this.newSkill.skillLevels = [];
@@ -56,19 +57,22 @@ export class SkillsAdminComponent implements OnInit {
       .subscribe();
   }
 
+  //Saves the skills in the databse
   public saveSkill(): void {
     if (this.skillFormValid()) {
       this.currentSkills.push(this.newSkill);
-      this.resetSkillForm();
 
       this.skillService
         .saveSkills(this.currentSkills)
         .pipe(
           tap((res) => {
             this.toastr.success('Skills saved successfully');
+            this.resetSkillForm();
           }),
           catchError((err) => {
             this.toastr.error('Error saving skills');
+            const index = this.currentSkills.indexOf(this.newSkill, 0);
+            this.currentSkills.splice(index, 1);
             return err;
           })
         )
@@ -76,6 +80,7 @@ export class SkillsAdminComponent implements OnInit {
     }
   }
 
+  //Checks for Validity and adds the subskill if valid
   public addSubSkill(): void {
     let subSkill = new SubSkill();
 

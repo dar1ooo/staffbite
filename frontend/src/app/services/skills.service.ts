@@ -1,7 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, throwError } from 'rxjs';
-import { UserRole } from '../enums/user-role';
+import { Observable } from 'rxjs';
 import { User } from '../models';
 import { TeacherSkills } from '../models/skills.model';
 
@@ -10,6 +9,7 @@ import { TeacherSkills } from '../models/skills.model';
 })
 export class SkillsService {
   private baseurl = 'http://localhost:5079/api/Skill';
+
   constructor(private http: HttpClient) {}
 
   updateSkillProgress(user: User): Observable<any> {

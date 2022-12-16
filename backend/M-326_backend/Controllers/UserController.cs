@@ -21,6 +21,13 @@ public class UserController : BaseController
         {
             return BadRequest(ModelState);
         }
+        List<string> usernames = _userService.GetTakenUsernames();
+
+        if(usernames.Any(username => userRegister.Username == username))
+        {
+            return BadRequest(ModelState);
+        }
+
         MongoDbUser user = new MongoDbUser();
         user.Email = userRegister.Email;
         user.Password = _userService.HashPassword(userRegister.Password);

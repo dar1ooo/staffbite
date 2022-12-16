@@ -1,8 +1,7 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { catchError, tap } from 'rxjs';
-import { User, UserSignup } from 'src/app/models';
-import { SettingsService } from 'src/app/services/settings.service';
+import { UserSignup } from 'src/app/models';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
@@ -25,6 +24,7 @@ export class AddUserFormComponent implements OnInit {
     private userService: UserService
   ) {}
 
+  //Load all taken usernames on Load
   ngOnInit(): void {
     this.userService
       .getAllUsernames()
@@ -53,6 +53,11 @@ export class AddUserFormComponent implements OnInit {
       this.user.Username !== '' &&
       this.user.Password !== ''
     ) {
+      if(this.takenUsernames.includes(this.user.Username)) {
+        this.showUsernameTakenError = true;
+        this.toastr.error('Username already taken');
+        return;
+      }
       this.userService
         .registerUser(this.user)
         .pipe(
@@ -73,6 +78,7 @@ export class AddUserFormComponent implements OnInit {
     this.backToUserList.emit();
   }
 
+  //Checks if the entered username is available
   public checkForAvailableUsername(): void {
     if (this.takenUsernames.includes(this.user.Username)) {
       this.showUsernameTakenError = true;

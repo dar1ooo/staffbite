@@ -1,7 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { TeacherSkills } from '../models';
 import { UserLogin } from '../models/user-login.model';
 import { UserSignup } from '../models/user-signup.model';
 import { User } from '../models/user.model';
@@ -11,6 +10,7 @@ import { User } from '../models/user.model';
 })
 export class UserService {
   private baseurl = 'http://localhost:5079/api/User';
+
   constructor(private http: HttpClient) {}
 
   loginUser(userLogin: UserLogin): Observable<any> {
@@ -23,7 +23,7 @@ export class UserService {
     return this.http.post<User>(url, userSignUp);
   }
 
-  public getAllUsernames(): Observable<string[]> {
+  getAllUsernames(): Observable<string[]> {
     const url = this.baseurl + '/usernames';
     return this.http.get<string[]>(url);
   }

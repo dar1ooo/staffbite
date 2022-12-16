@@ -58,9 +58,15 @@ describe('change teacher profile settings', () => {
     cy.get('#Username').type('teacher1');
     cy.get('#exampleInputEmail1').clear();
     cy.get('#exampleInputEmail1').type('teacher1@gmail.com');
-    cy.get('#newPassword').type('teacher1');
     cy.get('.btn').click();
-
+    TeacherLogin('teacher1', 'teacher');
+    cy.get('#navsettings').click();
+    cy.wait(1000);
+    cy.get('#Username').clear();
+    cy.get('#Username').type('teacher');
+    cy.get('#exampleInputEmail1').clear();
+    cy.get('#exampleInputEmail1').type('teacher@gmail.com');
+    cy.get('.btn').click();
     TeacherLogout();
   });
 });
