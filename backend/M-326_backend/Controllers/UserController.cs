@@ -21,13 +21,13 @@ public class UserController : BaseController
     [Route("register")]
     public IActionResult Create(UserRegister userRegister)
     {
-        if(!ModelState.IsValid)
+        if (!ModelState.IsValid)
         {
             return BadRequest(ModelState);
         }
         List<string> usernames = _userService.GetTakenUsernames();
         //check for taken usernames
-        if(usernames.Any(username => userRegister.Username == username))
+        if (usernames.Any(username => userRegister.Username == username))
         {
             return BadRequest(ModelState);
         }
@@ -63,7 +63,7 @@ public class UserController : BaseController
         try
         {
             var result = _userService.AuthenticateUser(user);
-            if(result == null)
+            if (result == null)
             {
                 return NotFound();
             }
@@ -88,7 +88,7 @@ public class UserController : BaseController
     [Route("delete")]
     public IActionResult Delete(User user)
     {
-      
+
         try
         {
             _userService.DeleteUser(user);

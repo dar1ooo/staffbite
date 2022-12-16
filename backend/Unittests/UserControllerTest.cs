@@ -43,7 +43,7 @@ namespace Unittests
         public void GetUser_UnknownUserPassed_ReturnsNotFoundResult()
         {
             // Act
-           var notFoundResult = _controller.Login(new UserLogin());
+            var notFoundResult = _controller.Login(new UserLogin());
             // Assert
             Assert.IsType<NotFoundResult>(notFoundResult);
         }

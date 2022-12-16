@@ -46,7 +46,7 @@ namespace business_logic.TestClasses
                 if (user.UserRole == UserRole.Teacher)
                 {
                     teachers.Add(user);
-                }         
+                }
             }
             return teachers;
         }
@@ -63,7 +63,7 @@ namespace business_logic.TestClasses
 
         public void UpdateUser(User user)
         {
-          
+
             for (int i = 0; i < _user.Count; i++)
             {
                 if (_user[i].Id == user.Id)
