@@ -1,4 +1,3 @@
-### staffbite
 sequenceDiagram
 participant Frontend as Frontend
 participant Controller as Controller
