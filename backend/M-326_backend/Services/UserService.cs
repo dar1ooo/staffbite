@@ -16,12 +16,17 @@ namespace business_logic.Services
             MongoCRUD = new MongoCRUD("mongodb://localhost:27017", "staffbite");
             collection = "Users";
         }
-
+        /// <summary>
+        /// create user in db
+        /// </summary>
+        /// <param name="user"></param>
         public void CreateUser(MongoDbUser user)
         {
+            //get given skills from db
             List<TeacherSkills> teacherSkills = new List<TeacherSkills>();
             List<TeacherSkillsMongoDb> skills = MongoCRUD.LoadRecords<TeacherSkillsMongoDb>("Skills");
-
+            
+            //iterate through skills and add to user
             foreach (TeacherSkillsMongoDb sk in skills)
             {
                 TeacherSkills teacherSkill = new TeacherSkills();
@@ -29,25 +34,35 @@ namespace business_logic.Services
                 teacherSkill.SkillLevels = sk.SkillLevels;
                 teacherSkills.Add(teacherSkill);
             }
-
             user.TeacherSkills = teacherSkills;
-
+            //insert to db
             MongoCRUD.InsertRecord<MongoDbUser>(collection, user);
         }
 
+        /// <summary>
+        /// delete user in db
+        /// </summary>
+        /// <param name="user"></param>
         public void DeleteUser(User user)
         {
             var deleteFilter = Builders<BsonDocument>.Filter.Eq("_id", Guid.Parse(user.Id));
             MongoCRUD.DeleteRecord(collection, deleteFilter);
         }
 
+        /// <summary>
+        /// log in user in db
+        /// </summary>
+        /// <param name="user"></param>
+        /// <returns>found user</returns>
         public User AuthenticateUser(UserLogin user)
         {
+            //filter to find username
             var arrayFilter = Builders<MongoDbUser>.Filter.Eq("Username", user.Username);
             try
             {
                 MongoDbUser foundUser = MongoCRUD.FindRecord<MongoDbUser>(collection, arrayFilter);
-
+               
+                //check if password hash is valid
                 if (VerifyHashedPassword(foundUser.Password, user.Password))
                 {
 
@@ -67,21 +82,31 @@ namespace business_logic.Services
                 throw;
             }
         }
-
+        /// <summary>
+        /// get taken usernames in db
+        /// </summary>
+        /// <returns>list with usernames</returns>
         public List<string> GetTakenUsernames()
         {
             List<MongoDbUser> users = MongoCRUD.LoadRecords<MongoDbUser>("Users");
             return users.Select(x => x.Username).ToList();
         }
 
+        /// <summary>
+        /// get all teachers from db 
+        /// </summary>
+        /// <returns>list of users with role teacher</returns>
         public List<User> GetAllTeachers()
         {
+            //get all users
             List<MongoDbUser> users = MongoCRUD.LoadRecords<MongoDbUser>("Users");
             List<User> teachers = new List<User>();
             foreach (MongoDbUser user in users)
             {
+                //check for correct role
                 if (user.UserRole == UserRole.Teacher)
                 {
+                    //add to return list
                     teachers.Add(new User()
                     {
                         Id = user.Id.ToString(),
@@ -95,7 +120,10 @@ namespace business_logic.Services
 
             return teachers;
         }
-
+        /// <summary>
+        /// update user in db
+        /// </summary>
+        /// <param name="user"></param>
         public void UpdateUser(User user)
         {
             MongoDbUser dbUser = new MongoDbUser()
@@ -106,7 +134,7 @@ namespace business_logic.Services
                 UserRole = user.UserRole,
                 TeacherSkills = user.TeacherSkills
             };
-
+            //filter to find which user to update
             var update = Builders<MongoDbUser>.Update
                 .Set(p => p.TeacherSkills, dbUser.TeacherSkills)
                 .Set(p => p.Username, dbUser.Username)
@@ -115,8 +143,14 @@ namespace business_logic.Services
             MongoCRUD.UpsertRecord<MongoDbUser>("Users", dbUser.Id, update);
         }
 
+        /// <summary>
+        /// hash a password
+        /// </summary>
+        /// <param name="password"></param>
+        /// <returns>password hash</returns>
         public string HashPassword(string password)
         {
+            //create salt for hash
             byte[] salt;
             byte[] buffer2;
             using (Rfc2898DeriveBytes bytes = new Rfc2898DeriveBytes(password, 0x10, 0x3e8))
@@ -130,6 +164,12 @@ namespace business_logic.Services
             return Convert.ToBase64String(dst);
         }
 
+        /// <summary>
+        /// verify hash of password
+        /// </summary>
+        /// <param name="hashedPassword"></param>
+        /// <param name="password"></param>
+        /// <returns>true or false</returns>
         public bool VerifyHashedPassword(string hashedPassword, string password)
         {
             byte[] buffer4;

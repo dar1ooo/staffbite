@@ -12,6 +12,7 @@ namespace business_logic.TestClasses
         {
             _user = new List<User>()
             {
+                //test data for unittests
                 new User() { Id = "id1", Email= "petermeier1@gibz.ch", Username = "pmeier1", UserRole = UserRole.Teacher},
                 new User() { Id = "id2", Email= "petermeier2@gibz.ch", Username = "pmeier2", UserRole = UserRole.Teacher},
                 new User() { Id = "id3", Email= "petermeier3@gibz.ch", Username = "pmeier3", UserRole = UserRole.Teacher},

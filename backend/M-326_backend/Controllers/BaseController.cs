@@ -12,8 +12,6 @@ namespace business_logic.Controllers
         {
             _userService = service;
         }
-        //public IUserService UserService
-        //{ get { return new UserService(); } }
 
         public ISkillsService SkillsService
         { get { return new SkillsService(); } }
