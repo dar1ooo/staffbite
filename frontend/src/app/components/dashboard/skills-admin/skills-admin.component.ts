@@ -43,6 +43,10 @@ export class SkillsAdminComponent implements OnInit {
     this.newSkill.skillLevels.push(new SkillLevel());
     this.newSkill.skillLevels.push(new SkillLevel());
 
+    this.getSkills();
+  }
+
+  public getSkills(): void {
     this.skillService
       .getSkills()
       .pipe(
@@ -68,6 +72,7 @@ export class SkillsAdminComponent implements OnInit {
           tap((res) => {
             this.toastr.success('Skills saved successfully');
             this.resetSkillForm();
+            this.getSkills();
           }),
           catchError((err) => {
             this.toastr.error('Error saving skills');
@@ -172,15 +177,6 @@ export class SkillsAdminComponent implements OnInit {
     } else if (this.newSkill.skillTopic.length > 25) {
       this.toastr.error('Skill topic cannot be more than 25 characters');
       return false;
-    } else if (this.newSkill.skillLevels[0].subSkills.length === 0) {
-      this.toastr.error('Please enter at least one subskill for beginner');
-      return false;
-    } else if (this.newSkill.skillLevels[1].subSkills.length === 0) {
-      this.toastr.error('Please enter at least one subskill for advanced');
-      return false;
-    } else if (this.newSkill.skillLevels[2].subSkills.length === 0) {
-      this.toastr.error('Please enter at least one subskill for expert');
-      return false;
     } else {
       this.newSkill.skillTopic = this.newSkill.skillTopic.trim();
       this.newSkill.skillLevels[0] = this.newSkill.skillLevels[0];
@@ -222,7 +218,22 @@ export class SkillsAdminComponent implements OnInit {
 
   public deleteSkill(index: number) {
     if (index > -1) {
+      const deletedSkill = this.currentSkills[index];
       this.currentSkills.splice(index, 1);
+      this.skillService
+        .saveSkills(this.currentSkills)
+        .pipe(
+          tap((res) => {
+            this.toastr.success('Skills saved successfully');
+            this.getSkills();
+          }),
+          catchError((err) => {
+            this.toastr.error('Error saving skills');
+            this.currentSkills.push(deletedSkill);
+            return err;
+          })
+        )
+        .subscribe();
       if (this.isEditing) {
         this.resetSkillForm();
         this.editedSkill = new TeacherSkills();

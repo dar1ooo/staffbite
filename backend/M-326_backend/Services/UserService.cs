@@ -16,6 +16,7 @@ namespace business_logic.Services
             MongoCRUD = new MongoCRUD("mongodb://localhost:27017", "staffbite");
             collection = "Users";
         }
+
         /// <summary>
         /// create user in db
         /// </summary>
@@ -25,15 +26,37 @@ namespace business_logic.Services
             //get given skills from db
             List<TeacherSkills> teacherSkills = new List<TeacherSkills>();
             List<TeacherSkillsMongoDb> skills = MongoCRUD.LoadRecords<TeacherSkillsMongoDb>("Skills");
-            
+
             //iterate through skills and add to user
             foreach (TeacherSkillsMongoDb sk in skills)
             {
                 TeacherSkills teacherSkill = new TeacherSkills();
                 teacherSkill.SkillTopic = sk.SkillTopic;
-                teacherSkill.SkillLevels = sk.SkillLevels;
+                teacherSkill.Id = sk.Id.ToString();
+
+                foreach (SkillLevelMongoDb skillLevelMongoDb in sk.SkillLevels)
+                {
+                    SkillLevel skillLevel = new SkillLevel();
+
+                    foreach (SubSkillMongoDb subSkillMongoDb in skillLevelMongoDb.SubSkills)
+                    {
+                        SubSkill subSkill = new SubSkill();
+                        subSkill.Id = subSkillMongoDb.Id.ToString();
+                        subSkill.Description = subSkillMongoDb.Description;
+                        subSkill.IsChecked = false;
+                        subSkill.VideoUrl = subSkillMongoDb.VideoUrl;
+                        subSkill.PdfUrl = subSkillMongoDb.PdfUrl;
+                        subSkill.ShowPdf = subSkillMongoDb.ShowPdf;
+                        subSkill.ShowVideo = subSkillMongoDb.ShowVideo;
+                        skillLevel.SubSkills.Add(subSkill);
+                    }
+
+                    teacherSkill.SkillLevels.Add(skillLevel);
+                }
+
                 teacherSkills.Add(teacherSkill);
             }
+
             user.TeacherSkills = teacherSkills;
             //insert to db
             MongoCRUD.InsertRecord<MongoDbUser>(collection, user);
@@ -61,11 +84,10 @@ namespace business_logic.Services
             try
             {
                 MongoDbUser foundUser = MongoCRUD.FindRecord<MongoDbUser>(collection, arrayFilter);
-               
+
                 //check if password hash is valid
                 if (VerifyHashedPassword(foundUser.Password, user.Password))
                 {
-
                     return new User()
                     {
                         Id = foundUser.Id.ToString(),
@@ -82,6 +104,7 @@ namespace business_logic.Services
                 throw;
             }
         }
+
         /// <summary>
         /// get taken usernames in db
         /// </summary>
@@ -93,7 +116,7 @@ namespace business_logic.Services
         }
 
         /// <summary>
-        /// get all teachers from db 
+        /// get all teachers from db
         /// </summary>
         /// <returns>list of users with role teacher</returns>
         public List<User> GetAllTeachers()
@@ -120,6 +143,7 @@ namespace business_logic.Services
 
             return teachers;
         }
+
         /// <summary>
         /// update user in db
         /// </summary>

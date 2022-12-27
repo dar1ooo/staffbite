@@ -1,4 +1,5 @@
 export class SubSkill {
+  id: string = '';
   description: string = '';
   isChecked: boolean = false;
   pdfUrl: string = '';
