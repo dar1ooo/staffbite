@@ -23,6 +23,7 @@
 - [ ] Chose the workspace file from the cloned repo folder: `M-326.code-workspace`
   - [ ] If VS Code asks if you want to install recomended extensions, accept it.
 - [ ] Open a new terminal
+- [ ] Enter the following command: `npm i`
 - [ ] Enter the following command: `ng s --open`
 
 ### Running the backend API
