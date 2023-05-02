@@ -23,27 +23,27 @@ export class LoginComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    if (window.sessionStorage.getItem('user')) {
-      window.location.href = '/dashboard';
-    }
+    this.toastr.info('Just press the Login button :)');
   }
 
   public login(): void {
-    this.userService
-      .loginUser(this.userLogin)
-      .pipe(
-        tap((result) => {
-          let user = new User();
-          user = result;
-          sessionStorage.setItem('user', JSON.stringify(user));
-          window.location.href = '/dashboard';
-        }),
-        catchError((error) => {
-          this.toastr.error('Please check your credentials', 'Login failed');
-          return error;
-        })
-      )
-      .subscribe();
+    window.location.href = '/dashboard';
+
+    // this.userService
+    //   .loginUser(this.userLogin)
+    //   .pipe(
+    //     tap((result) => {
+    //       let user = new User();
+    //       user = result;
+    //       sessionStorage.setItem('user', JSON.stringify(user));
+    //       window.location.href = '/dashboard';
+    //     }),
+    //     catchError((error) => {
+    //       this.toastr.error('Please check your credentials', 'Login failed');
+    //       return error;
+    //     })
+    //   )
+    //   .subscribe();
   }
 
   public changeShowPassword(): void {

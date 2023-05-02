@@ -1,6 +1,7 @@
 import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { UserRole } from 'src/app/enums/user-role';
+import { IUser } from 'src/app/models/user-dto';
 import { User } from 'src/app/models/user.model';
 
 @Component({
@@ -32,7 +33,14 @@ export class DashboardComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.user = JSON.parse(sessionStorage.getItem('user')) as User;
+    const user: IUser = {
+      email: 'demo@gmail.com',
+      id: '0',
+      teacherSkills: [],
+      username: 'Batman',
+      userRole: 1,
+    };
+    this.user = user;
   }
 
   // construct to get access to enums in HTML
